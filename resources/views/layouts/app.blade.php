@@ -101,6 +101,12 @@
                             <li>
                                 <a href="{{ route("emploi.index") }}">> <span>Emplois</span></a>
                             </li>
+                            <li>
+                                <a href="{{ route("fonction.index") }}"> <span>Fonctions</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
+                            </li>
 
                         </ul>
                     </li>
