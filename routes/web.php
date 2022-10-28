@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('societe', \App\Http\Controllers\SocieteController::class);
     Route::resource('famille', \App\Http\Controllers\FamilleemploiController::class);
     Route::resource('emploi', \App\Http\Controllers\EmploiController::class);
+    Route::resource('typecontrat', \App\Http\Controllers\ContratController::class);
 });
 
 
