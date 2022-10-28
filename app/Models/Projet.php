@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Site extends Model
+class Projet extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    protected $fillable = ['designation', 'responsable', 'contact'];
+    protected $fillable = ['designation', 'description', 'site_id'];
 
-    public function Projets(){
-        return $this->hasMany(Projet::class);
+    public function Site(){
+        return $this->belongsTo(Site::class, 'site_id');
     }
-
 }
