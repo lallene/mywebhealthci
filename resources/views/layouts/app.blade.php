@@ -103,7 +103,7 @@
                             </li>
                             <li>
 
-                                <a href="{{ route("fonction.index") }}"> <span>Fonctions</span></a>
+                                <a href="{{ route("fonction.index") }}">> <span>Fonctions</span></a>
                             </li>
                             <li>
                                 <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
