@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('fonction', \App\Http\Controllers\FonctionController::class);
     Route::resource('sub_fonction', \App\Http\Controllers\Sub_FonctionController::class);
     Route::resource('typecontrat', \App\Http\Controllers\ContratController::class);
+    Route::resource('projet', \App\Http\Controllers\ProjetController::class);
 });
 
 
