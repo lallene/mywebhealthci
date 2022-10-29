@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('maladie_contagieuse', \App\Http\Controllers\Maladie_contagieuseController::class);
     Route::resource('maladie_prof', \App\Http\Controllers\Maladie_profController::class);
 
+    Route::resource('projet', \App\Http\Controllers\ProjetController::class);
 });
 
 
