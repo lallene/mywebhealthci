@@ -29,6 +29,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('fonction', \App\Http\Controllers\FonctionController::class);
     Route::resource('sub_fonction', \App\Http\Controllers\Sub_FonctionController::class);
     Route::resource('typecontrat', \App\Http\Controllers\ContratController::class);
+    Route::resource('agent_sante', \App\Http\Controllers\Agent_santeController::class);
+    Route::resource('motif_consultation', \App\Http\Controllers\Motif_consultationController::class);
+    Route::resource('maladie_contagieuse', \App\Http\Controllers\Maladie_contagieuseController::class);
+    Route::resource('maladie_prof', \App\Http\Controllers\Maladie_profController::class);
+
 });
 
 

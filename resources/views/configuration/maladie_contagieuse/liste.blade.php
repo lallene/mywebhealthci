@@ -6,7 +6,7 @@
         <div class="row column_title">
             <div class="col-md-12">
                 <div class="page_title">
-                    <h2>{{ $titre }}</h2>
+                    <h2>Liste des maladies contagieuses</h2>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-12 text-right pb-2">
-                                <a href="{{ route($link.".create") }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
+                                <a href="{{ route("maladie_contagieuse.create") }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
                                 <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-plus"></i> Quitter</a>
                             </div>
                         </div>
@@ -28,29 +28,27 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Sous-fonction</th>
-                                    <th>Fonction</th>
+                                    <th>Intitulé</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if(isset($items)){
+                                        if(isset($maladies)){
                                             $i = 0;
-                                            foreach ($items as $item) {
+                                            foreach ($maladies as $maladie) {
                                                 $i++;
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
-                                                    <td><?= $item->intitule ?></td>
-                                                    <td><?= $item->fonction->intitule ?></td>
+                                                    <td><?= $maladie->intitule ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Actions</button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="{{route($link.'.edit', $item->id)}}">Modifier</a>
-                                                                    <form action="{{ route($link.'.destroy', $item->id) }}" method="POST">
+                                                                    <a class="dropdown-item" href="{{route('maladie_contagieuse.edit', $maladie->id)}}">Modifier</a>
+                                                                    <form action="{{ route('maladie_contagieuse.destroy', $maladie->id) }}" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit" class="dropdown-item">Supprimer</button>

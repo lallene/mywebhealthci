@@ -28,9 +28,13 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Sous-fonction</th>
-                                    <th>Fonction</th>
+                                    <th>Nom</th>
+                                    <th>Prénoms</th>
+                                    <th>Email</th>
+                                    <th>Contacts</th>
+                                    <th>Site</th>
                                     <th>Action</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -42,8 +46,11 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
-                                                    <td><?= $item->intitule ?></td>
-                                                    <td><?= $item->fonction->intitule ?></td>
+                                                    <td><?= $item->nom ?></td>
+                                                    <td><?= $item->prenom ?></td>
+                                                    <td><?= $item->email ?></td>
+                                                    <td><?= $item->contact ?></td>
+                                                    <td><?= $item->site->designation ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">
