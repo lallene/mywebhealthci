@@ -109,7 +109,6 @@
                                 <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
                             </li>
                             <li>
-<<<<<<< HEAD
                                 <a href="{{ route("agent_sante.index") }}">> <span>Agents de santés</span></a>
                             </li>
                             <li>
@@ -121,14 +120,12 @@
                             <li>
                                 <a href="{{ route("motif_consultation.index") }}">> <span>Motifs de consultations</span></a>
                             </li>
-=======
-                            <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
+                            <li>
+                                <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
                             </li>
                             <li>
                                 <a href="{{ route("projet.index") }}">> <span>Projets</span></a>
-                            </li>   
->>>>>>> eb2979d7862f2d405609d77c31e63bbfee006ad9
-
+                            </li>
                         </ul>
                     </li>
                 </ul>
