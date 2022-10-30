@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class sub_fonction extends Model
+class Sub_fonction extends Model
 {
     use HasFactory;
 

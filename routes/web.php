@@ -35,6 +35,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('maladie_prof', \App\Http\Controllers\Maladie_profController::class);
 
     Route::resource('projet', \App\Http\Controllers\ProjetController::class);
+    //Route::resource('teste', \App\Http\Controllers\TesteController::class);
+
+    Route::resource('effectif', \App\Http\Controllers\AgentController::class);
+    Route::resource('medicament', \App\Http\Controllers\MedicamentController::class);
 });
 
 

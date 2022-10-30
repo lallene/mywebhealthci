@@ -126,6 +126,9 @@
                             <li>
                                 <a href="{{ route("projet.index") }}">> <span>Projets</span></a>
                             </li>
+                            <li>
+                                <a href="{{ route("effectif.index") }}">> <span>Effectif</span></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
