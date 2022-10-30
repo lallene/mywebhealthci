@@ -15,25 +15,25 @@ class CreateJustificatifExternesTable extends Migration
     {
         Schema::create('justificatif_externes', function (Blueprint $table) {
             $table->id();
-            $table->enum('statut', ['interne', 'externe'])->default('interne');
+            $table->string('statut');
             $table->string('accident_travail');
             $table->string('traitement_adm');
             $table->string('medoc_adm');
             $table->string('arret_maladie_recu');
-            $table->enum('duree_arret', ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24']);
+            $table->string('duree_arret');
             $table->date("date_dbt_arret");
             $table->date('date_repise_trvl');
             $table->string('nbre_jours');
             $table->string('billet_sortie');
-            $table->enum('covid', ['positif', 'negatif'])->default('negatif');
-            $table->enum('repris_service', ['apte', 'inapte'])->default('apte');
+            $table->string('covid');
+            $table->string('repris_service');
             $table->string('vaccin_covid');
-            $table->enum('dose_covid', ['1', '2', '3', '4']);
+            $table->string('dose_covid');
             $table->timestamps();
             $table->string('clinique_externe');
             $table->string('medecin_externe');
-            $table->string('justif_valide', ['oui', 'non'])->default('oui');
-            $table->enum('motif_rejet', ['Pièce incomplètes', "authenticité","Hors délai de 72H"])->default('Pièce incomplète');
+            $table->string('justif_valide');
+            $table->string('motif_rejet');
             $table->string('Duplicat_suite_valide');
             $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')
