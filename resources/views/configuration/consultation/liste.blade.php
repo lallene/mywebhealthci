@@ -604,3 +604,11 @@
 
   <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 @stop
+@section('script')
+    <script>
+        $( document ).ready(function() {
+            $('#sidebarCollapse').trigger('click');
+        });
+    </script>
+@stop
+
