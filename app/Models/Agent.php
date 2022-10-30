@@ -19,9 +19,10 @@ class Agent extends Model
         'manager',
         'projet_id',
         'emploi_id',
-        'sousfonction_id',
+        'sub_fonction_id',
         'contrat_id',
-        'societe_id'
+        'societe_id',
+        'medicament_id'
     ];
 
     public $timestamps = false;
@@ -35,7 +36,7 @@ class Agent extends Model
     }
 
     public function SousFonction(){
-        return $this->belongsTo(Sub_fonction::class, 'sousfonction_id');
+        return $this->belongsTo(Sub_fonction::class, 'sub_fonction_id');
     }
 
     public function Contrat(){
@@ -48,5 +49,9 @@ class Agent extends Model
 
     public function Manager(){
         return $this->belongsTo(Agent::class, 'manager', 'iris');
+    }
+
+    public function Medicament(){
+        return $this->belongsTo(Medicament::class, 'medicemnt_id');
     }
 }
