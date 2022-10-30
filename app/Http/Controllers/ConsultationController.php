@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agent;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,7 @@ class ConsultationController extends Controller
     }
 
     public function consulter($id){
-
+        $agent = Agent::find($id);
+        return view($this->templatePath.'.liste', ['titre' => "Recherche de l'agent", 'agent' => $agent, 'link' => $this->link]);
     }
 }
