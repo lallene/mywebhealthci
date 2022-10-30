@@ -15,25 +15,25 @@ class CreateJustificatifExternesTable extends Migration
     {
         Schema::create('justificatif_externes', function (Blueprint $table) {
             $table->id();
-            $table->string('statut');
+            $table->string('statut')->default('interne');
             $table->string('accident_travail');
             $table->string('traitement_adm');
             $table->string('medoc_adm');
             $table->string('arret_maladie_recu');
-            $table->string('duree_arret');
+            $table->integer('duree_arret');
             $table->date("date_dbt_arret");
             $table->date('date_repise_trvl');
             $table->string('nbre_jours');
             $table->string('billet_sortie');
-            $table->string('covid');
-            $table->string('repris_service');
+            $table->string('covid')->default('negatif');
+            $table->string('repris_service')->default('apte');
             $table->string('vaccin_covid');
-            $table->string('dose_covid');
+            $table->integer('dose_covid');
             $table->timestamps();
             $table->string('clinique_externe');
             $table->string('medecin_externe');
-            $table->string('justif_valide');
-            $table->string('motif_rejet');
+            $table->string('justif_valide')->default('oui');
+            $table->string('motif_rejet')->default('Pièce incomplète');
             $table->string('Duplicat_suite_valide');
             $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')

@@ -15,22 +15,22 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
-            $table->enum('statut', ['interne', 'externe'])->default('interne');
+            $table->string('statut')->default('interne');
             $table->string('acident_travail');
             $table->string('traitement_adm');
             $table->string('medoc_adm');
             $table->string('arret_maladie');
-            $table->enum('duree_arret', ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24']);
+            $table->integer('duree_arret');
             $table->date("date_dbt_arret");
             $table->date('date_repise_trvl');
             $table->string('nbre_jours');
-            $table->enum('statut_arret', ['interne', 'externe'])->default('interne');
+            $table->string('statut_arret')->default('interne');
             $table->string('billet_sortie');
-            $table->enum('covid', ['positif', 'negatif'])->default('negatif');
-            $table->enum('repris_service', ['apte', 'inapte'])->default('apte');
+            $table->string('covid')->default('negatif');
+            $table->string('repris_service')->default('apte');
             $table->string('vaccin_covid');
-            $table->enum('dose_covid', ['1', '2', '3', '4']);
-            $table->string('observation');
+            $table->integer('dose_covid');
+            $table->text('observation');
             $table->timestamps();
             $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')
@@ -54,7 +54,7 @@ class CreateConsultationsTable extends Migration
                         ->onDelete('cascade')
                         ->onUpdate('cascade');
 
-                        $table->unsignedBigInteger('site_id')->nullable();
+                    $table->unsignedBigInteger('site_id')->nullable();
                     $table->foreign('site_id')
                         ->references('id')
                         ->on('sites')
