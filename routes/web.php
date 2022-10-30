@@ -50,3 +50,4 @@ Route::get('profil/revoquer/{idRole}/{idPermission}', [\App\Http\Controllers\Rol
 
 Route::post('/getAgent/{id}', [\App\Http\Controllers\AgentController::class, 'getAgentByIris'])->name('getAgent');
 Route::get('/consulter/{id}', [\App\Http\Controllers\ConsultationController::class, 'consulter']);
+Route::get('/reception/{id}', [\App\Http\Controllers\Justificatif_externeController::class, 'reception']);

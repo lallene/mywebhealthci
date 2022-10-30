@@ -61,9 +61,15 @@
                                 </div>
                             </div>
                             <div class="row pt-3">
-                                <div class="col-sm-12 text-center">
-                                    <a href="#" class="btn btn-success" disabled id="demarrer">
+                                <div class="col-sm-6 text-right">
+                                    <a href="#" class="btn btn-primary" disabled id="reception">
                                         <i class="fa fa-save"></i>
+                                        Reception Justificatif
+                                    </a>
+                                </div>
+                                <div class="col-sm-6 text-left">
+                                    <a href="#" class="btn btn-success" disabled id="demarrer">
+                                        <i class="fa fa-heartbeat"></i>
                                         Démarrer la consultation
                                     </a>
                                 </div>
@@ -76,6 +82,7 @@
     </div>
     <input type="hidden" id="url" value="{{ URL::to('/') }}/getAgent/">
     <input type="hidden" id="id" value="{{ URL::to('/') }}/consulter/">
+    <input type="hidden" id="id_reception" value="{{ URL::to('/') }}/reception/">
 @stop
 @section('script')
     <script src="{{ asset("assets/js/scripts/rechercher.js") }}"></script>

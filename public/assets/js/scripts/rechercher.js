@@ -4,6 +4,9 @@ $('#searchIris').click(function (e) {
     $('#demarrer').attr('disabled', 'disabled');
     $('#demarrer').attr('href', '#');
 
+    $('#reception').attr('disabled', 'disabled');
+    $('#reception').attr('href', '#');
+
     $('#nom').val('');
     $('#prenom').val('');
     $('#sexe').val('');
@@ -36,8 +39,10 @@ $('#searchIris').click(function (e) {
                 $('#emploi').val(data.Emploi);
 
                 let id = $('#id').val()+data.Id;
+                let idReception = $('#id_reception').val()+data.Id;
 
                 $('#demarrer').attr('href', id);
+                $('#reception').attr('href', idReception);
 
                 $('#demarrer').removeAttr('disabled');
             })
