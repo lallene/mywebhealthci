@@ -13,7 +13,7 @@ class Sub_fonction extends Model
 
     protected $fillable = ['intitule', 'fonction_id'];
 
-    public function fonction(){
-        return $this->belongsTo(fonction::class, 'fonction_id');
+    public function Fonction(){
+        return $this->belongsTo(Fonction::class, 'fonction_id');
     }
 }

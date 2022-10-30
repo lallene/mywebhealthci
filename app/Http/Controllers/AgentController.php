@@ -27,6 +27,7 @@ class AgentController extends Controller
     public function index()
     {
         $items = Agent::all();
+
         return view($this->templatePath.'.liste', ['titre' => "Liste des agents", 'items' => $items, 'link' => $this->link]);
     }
 
@@ -168,5 +169,29 @@ class AgentController extends Controller
 
         return redirect()->route('effectif.index')
             ->with('success', "Agent retiré avec succes");
+    }
+
+    public function getAgentByIris(Request $request){
+        $iris = $request->input('id');
+        $agent = Agent::where('iris', '=', $iris)->get();
+
+        $array = array();
+
+        //echo'<pre>'; die(print_r($agent));
+
+        foreach ($agent as $i) {
+            $item = Agent::find($i->id);
+            $array['Id'] = $item->id;
+            $array['Nom'] = $item->nom;
+            $array['Prenom'] = $item->prenom;
+            $array['Sexe'] = ($item->sexe == 'M') ? 'Masculin' : 'Feminin';
+            //$array['Prenom'] = $item->prenom;
+            $array['DateEmbauche'] = $item->dateembauche;
+            $array['Projet'] = $item->Projet->designation;
+            $array['Fonction'] = $item->SousFonction->Fonction->intitule;
+            $array['Emploi'] = $item->Emploi->designation;
+        }
+
+        return json_encode($array);
     }
 }

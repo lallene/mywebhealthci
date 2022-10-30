@@ -14,6 +14,7 @@ class CreateJustificatifExternesTable extends Migration
     public function up()
     {
         Schema::create('justificatif_externes', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('statut')->default('interne');
             $table->string('accident_travail');
