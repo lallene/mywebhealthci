@@ -51,26 +51,34 @@ class CreateJustificatifExternesTable extends Migration
                 ->onUpdate('cascade');
 
 
-                    $table->unsignedBigInteger('maladie_prof_id')->nullable();
-                    $table->foreign('maladie_prof_id')
-                        ->references('id')
-                        ->on('maladie_profs')
-                        ->onDelete('cascade')
-                        ->onUpdate('cascade');
+            $table->unsignedBigInteger('maladie_prof_id')->nullable();
+            $table->foreign('maladie_prof_id')
+                ->references('id')
+                ->on('maladie_profs')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
-                    $table->unsignedBigInteger('site_id')->nullable();
-                    $table->foreign('site_id')
-                        ->references('id')
-                        ->on('sites')
-                        ->onDelete('cascade')
-                        ->onUpdate('cascade');
+            $table->unsignedBigInteger('site_id')->nullable();
+            $table->foreign('site_id')
+                ->references('id')
+                ->on('sites')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
-                        $table->unsignedBigInteger('user_id')->nullable();
-                        $table->foreign('user_id')
-                            ->references('id')
-                            ->on('users')
-                            ->onDelete('cascade')
-                            ->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->unsignedBigInteger('agent_id')->nullable();
+            $table->foreign('agent_id')
+                ->references('id')
+                ->on('agents')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
 
         });
     }

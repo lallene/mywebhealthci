@@ -27,13 +27,8 @@ class AgentController extends Controller
     public function index()
     {
         $items = Agent::all();
-<<<<<<< HEAD
-        $sub_fonction =Sub_fonction::all();
-        return view($this->templatePath.'.liste', ['titre' => "Liste des agents", 'items' => $items, 'link' => $this->link, 'sub_fonction'=> $sub_fonction]);
-=======
 
         return view($this->templatePath.'.liste', ['titre' => "Liste des agents", 'items' => $items, 'link' => $this->link]);
->>>>>>> c47d20e728bc9efc6800c8192495debd9698fdc6
     }
 
     /**

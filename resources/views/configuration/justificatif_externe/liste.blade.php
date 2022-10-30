@@ -31,6 +31,13 @@
                                         <div class="">
                                             <form class="row g-4 accordion-body">
                                                 <div class="col-md-3">
+                                                    <label for="validationDefault01" class="form-label"></label>
+                                                    <select class="form-select" name="statut_patient" id="">
+                                                        <option value="interne">interne</option>
+                                                        <option value="externe" selected>Externe</option>
+                                                    </select>
+                                                    </div>
+                                                <div class="col-md-3">
                                                 <label for="validationDefault01" class="form-label">statut patient</label>
                                                 <select class="form-select" name="statut_patient" id="">
                                                     <option value="interne">interne</option>
