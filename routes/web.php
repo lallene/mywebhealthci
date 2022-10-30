@@ -33,7 +33,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('motif_consultation', \App\Http\Controllers\Motif_consultationController::class);
     Route::resource('maladie_contagieuse', \App\Http\Controllers\Maladie_contagieuseController::class);
     Route::resource('maladie_prof', \App\Http\Controllers\Maladie_profController::class);
-
+    Route::resource('consultation', \App\Http\Controllers\ConsultationController::class);
+    Route::resource('justificatif_externe', \App\Http\Controllers\Justificatif_externeController::class);
     Route::resource('projet', \App\Http\Controllers\ProjetController::class);
 });
 

@@ -31,6 +31,9 @@
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -109,7 +112,6 @@
                                 <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
                             </li>
                             <li>
-<<<<<<< HEAD
                                 <a href="{{ route("agent_sante.index") }}">> <span>Agents de santés</span></a>
                             </li>
                             <li>
@@ -121,13 +123,18 @@
                             <li>
                                 <a href="{{ route("motif_consultation.index") }}">> <span>Motifs de consultations</span></a>
                             </li>
-=======
                             <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
                             </li>
                             <li>
                                 <a href="{{ route("projet.index") }}">> <span>Projets</span></a>
-                            </li>   
->>>>>>> eb2979d7862f2d405609d77c31e63bbfee006ad9
+                            </li>
+                            <li>
+                                <a href="{{ route("consultation.index") }}">> <span>Consultation</span></a>
+                            </li>
+                            <li>
+                                <a href="{{ route("justificatif_externe.index") }}">> <span>Justificatifs externes</span></a>
+                            </li>
+
 
                         </ul>
                     </li>
