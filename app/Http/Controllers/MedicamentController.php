@@ -91,6 +91,7 @@ class MedicamentController extends Controller
         $item->type = $request->input('type');
         $item->designation = $request->input('designation');
         $item->details = $request->input('details');
+        $item->quantite = $request->input('quantite');
 
         try{
             $item->save();

@@ -18,7 +18,7 @@
                         <form method="post" class="row" action="{{ route($link.'.update', $item->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="type">Type</label>
@@ -43,6 +43,13 @@
                                 <div class="form-group">
                                     <label for="details">Detail</label>
                                     <textarea id="details" class="form-control" cols="30" rows="5" name="details">{{ $item->details }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="quantite">Quantité</label>
+                                    <input id="quantite" type="number" class="form-control" required min="0" name="quantite" value="{{ $item->quantite }}">
                                 </div>
                             </div>
 
