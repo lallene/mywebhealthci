@@ -135,7 +135,8 @@
                                 <a href="{{ route("justificatif_externe.index") }}">> <span>Justificatifs externes</span></a>
                             </li>
 
-
+                                <a href="{{ route("effectif.index") }}">> <span>Effectif</span></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

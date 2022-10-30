@@ -28,13 +28,10 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Nom</th>
-                                    <th>Prénoms</th>
-                                    <th>Email</th>
-                                    <th>Contacts</th>
-                                    <th>Site</th>
+                                    <th>Type</th>
+                                    <th>Designation</th>
+                                    <th>Quantité</th>
                                     <th>Action</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -46,11 +43,9 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
-                                                    <td><?= $item->nom ?></td>
-                                                    <td><?= $item->prenom ?></td>
-                                                    <td><?= $item->email ?></td>
-                                                    <td><?= $item->contact ?></td>
-                                                    <td><?= $item->site->designation ?></td>
+                                                    <td><?= $item->type ?></td>
+                                                    <td><?= $item->designation ?></td>
+                                                    <td><?= $item->quantite ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">

@@ -42,12 +42,12 @@ class CreateJustificatifExternesTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-                $table->unsignedBigInteger('maladie_contagieuse_id')->nullable();
-                $table->foreign('maladie_contagieuse_id')
-                    ->references('id')
-                    ->on('maladie_contagieuses')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
+            $table->unsignedBigInteger('maladie_contagieuse_id')->nullable();
+            $table->foreign('maladie_contagieuse_id')
+                ->references('id')
+                ->on('maladie_contagieuses')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
 
                     $table->unsignedBigInteger('maladie_prof_id')->nullable();

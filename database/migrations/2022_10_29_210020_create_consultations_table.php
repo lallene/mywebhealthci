@@ -17,7 +17,7 @@ class CreateConsultationsTable extends Migration
             $table->id();
             $table->enum('statut', ['interne', 'externe'])->default('interne');
             $table->string('acident_travail');
-            $table->estringnum('traitement_adm', ['oui', 'non'])->default('oui');
+            $table->string('traitement_adm');
             $table->string('medoc_adm');
             $table->string('arret_maladie');
             $table->enum('duree_arret', ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24']);

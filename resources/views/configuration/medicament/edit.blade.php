@@ -18,42 +18,38 @@
                         <form method="post" class="row" action="{{ route($link.'.update', $item->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
+
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="nom">Nom</label>
-                                    <input id="nom" type="text" class="form-control" required name="nom" value="{{ $item->nom }}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="prenom">Prenoms</label>
-                                    <input id="prenom" type="text" class="form-control" required name="prenom" value="{{ $item->prenom }}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="email">Emails</label>
-                                    <input id="email" type="text" class="form-control" required name="email" value="{{ $item->email }}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="contact">Contacts</label>
-                                    <input id="contact" type="text" class="form-control" required name="contact" value="{{ $item->contact }}">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="contact">Site</label>
-                                    <select name="site_id" class="form-control select2" id="site_id">
-                                        <?php
-                                            foreach ($foreigns as $foreign) {
-                                                ?>
-                                                <option <?= ($item->site_id == $foreign->id) ? "selected" : "" ?> value="{{ $foreign->id }}">{{ $foreign->designation }}</option>
-                                                <?php
-                                                }
-                                        ?>
+                                    <label for="type">Type</label>
+                                    <select name="type" class="form-control select2" id="type">
+                                        <option <?= ($item->type == "Comprimé") ? "selected" : "" ?> value="Comprimé">Comprimé</option>
+                                        <option <?= ($item->type == "Injection") ? "selected" : "" ?> value="Injection">Injection</option>
+                                        <option <?= ($item->type == "Géllule") ? "selected" : "" ?> value="Géllule">Géllule</option>
+                                        <option <?= ($item->type == "Sachet") ? "selected" : "" ?> value="Sachet">Sachet</option>
+                                        <option <?= ($item->type == "Suppositoire") ? "selected" : "" ?> value="Suppositoire">Suppositoire</option>
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="designation">Désignation</label>
+                                    <input id="designation" type="text" class="form-control" required name="designation" value="{{ $item->designation }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="details">Detail</label>
+                                    <textarea id="details" class="form-control" cols="30" rows="5" name="details">{{ $item->details }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="quantite">Quantité</label>
+                                    <input id="quantite" type="number" class="form-control" required min="0" name="quantite" value="{{ $item->quantite }}">
                                 </div>
                             </div>
 

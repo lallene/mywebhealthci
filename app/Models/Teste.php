@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fonction extends Model
+class Teste extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['intitule'];
+    public $timestamps = false;
+
+    protected $fillable = [
+        'iris',
+        'date_embauche'
+    ];
 }
