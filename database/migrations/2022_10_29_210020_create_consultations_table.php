@@ -14,6 +14,7 @@ class CreateConsultationsTable extends Migration
     public function up()
     {
         Schema::create('consultations', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('statut')->default('interne');
             $table->string('acident_travail');

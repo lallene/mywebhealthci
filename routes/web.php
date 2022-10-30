@@ -47,3 +47,6 @@ Route::get('profil/permission/{id}', [\App\Http\Controllers\RoleController::clas
 Route::get('profil/addPermission/{id}', [\App\Http\Controllers\RoleController::class, 'addPermission']);
 Route::post('profil/grantPermission/{id}', [\App\Http\Controllers\RoleController::class, 'grantPermission']);
 Route::get('profil/revoquer/{idRole}/{idPermission}', [\App\Http\Controllers\RoleController::class, 'revoquer']);
+
+Route::post('/getAgent/{id}', [\App\Http\Controllers\AgentController::class, 'getAgentByIris'])->name('getAgent');
+Route::get('/consulter/{id}', [\App\Http\Controllers\ConsultationController::class, 'consulter']);

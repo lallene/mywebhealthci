@@ -23,7 +23,10 @@ class ConsultationController extends Controller
     public function index()
     {
         $items = Consultation::all();
-        return view($this->templatePath.'.liste', ['titre' => "Consultaion agent", 'items' => $items, 'link' => $this->link]);
+        return view($this->templatePath.'.search', ['titre' => "Recherche de l'agent", 'items' => $items, 'link' => $this->link]);
     }
 
+    public function consulter($id){
+
+    }
 }

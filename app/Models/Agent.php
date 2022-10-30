@@ -36,7 +36,7 @@ class Agent extends Model
     }
 
     public function SousFonction(){
-        return $this->belongsTo(Sub_fonction::class, 'sub_fonction_id');
+        return $this->belongsTo(Sub_fonction::class, 'sousfonction_id');
     }
 
     public function Contrat(){

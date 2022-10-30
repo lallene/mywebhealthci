@@ -1,4 +1,51 @@
-// Sélection par défaut  de l'unité de réappro
+$('#searchIris').click(function (e) {
+    e.preventDefault();
+
+    $('#demarrer').attr('disabled', 'disabled');
+    $('#demarrer').attr('href', '#');
+
+    $('#nom').val('');
+    $('#prenom').val('');
+    $('#sexe').val('');
+    $('#dateEmbauche').val('');
+    $('#projet').val('');
+    $('#fonction').val('');
+    $('#emploi').val('');
+
+    let iris = $('#iris').val();
+
+    let url = $('#url').val()+iris;
+
+    if(iris !== "") {
+        params = new FormData();
+
+        params.append( 'id', iris);
+
+        var config = {
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        };
+        axios.post(url, params, config)
+            .then(function (response) {
+                let data = response.data;
+                $('#nom').val(data.Nom);
+                $('#prenom').val(data.Prenom);
+                $('#sexe').val(data.Sexe);
+                $('#dateEmbauche').val(data.DateEmbauche);
+                $('#projet').val(data.Projet);
+                $('#fonction').val(data.Fonction);
+                $('#emploi').val(data.Emploi);
+
+                let id = $('#id').val()+data.Id;
+
+                $('#demarrer').attr('href', id);
+
+                $('#demarrer').removeAttr('disabled');
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+});
 
 $('#equipement').change(function () {
     let id = $(this).select2('data')[0];
