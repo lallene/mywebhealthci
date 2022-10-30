@@ -25,4 +25,8 @@ class Justificatif_externeController extends Controller
         $items = Justificatif_externe::all();
         return view($this->templatePath.'.liste', ['titre' => "Jutificatif externe  agent", 'items' => $items, 'link' => $this->link]);
     }
+
+    public function reception($id){
+
+    }
 }
