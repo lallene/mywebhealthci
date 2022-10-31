@@ -3,6 +3,25 @@
 @section('content')
     <div class="container-fluid">
 
+        <style>
+            .accordion-body{
+                padding-left: 5px!important;
+                padding-right: 5px!important;
+            }
+            fieldset{
+                border: 1px red solid;
+                padding: .35em .625em .75em;
+            }
+            legend{
+                border-bottom: none !important;
+                margin-bottom: 0!important;
+                width: auto;
+                padding-right: 8px;
+                top: -20px;
+                background-color: white;
+                position: relative;
+            }
+        </style>
         <div class="row column_title">
             <div class="col-md-12">
                 <div class="page_title">
@@ -240,228 +259,234 @@
                                 <div class="accordion" id="accordionExample1">
 
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingSeven">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapsSeven">
-                                            CONSTANCE
-                                        </button>
+                                        <h2 class="accordion-header" id="headingEight">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                INFORMATION AGENT
+                                            </button>
                                         </h2>
-                                        <div >
-                                        <div >
-                                            <form class="row g-3 accordion-body">
-                                                <div class="col-md-2">
-                                                <label for="validationDefault01" class="form-label">Poids</label>
-                                                <input type="text" class="form-control" id="validationDefault01"   value ="67 KG"  required>
-                                                </div>
-                                                <div class="col-md-3">
-                                                <label for="validationDefault02" class="form-label">Pouls</label>
-                                                <input type="text" class="form-control" id="validationDefault02"  value ="55 bpm" required>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault02" class="form-label">Température</label>
-                                                    <input type="text" class="form-control" id="validationDefault02" value ="37,8 °C" required>
-                                                </div>
-                                                <div class="col-md-4">
-                                                <label for="validationDefault03" class="form-label">Tension Art</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="115/75 mm Hg" required>
-                                                </div>
+                                        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample1">
+                                            <div class="accordion-body">
+                                                <div class="row g-4 accordion-body">
+                                                    <div class="col-md-9">
+                                                        <label for="nom" class="form-label">Nom & Prénom(s)</label>
+                                                        <input type="text" class="form-control" id="nom" value="{{ $agent->nom. ' '.$agent->prenom }}" disabled>
+                                                    </div>
 
-                                            </form>
+                                                    <div class="col-md-3">
+                                                        <label for="sexe" class="form-label">Sexe</label>
+                                                        <input type="text" class="form-control" id="sexe" value="<?= ($agent->sexe == 'M') ? 'Masculin' : 'Feminin' ?>"  disabled>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label for="iris" class="form-label">IRIS</label>
+                                                        <input type="number" class="form-control" id="iris" value="{{ $agent->iris }}" disabled>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label for="dateEmbauche" class="form-label">Date Embauche</label>
+                                                        <input type="date" class="form-control" id="dateEmbauche" value="{{ $agent->dateembauche }}" disabled>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label for="contrat" class="form-label">Contrat</label>
+                                                        <input type="text" class="form-control" id="contrat"  value="{{ $agent->Contrat->designation }}" disabled>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label for="projet" class="form-label">Projet</label>
+                                                        <input type="text" class="form-control" id="projet" value="{{ $agent->Projet->designation }}" disabled>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="fonction" class="form-label">Fonction</label>
+                                                        <input type="text" class="form-control" id="fonction" value="{{ $agent->SousFonction->Fonction->intitule }}" disabled>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="emploi" class="form-label">Emploi</label>
+                                                        <input type="text" class="form-control" id="emploi" value="{{ $agent->Emploi->designation }}" disabled>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <label for="manager" class="form-label">Manager</label>
+                                                        <input type="text" class="form-control" id="manager" value="{{ $agent->Manager->nom.' '.$agent->Manager->prenom }}" disabled>
+                                                    </div>
+
+                                                </div>
+                                            </div>
                                         </div>
-                                        </div>
                                     </div>
-                                    <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingEight">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                        INFORMATION AGENT
-                                    </button>
-                                    </h2>
-                                    <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample1">
-                                    <div class="accordion-body">
-                                        <form class="row g-4 accordion-body">
-                                            <div class="col-md-3">
-                                            <label for="validationDefault01" class="form-label">IRIS</label>
-                                            <input type="number" class="form-control" id="validationDefault01"   value ="126774"  required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                            <label for="validationDefault02" class="form-label">Nom </label>
-                                            <input type="text" class="form-control" id="validationDefault02"  value ="ACHI" required disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="validationDefault02" class="form-label">Prémons</label>
-                                                <input type="text" class="form-control" id="validationDefault02" value ="LALLENE CEDRIC" required disabled>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="validationDefault03" class="form-label">Sexe</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="M" required disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                            <label for="validationDefault03" class="form-label">Date Nais</label>
-                                            <input type="text" class="form-control" id="validationDefault03" required value ="13/03/1994" required disabled>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="validationDefault03" class="form-label">Age</label>
-                                                <input type="nunber" class="form-control" id="validationDefault03" required value ="28" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Contrat</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="CDD" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Assuré</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="NON" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Projet</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="IT" required disabled>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label for="validationDefault03" class="form-label">Fonction</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="Support Fonctionnel" required disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="validationDefault03" class="form-label">Service</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="TECHNIQUE" required disabled>
-                                            </div>
 
-                                            <div class="col-md-4">
-                                                <label for="validationDefault03" class="form-label">Date d'embauche</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="09/08/2021" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Ancienneté</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="09/08/2021" required disabled>
-                                            </div>
-
-                                            <div class="col-md-5">
-                                                <label for="validationDefault03" class="form-label">N+1 Patient</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="Evard Diouho" required disabled>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                    </div>
-                                    </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingSeven">
-                                        <button   class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="true" aria-controls="collapse">
-                                            FICHE DE CONSULTATION
-                                        </button>
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="true" aria-controls="collapsSeven">
+                                                CONSULTATION
+                                            </button>
                                         </h2>
-                                        <div>
-                                        <div class="">
-                                            <form class="row g-4 accordion-body">
-                                                <div class="col-md-3">
-                                                <label for="validationDefault01" class="form-label">Statut du patient</label>
-                                                <select class="form-select" class="form-select"name="statut_patient" id="">
-                                                    <option value="interne">interne</option>
-                                                    <option value="externe" selected>Externe</option>
-                                                </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                <label for="validationDefault02" class="form-label">Accident de Travail </label>
-                                                    <select class="form-select" class="form-select"name="accident_travail" id="">
-                                                        <option value="1">Oui</option>
-                                                        <option value="0" selected>Non</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault02" class="form-label">Traitement administré</label>
-                                                    <select class="form-select" class="form-select"name="traitement_adm" id="">
-                                                        <option value="1" selected>Oui</option>
-                                                        <option value="0">Non</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault02" class="form-label">Medoc administré</label>
-                                                    <select class="form-select" class="form-select"name="medoc_adm" id="">
-                                                        <option value="1" selected>Oui</option>
-                                                        <option value="0">Non</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Arrêt <br>maladie</label>
-                                                    <select class="form-select" class="form-select"name="arret_maladie_recue" id="">
-                                                        <option value="1" selected>Oui</option>
-                                                        <option value="0">Non</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Durée Arret maladie</label>
-                                                <select class="form-select" class="form-select"name="duree_arret">
-                                                    <?php
-                                                        for ($i=1; $i<=24; $i++)
-                                                        {
-                                                            ?>
+                                        <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="collapseSeven" data-bs-parent="#accordionExample1">
+                                            <div class="row g-3 accordion-body">
+                                                <fieldset class="col-12">
+                                                    <legend>Constantes</legend>
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label for="poids" class="form-label">Poids</label>
+                                                            <input type="number" class="form-control" step="any" id="poids" name="poids" required>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="poul" class="form-label">Pouls</label>
+                                                            <input type="number" class="form-control" step="any" id="poul" name="poul" required>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="temperature" class="form-label">Température</label>
+                                                            <input type="number" class="form-control" step="any" id="temperature" name="temperature" required>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="tension" class="form-label">Tension Art</label>
+                                                            <input type="number" class="form-control" step="any" id="tension" name="tension" required>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+
+                                                <fieldset class="col-12">
+                                                    <legend>Diagnostique</legend>
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label for="status" class="form-label">Statut du patient</label>
+                                                            <select class="form-control" name="status" id="status">
+                                                                <option value="interne" selected>interne</option>
+                                                                <option value="externe">Externe</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="accident" class="form-label">Accident de Travail </label>
+                                                            <select class="form-control" name="accident" id="accident">
+                                                                <option value="1">Oui</option>
+                                                                <option value="0" selected>Non</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <div class="col-md-3">
+                                                            <label for="traitement" class="form-label">Traitement</label>
+                                                            <select class="form-control" name="traitement" id="traitement">
+                                                                <option value="1" selected>Oui</option>
+                                                                <option value="0">Non</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label for="medicament" class="form-label">Medicament</label>
+                                                            <select class="form-control" name="medicament" id="medicament">
+                                                                <option value="1" selected>Oui</option>
+                                                                <option value="0">Non</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+
+
+
+
+
+                                                <fieldset class="col-12">
+                                                    <legend>Arrêt Maladie</legend>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <label for="arretMaladie" class="form-label">Arrêt maladie</label>
+                                                            <select class="form-control" name="arretMaladie" id="arretMaladie">
+                                                                <option value="1">Oui</option>
+                                                                <option value="0" selected>Non</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="duree_arret" class="form-label">Durée Arret maladie</label>
+                                                            <select class="form-control" name="duree_arret" id="duree_arret">
+                                                                <?php
+                                                                for ($i=1; $i<=24; $i++){
+                                                                ?>
                                                                 <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Date de début de l'arrêt
-                                                    </label>
-                                                    <input type="date" class="form-control" id="validationDefault03"  name ="date_dbt_arret"  >
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Date de reprise
-                                                    </label>
-                                                    <input type="date" class="form-control" id="validationDefault03"  value =""   name="date_repise_trvl">
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Nombre de jours</label>
-                                                    <input type="number" class="form-control" id="validationDefault03"  value =""  name="nbre_jours" >
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Billet <br>de sortie</label>
-                                                    <select class="form-select" class="form-select"name="billet_sortie" id="">
-                                                        <option value="1" >Oui</option>
-                                                        <option value="0" selected>Non</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Test <br> Covid-19</label>
-                                                    <select class="form-select" class="form-select"name="covid" id="">
-                                                        <option value="1" >Positif</option>
-                                                        <option value="0" selected>Negatif</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Repise de service</label>
-                                                    <select class="form-select" class="form-select"name="repris_service" id="">
-                                                        <option value="1" selected>apte</option>
-                                                        <option value="0" >inapte</option>
-                                                    </select>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="debutArret" class="form-label">Date de début de l'arrêt</label>
+                                                            <input type="date" class="form-control" id="debutArret"  name ="debutArret" >
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="dateReprise" class="form-label">Date de reprise</label>
+                                                            <input type="date" class="form-control" id="dateReprise" name="dateReprise">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label for="nbrJour" class="form-label">Nombre de jours</label>
+                                                            <input type="number" class="form-control" id="nbrJour" name="nbrJour" >
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="billetSortie" class="form-label">Billet de sortie</label>
+                                                            <select class="form-control" name="billetSortie" id="billetSortie">
+                                                                <option value="1" >Oui</option>
+                                                                <option value="0" selected>Non</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label for="repriseService" class="form-label">Repise de service</label>
+                                                            <select class="form-control" name="repriseService" id="repriseService">
+                                                                <option value="1" selected>apte</option>
+                                                                <option value="0">inapte</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+
+                                                <fieldset class="col-12">
+                                                    <legend>Covod 19</legend>
+
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <label for="vaccinCovid" class="form-label">Vacciné Covid-19</label>
+                                                            <select class="form-control" name="vaccinCovid" id="vaccinCovid">
+                                                                <option value="1" >oui</option>
+                                                                <option value="0" selected>non</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="testCovid" class="form-label">Test Covid-19</label>
+                                                            <select class="form-control" name="testCovid" id="testCovid">
+                                                                <option value="1" >Positif</option>
+                                                                <option value="0" selected>Negatif</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <label for="doseVaccinCovid" class="form-label">Dose de vaccin recue</label>
+                                                            <select class="form-control" name="doseVaccinCovid" id="doseVaccinCovid">
+                                                                <option value="0" selected>0</option>
+                                                                <option value="1" >1</option>
+                                                                <option value="2" >2</option>
+                                                                <option value="3" >3</option>
+                                                                <option value="4" >4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <div class="col-md-12">
+                                                    <label for="observation" class="form-label">Observation du patient</label>
+                                                    <textarea class="form-control" rows="3" id="observation" name="observation"></textarea>
                                                 </div>
 
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Vacciné Covid-19</label>
-                                                    <select class="form-select" class="form-select"name="vaccin_covid" id="">
-                                                        <option value="1" >oui</option>
-                                                        <option value="0" selected>non</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Dose de vaccin recue</label>
-                                                    <select class="form-select" class="form-select"name="vaccin_covid" id="">
-                                                        <option value="1" >oui</option>
-                                                        <option value="2" selected>non</option>
-                                                        <option value="3" >non</option>
-                                                        <option value="4" >non</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <label for="validationDefault03" class="form-label">Observation du patient</label>
-                                                    <input type="texterea" class="form-control" id="validationDefault03"  value ="" name="observation" >
-                                                </div>
                                                 <div class="col-md-3">
                                                     <button class="btn btn-primary right " type="submit">Enregistrer</button>
                                                 </div>
-                                            </form>
+                                            </div>
                                         </div>
-                                        </div>
-                                        </div>
+                                    </div>
                                 </div><!-- End Default Accordion Example -->
                             </form>
                         </div>
