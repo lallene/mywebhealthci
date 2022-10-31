@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agent;
 use App\Models\Consultation;
+use App\Models\Motif_consultation;
 use Illuminate\Http\Request;
 
 class ConsultationController extends Controller
@@ -29,6 +30,7 @@ class ConsultationController extends Controller
 
     public function consulter($id){
         $agent = Agent::find($id);
-        return view($this->templatePath.'.liste', ['titre' => "Recherche de l'agent", 'agent' => $agent, 'link' => $this->link]);
+        $motifs = Motif_consultation::all();
+        return view($this->templatePath.'.liste', ['titre' => "Recherche de l'agent", 'agent' => $agent, 'motifs' => $motifs, 'link' => $this->link]);
     }
 }

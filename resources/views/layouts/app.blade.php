@@ -112,28 +112,37 @@
                                 <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
                             </li>
 
-                            <li>
+                            <li class="d-none">
                                 <a href="{{ route("maladie_prof.index") }}">> <span>Maladies Professionnelles</span></a>
                             </li>
-                            <li>
+                            <li class="d-none">
                                 <a href="{{ route("maladie_contagieuse.index") }}">> <span>Maladies contagieuses</span></a>
                             </li>
                             <li>
                                 <a href="{{ route("motif_consultation.index") }}">> <span>Motifs de consultations</span></a>
                             </li>
-                            <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
+                            <li>
+                                <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
                             </li>
                             <li>
                                 <a href="{{ route("projet.index") }}">> <span>Projets</span></a>
                             </li>
                             <li>
+                                <a href="{{ route("effectif.index") }}">> <span>Effectif</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="<?= (isset($menu) AND $menu == 'consulter') ? 'active' : '' ?>">
+                        <a href="#consulter" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <i class="fa fa-heartbeat gs green_color"></i>
+                            <span>Consultation</span>
+                        </a>
+                        <ul class="collapse list-unstyled" id="consulter">
+                            <li>
                                 <a href="{{ route("consultation.index") }}">> <span>Consultation</span></a>
                             </li>
                             <li>
                                 <a href="{{ route("justificatif_externe.index") }}">> <span>Justificatifs externes</span></a>
-                            </li>
-
-                                <a href="{{ route("effectif.index") }}">> <span>Effectif</span></a>
                             </li>
                         </ul>
                     </li>
