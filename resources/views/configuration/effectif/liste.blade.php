@@ -52,7 +52,7 @@
                                                     <td><?= ($item->sexe == 'M') ? 'Masculin' : 'Feminin' ?></td>
                                                     <td><?= $item->Projet->designation ?></td>
                                                     <td><?= $item->Emploi->designation ?></td>
-                                                    <td><?= $item->sub_fonction->intitule ?></td>
+                                                    <td><?= $item->SousFonction->intitule ?></td>
                                                     <td><?= $item->Contrat->designation ?></td>
                                                     <td><?= $item->Societe->designation ?></td>
                                                     <td><?= !is_null($item->manager) ? $item->Manager->nom.' '.$item->Manager->prenom : '-' ?></td>

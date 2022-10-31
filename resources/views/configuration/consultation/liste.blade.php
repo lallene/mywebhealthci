@@ -348,6 +348,20 @@
                                                 </fieldset>
 
                                                 <fieldset class="col-12">
+                                                    <legend>Patient</legend>
+
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <label for="assurance" class="form-label">Assuré</label>
+                                                            <select class="form-control" name="assurance" id="assurance">
+                                                                <option value="nom" selected>Nom</option>
+                                                                <option value="oui">Oui</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <fieldset class="col-12">
                                                     <legend>Diagnostique</legend>
 
                                                     <div class="row">
@@ -393,22 +407,29 @@
                                                     <legend>Arrêt Maladie</legend>
 
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <label for="arretMaladie" class="form-label">Arrêt maladie</label>
                                                             <select class="form-control" name="arretMaladie" id="arretMaladie">
                                                                 <option value="1">Oui</option>
                                                                 <option value="0" selected>Non</option>
                                                             </select>
                                                         </div>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
+                                                            <label for="typeArret" class="form-label">Type arrêt</label>
+                                                            <select class="form-control" name="typeArret" id="typeArret">
+                                                                <option value="interne">Interne</option>
+                                                                <option value="externe">Externe</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-4">
                                                             <label for="duree_arret" class="form-label">Durée Arret maladie</label>
                                                             <select class="form-control" name="duree_arret" id="duree_arret">
                                                                 <?php
-                                                                for ($i=1; $i<=24; $i++){
-                                                                ?>
-                                                                <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                                                <?php
-                                                                }
+                                                                    for ($i=1; $i<=24; $i++){
+                                                                        ?>
+                                                                        <option value="<?php echo $i;?>"><?php echo $i;?></option>
+                                                                        <?php
+                                                                    }
                                                                 ?>
                                                             </select>
                                                         </div>
@@ -444,7 +465,7 @@
                                                 </fieldset>
 
                                                 <fieldset class="col-12">
-                                                    <legend>Covod 19</legend>
+                                                    <legend>Covid 19</legend>
 
                                                     <div class="row">
                                                         <div class="col-md-4">
