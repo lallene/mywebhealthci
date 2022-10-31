@@ -17,7 +17,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-12 text-right pb-2">
-                                <a href="{{ route($link.".create") }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
+                                <a href="{{ route('consultation.index')  }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
                                 <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-plus"></i> Quitter</a>
                             </div>
                         </div>
@@ -27,16 +27,13 @@
                             <table id="zero_config" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>Iris</th>
-                                    <th>Nom & Prénom</th>
-                                    <th>Sexe</th>
-                                    <th>Projet</th>
-                                    <th>Emploi</th>
-                                    <th>Sous Fonction</th>
-                                    <th>Contrat</th>
-                                    <th>Societe</th>
-                                    <th>Manager</th>
-                                    <th>Action</th>
+                                    <th>#</th>
+                                    <th>IRIS</th>
+                                    <th>NOM</th>
+                                    <th>PRENOM</th>
+                                    <th>DATE DEBUT ARRET</th>
+                                    <th>DATE DE REPRISE</th>
+                                    <th>NBRE DE JOURS</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -47,15 +44,13 @@
                                                 $i++;
                                                 ?>
                                                 <tr>
-                                                    <td><?= $item->iris ?></td>
-                                                    <td><?= $item->nom. ' ' .$item->prenom ?></td>
-                                                    <td><?= ($item->sexe == 'M') ? 'Masculin' : 'Feminin' ?></td>
-                                                    <td><?= $item->Projet->designation ?></td>
-                                                    <td><?= $item->Emploi->designation ?></td>
-                                                    <td><?= $item->sub_fonction->intitule ?></td>
-                                                    <td><?= $item->Contrat->designation ?></td>
-                                                    <td><?= $item->Societe->designation ?></td>
-                                                    <td><?= !is_null($item->manager) ? $item->Manager->nom.' '.$item->Manager->prenom : '-' ?></td>
+                                                    <td><?= $i ?></td>
+                                                    <td><?= $item->agent->iris ?></td>
+                                                    <td><?= $item->agent->nom ?></td>
+                                                    <td><?= $item->agent->prenom ?></td>
+                                                    <td><?= $item->agent->date_dbt_arret ?></td>
+                                                    <td><?= $item->agent->date_repise_trvl ?></td>
+                                                    <td><?= $item->agent->nbre_jours ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">

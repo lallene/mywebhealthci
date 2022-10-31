@@ -111,9 +111,7 @@
                             <li>
                                 <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
                             </li>
-                            <li>
-                                <a href="{{ route("agent_sante.index") }}">> <span>Agents de santés</span></a>
-                            </li>
+
                             <li>
                                 <a href="{{ route("maladie_prof.index") }}">> <span>Maladies Professionnelles</span></a>
                             </li>

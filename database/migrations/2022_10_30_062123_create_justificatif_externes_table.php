@@ -20,7 +20,7 @@ class CreateJustificatifExternesTable extends Migration
             $table->string('accident_travail');
             $table->string('traitement_adm');
             $table->string('medoc_adm');
-            $table->string('arret_maladie_recu');
+            $table->string('arret_maladie_recu')->nullable();
             $table->integer('duree_arret');
             $table->date("date_dbt_arret");
             $table->date('date_repise_trvl');
@@ -29,13 +29,13 @@ class CreateJustificatifExternesTable extends Migration
             $table->string('covid')->default('negatif');
             $table->string('repris_service')->default('apte');
             $table->string('vaccin_covid');
-            $table->integer('dose_covid');
+            $table->string('dose_covid')->nullable();
             $table->timestamps();
             $table->string('clinique_externe');
             $table->string('medecin_externe');
             $table->string('justif_valide')->default('oui');
             $table->string('motif_rejet')->default('Pièce incomplète');
-            $table->string('Duplicat_suite_valide');
+            $table->string('duplicat_suite_valide');
             $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')
                 ->references('id')
@@ -51,26 +51,28 @@ class CreateJustificatifExternesTable extends Migration
                 ->onUpdate('cascade');
 
 
-                    $table->unsignedBigInteger('maladie_prof_id')->nullable();
-                    $table->foreign('maladie_prof_id')
-                        ->references('id')
-                        ->on('maladie_profs')
-                        ->onDelete('cascade')
-                        ->onUpdate('cascade');
+            $table->unsignedBigInteger('maladie_prof_id')->nullable();
+            $table->foreign('maladie_prof_id')
+                ->references('id')
+                ->on('maladie_profs')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
 
-                    $table->unsignedBigInteger('site_id')->nullable();
-                    $table->foreign('site_id')
-                        ->references('id')
-                        ->on('sites')
-                        ->onDelete('cascade')
-                        ->onUpdate('cascade');
 
-                        $table->unsignedBigInteger('user_id')->nullable();
-                        $table->foreign('user_id')
-                            ->references('id')
-                            ->on('users')
-                            ->onDelete('cascade')
-                            ->onUpdate('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->unsignedBigInteger('agent_id');
+            $table->foreign('agent_id')
+                ->references('id')
+                ->on('agents')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
 
         });
     }
