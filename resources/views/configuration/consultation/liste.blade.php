@@ -248,6 +248,14 @@
                                         <div >
                                         <div >
                                             <form class="row g-3 accordion-body">
+                                                <?php if(isset($agents)){ $i = 0;
+                                                    foreach ($agents as $agent) {
+                                                        $i++;
+                                                 ?>
+                                                 <div class="col-md-2">
+                                                    <label for="validationDefault01" class="form-label"><?= $agent->iris ?></label>
+                                                    <input type="text" class="form-control" id="validationDefault01"   value ="67 KG"  required>
+                                                    </div>
                                                 <div class="col-md-2">
                                                 <label for="validationDefault01" class="form-label">Poids</label>
                                                 <input type="text" class="form-control" id="validationDefault01"   value ="67 KG"  required>
@@ -264,82 +272,53 @@
                                                 <label for="validationDefault03" class="form-label">Tension Art</label>
                                                 <input type="text" class="form-control" id="validationDefault03" required value ="115/75 mm Hg" required>
                                                 </div>
-
+                                                <?php
+                                                        }
+                                                    }
+                                                ?>
                                             </form>
                                         </div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingEight">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                                        INFORMATION AGENT
-                                    </button>
-                                    </h2>
-                                    <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample1">
-                                    <div class="accordion-body">
-                                        <form class="row g-4 accordion-body">
-                                            <div class="col-md-3">
-                                            <label for="validationDefault01" class="form-label">IRIS</label>
-                                            <input type="number" class="form-control" id="validationDefault01"   value ="126774"  required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                            <label for="validationDefault02" class="form-label">Nom </label>
-                                            <input type="text" class="form-control" id="validationDefault02"  value ="ACHI" required disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="validationDefault02" class="form-label">Prémons</label>
-                                                <input type="text" class="form-control" id="validationDefault02" value ="LALLENE CEDRIC" required disabled>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="validationDefault03" class="form-label">Sexe</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="M" required disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                            <label for="validationDefault03" class="form-label">Date Nais</label>
-                                            <input type="text" class="form-control" id="validationDefault03" required value ="13/03/1994" required disabled>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <label for="validationDefault03" class="form-label">Age</label>
-                                                <input type="nunber" class="form-control" id="validationDefault03" required value ="28" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Contrat</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="CDD" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Assuré</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="NON" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Projet</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="IT" required disabled>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <label for="validationDefault03" class="form-label">Fonction</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="Support Fonctionnel" required disabled>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="validationDefault03" class="form-label">Service</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="TECHNIQUE" required disabled>
-                                            </div>
+                                        <h2 class="accordion-header" id="headingEight">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                            INFORMATION AGENT
+                                        </button>
+                                        </h2>
+                                        <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample1">
+                                        <div class="accordion-body">
+                                            <form class="row g-4 accordion-body">
+                                                <div class="col-md-3">
+                                                <label for="validationDefault01" class="form-label">IRIS</label>
+                                                <input type="number" class="form-control" id="validationDefault01"   value ="126774"  required disabled>
+                                                </div>
+                                                <div class="col-md-3">
+                                                <label for="validationDefault02" class="form-label">Nom </label>
+                                                <input type="text" class="form-control" id="validationDefault02"  value ="ACHI" required disabled>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label for="validationDefault02" class="form-label">Prémons</label>
+                                                    <input type="text" class="form-control" id="validationDefault02" value ="LALLENE CEDRIC" required disabled>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="validationDefault03" class="form-label">Sexe</label>
+                                                    <input type="text" class="form-control" id="validationDefault03" required value ="M" required disabled>
+                                                </div>
 
-                                            <div class="col-md-4">
-                                                <label for="validationDefault03" class="form-label">Date d'embauche</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="09/08/2021" required disabled>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="validationDefault03" class="form-label">Ancienneté</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="09/08/2021" required disabled>
-                                            </div>
+                                                <div class="col-md-2">
+                                                    <label for="validationDefault03" class="form-label">Age</label>
+                                                    <input type="nunber" class="form-control" id="validationDefault03" required value ="28" required disabled>
+                                                </div>
 
-                                            <div class="col-md-5">
-                                                <label for="validationDefault03" class="form-label">N+1 Patient</label>
-                                                <input type="text" class="form-control" id="validationDefault03" required value ="Evard Diouho" required disabled>
-                                            </div>
+                                                <div class="col-md-3">
+                                                    <label for="validationDefault03" class="form-label">Assuré</label>
+                                                    <input type="text" class="form-control" id="validationDefault03" required value ="NON" required disabled>
+                                                </div>
 
-                                        </form>
-                                    </div>
-                                    </div>
+                                            </form>
+                                        </div>
+                                        </div>
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingSeven">
