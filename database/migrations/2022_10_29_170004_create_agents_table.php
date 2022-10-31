@@ -38,8 +38,8 @@ class CreateAgentsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unsignedBigInteger('sub_fonction_id')->nullable();
-            $table->foreign('sub_fonction_id')
+            $table->unsignedBigInteger('sousfonction_id')->nullable();
+            $table->foreign('sousfonction_id')
                 ->references('id')
                 ->on('sub_fonctions')
                 ->onDelete('cascade')
@@ -65,7 +65,7 @@ class CreateAgentsTable extends Migration
                 ->on('medicaments')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-                
+
         });
     }
 

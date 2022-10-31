@@ -19,7 +19,7 @@ class Agent extends Model
         'manager',
         'projet_id',
         'emploi_id',
-        'sub_fonction_id',
+        'sousfonction_id',
         'contrat_id',
         'societe_id',
         'medicament_id',
@@ -36,7 +36,7 @@ class Agent extends Model
         return $this->belongsTo(Emploi::class, 'emploi_id');
     }
 
-    public function SousFonction(){
+    public function Sub_fonction(){
         return $this->belongsTo(Sub_fonction::class, 'sousfonction_id');
     }
 
