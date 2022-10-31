@@ -76,7 +76,7 @@ class Justificatif_externeController extends Controller
                 'motif_consultation_id' => $request->input('motif_consultation_id'),
                 'maladie_contagieuse_id' => $request->input('maladie_contagieuse_id'),
                 'maladie_prof_id' => $request->input('maladie_prof_id'),
-                'user_id' => $request->$userId,
+                'user_id' => $userId,
                 'agent_id' => $request->input('agent_id'),
 
             ]

@@ -33,6 +33,7 @@
                                                 <div class="col-md-3">
                                                 <label for="validationDefault01" class="form-label">ID AGENT</label>
                                                 <input type="number" class="form-control" id="validationDefault01" name="{{ $agent->id }}"  value ="{{ $agent->id }}"  required disabled>
+                                                <input type="hidden" name="agent_id" value ="{{ $agent->id }}">
                                                 </div>
                                                 <div class="col-md-3">
                                                     <label for="validationDefault01" class="form-label">Iris</label>
