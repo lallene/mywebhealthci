@@ -36,7 +36,7 @@ class Agent extends Model
         return $this->belongsTo(Emploi::class, 'emploi_id');
     }
 
-    public function Sub_fonction(){
+    public function SousFonction(){
         return $this->belongsTo(Sub_fonction::class, 'sousfonction_id');
     }
 
