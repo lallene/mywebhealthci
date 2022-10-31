@@ -48,16 +48,16 @@
                                                     <td><?= $item->agent->iris ?></td>
                                                     <td><?= $item->agent->nom ?></td>
                                                     <td><?= $item->agent->prenom ?></td>
-                                                    <td><?= $item->agent->date_dbt_arret ?></td>
-                                                    <td><?= $item->agent->date_repise_trvl ?></td>
-                                                    <td><?= $item->agent->nbre_jours ?></td>
+                                                    <td><?= $item->date_dbt_arret ?></td>
+                                                    <td><?= $item->date_repise_trvl ?></td>
+                                                    <td><?= $item->nbre_jours ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Actions</button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="{{route($link.'.edit', $item->id)}}">Modifier</a>
-                                                                    <form action="{{ route($link.'.destroy', $item->id) }}" method="POST">
+                                                                    <a class="dropdown-item" href="#">Modifier</a>
+                                                                    <form action="#" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit" class="dropdown-item">Supprimer</button>

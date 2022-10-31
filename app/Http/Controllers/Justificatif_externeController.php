@@ -85,8 +85,4 @@ class Justificatif_externeController extends Controller
         return redirect()->route('justificatif_externe.index');
     }
 
-
-
-
-
 }
