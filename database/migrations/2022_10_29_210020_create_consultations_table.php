@@ -15,35 +15,38 @@ class CreateConsultationsTable extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
 
-
-
-
-
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('Poids');
+
+            $table->unsignedBigInteger('agent_id');
+            $table->foreign('agent_id')
+                ->references('id')
+                ->on('agents')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+            $table->string('poids');
             $table->string('poul');
+            $table->string('temperature');
             $table->string('tension');
-            $table->string('tension');
-            $table->string('acident_travail');
-            $table->string('assurance')->default('non');
-            $table->string('traitement_adm');
-            $table->string('medoc_adm');
-            $table->string('arret_maladie');
-            $table->integer('duree_arret');
-            $table->date("date_dbt_arret");
-            $table->date('date_repise_trvl');
-            $table->string('nbre_jours');
+            $table->string('assurance');
+            $table->string('accident');
+            $table->string('traitement');
+            $table->string('arretMaladie');
+            $table->integer('duree_arret')->nullable();
+            $table->string("nbrJour")->comment('Unité de mesure du temps d\'arrête');
+            $table->date('debutArret')->nullable();
+            $table->date('dateReprise')->nullable();
+            $table->string('billetSortie');
+            $table->string('repriseService')->default('apte');
             $table->string('maladie_contagieuse');
             $table->string('maladie_prof');
-            $table->string('statut_arret')->default('interne');
-            $table->string('billet_sortie');
-            $table->string('covid')->default('negatif');
-            $table->string('repris_service')->default('apte');
             $table->string('vaccin_covid');
-            $table->integer('dose_covid');
-            $table->text('observation');
-            $table->timestamps();
+            $table->string('testCovid');
+            $table->integer('doseVaccinCovid');
+            $table->text('observation')->nullable();
+
+            $table->string('statut_arret')->nullable();
 
             $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')
@@ -52,12 +55,18 @@ class CreateConsultationsTable extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
 
-            $table->unsignedBigInteger('site_id')->nullable();
-            $table->foreign('site_id')
+            $table->string('natureReception')->nullable();
+
+            $table->string('natureDuree');
+
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('sites')
+                ->on('users')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+
+            $table->timestamps();
         });
     }
 

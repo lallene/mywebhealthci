@@ -22,8 +22,6 @@ class Agent extends Model
         'sousfonction_id',
         'contrat_id',
         'societe_id',
-        'medicament_id',
-        'agent_id'
     ];
 
     public $timestamps = false;
@@ -52,7 +50,7 @@ class Agent extends Model
         return $this->belongsTo(Agent::class, 'manager', 'iris');
     }
 
-    public function Medicament(){
-        return $this->belongsTo(Medicament::class, 'medicemnt_id');
+    public function Consultations(){
+        return $this->hasMany(Consultation::class);
     }
 }

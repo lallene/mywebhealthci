@@ -32,7 +32,7 @@ class CreateJustificatifExternesTable extends Migration
             $table->string('duplicat_suite_valide');
             $table->text('observation');
             $table->string('motif_consultation_externe_id');
-            $table->unsignedBigInteger('motif_consultation_id')->nullable()->default('Autre');
+            $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')
                 ->references('id')
                 ->on('motif_consultations')

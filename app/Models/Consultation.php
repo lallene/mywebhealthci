@@ -9,18 +9,47 @@ class Consultation extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = true;
 
-    protected $fillable = ['acident_travail','acident_travail','traitement_adm',
-                           'medoc_adm', 'arret_maladie', 'duree_arret', 'site_id', 'date_dbt_arret',
-                           'date_repise_trvl','nbre_jours', 'statut_arret', 'billet_sortie', 'covid,',
-                           'repris_service', 'vaccin_covid','dose_covid', 'observation'];
+    protected $fillable = [
+        'agent_id',
+        'poids',
+        'poul',
+        'temperature',
+        'tension',
+        'assurance',
+        'accident',
+        'traitement',
+        'arretMaladie',
+        'duree_arret',
+        'nbrJour',
+        'debutArret',
+        'dateReprise',
+        'billetSortie',
+        'repriseService',
+        'maladie_contagieuse',
+        'maladie_prof',
+        'vaccin_covid',
+        'testCovid',
+        'doseVaccinCovid',
+        'observation',
+        'statut_arret',
+        'motif_consultation_id',
+        'natureReception',
+        'natureDuree',
+        'user_id',
+    ];
 
-    public function motif_consultation(){
+    public function MotifConsultation(){
         return $this->belongsTo(Motif_consultation::class, 'motif_consultation_id');
     }
-    public function site(){
+
+    public function Site(){
         return $this->belongsTo(site::class, 'site_id');
+    }
+
+    public function Ordonnances(){
+        return $this->hasMany(Ordonnance::class);
     }
 }
 
