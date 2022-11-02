@@ -28,6 +28,7 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>ID Consultation</th>
                                     <th>Type</th>
                                     <th>Designation</th>
                                     <th>Quantité</th>
@@ -43,6 +44,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
+                                                    <td><?= $item->consultation->id ?></td>
                                                     <td><?= $item->type ?></td>
                                                     <td><?= $item->designation ?></td>
                                                     <td><?= $item->quantite ?></td>

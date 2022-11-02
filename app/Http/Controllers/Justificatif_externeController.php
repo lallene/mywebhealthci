@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Agent;
 use Illuminate\Http\Request;
 use App\Models\Justificatif_externe;
+use App\Models\Motif_consultation;
+use App\Models\Site;
 use Illuminate\Support\Facades\Auth;
 
 class Justificatif_externeController extends Controller
@@ -30,7 +32,8 @@ class Justificatif_externeController extends Controller
 
     public function reception ($id){
         $agents = Agent::find($id);
-        return view($this->templatePath.'.reception', ['titre' => "Reception de Justificatif", 'agent' => $agents, 'link' => $this->link]);
+        $foreigns = Motif_consultation::all();
+        return view($this->templatePath.'.reception', ['titre' => "Reception de Justificatif", 'agent' => $agents, 'foreigns'=>$foreigns, 'link' => $this->link]);
     }
 
      /**
@@ -52,32 +55,26 @@ class Justificatif_externeController extends Controller
     public function store(Request $request)
     {
         $userId = Auth::id();
+
         Justificatif_externe::create(
             [
-                'statut' => $request->input('statut_patient'),
-                'accident_travail' => $request->input('accident_travail'),
-                'traitement_adm' => $request->input('traitement_adm'),
-                'medoc_adm' => $request->input('medoc_adm'),
-                'arret_maladie_recu' => $request->input('arret_maladie_recu'),
                 'duree_arret' => $request->input('duree_arret'),
                 'date_dbt_arret' => $request->input('date_dbt_arret'),
                 'date_repise_trvl' => $request->input('date_repise_trvl'),
                 'nbre_jours' => $request->input('nbre_jours'),
                 'billet_sortie' => $request->input('billet_sortie'),
-                'covid' => $request->input('covid'),
                 'repris_service' => $request->input('repris_service'),
-                'vaccin_covid' => $request->input('vaccin_covid'),
-                'dose_covid' => $request->input('dose_covid'),
                 'clinique_externe' => $request->input('clinique_externe'),
                 'medecin_externe' => $request->input('medecin_externe'),
                 'justif_valide' => $request->input('justif_valide'),
                 'motif_rejet' => $request->input('motif_rejet'),
                 'duplicat_suite_valide' => $request->input('duplicat_suite_valide'),
-                'motif_consultation_id' => $request->input('motif_consultation_id'),
-                'maladie_contagieuse_id' => $request->input('maladie_contagieuse_id'),
-                'maladie_prof_id' => $request->input('maladie_prof_id'),
                 'user_id' => $userId,
                 'agent_id' => $request->input('agent_id'),
+                'site_id' =>  $request->input('site_id'),
+                'assurance' => $request->input('assurance'),
+                'observation' => $request->input('observation'),
+                'motif_consultation_id' => $request->input('motif_consultation_id'),
 
             ]
         );

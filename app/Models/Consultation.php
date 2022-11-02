@@ -11,19 +11,13 @@ class Consultation extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['statut','acident_travail','acident_travail','traitement_adm',
+    protected $fillable = ['acident_travail','acident_travail','traitement_adm',
                            'medoc_adm', 'arret_maladie', 'duree_arret', 'site_id', 'date_dbt_arret',
                            'date_repise_trvl','nbre_jours', 'statut_arret', 'billet_sortie', 'covid,',
                            'repris_service', 'vaccin_covid','dose_covid', 'observation'];
 
-    public function maladie_prof(){
-        return $this->belongsTo(Maladie_prof::class, 'site_id');
-    }
-    public function maladie_contagieuse(){
-        return $this->belongsTo(Maladie_contagieuse::class, 'site_id');
-    }
     public function motif_consultation(){
-        return $this->belongsTo(Motif_consultation::class, 'site_id');
+        return $this->belongsTo(Motif_consultation::class, 'motif_consultation_id');
     }
     public function site(){
         return $this->belongsTo(site::class, 'site_id');

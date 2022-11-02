@@ -21,6 +21,13 @@ class CreateMedicamentsTable extends Migration
             $table->string('details')->nullable();
             $table->integer('quantite')->default(0);
             $table->integer('etat')->default(0);
+
+            $table->unsignedBigInteger('consultation_id')->nullable();
+            $table->foreign('consultation_id')
+                ->references('id')
+                ->on('consultations')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 
