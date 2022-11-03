@@ -262,8 +262,6 @@
                             <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h6 class="card-title">INFORMATION DU COLLABORATEUR</h6>
-
                                         <!-- Default Accordion -->
                                         <div class="accordion" id="accordionExample1">
 
@@ -273,7 +271,7 @@
                                                         INFORMATION DU COLLABORATEUR
                                                     </button>
                                                 </h2>
-                                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#accordionExample1">
+                                                <div id="collapseEight" class="accordion-collapse collapse " aria-labelledby="headingEight" data-bs-parent="#accordionExample1">
                                                     <div class="accordion-body">
                                                         <div class="row g-4 accordion-body">
 
@@ -317,7 +315,7 @@
                                                         CONSULTATION
                                                     </button>
                                                 </h2>
-                                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="collapseSeven" data-bs-parent="#accordionExample1">
+                                                <div id="collapseSeven" class="accordion-collapse collapse show" aria-labelledby="collapseSeven" data-bs-parent="#accordionExample1">
                                                     <div class="row g-3 accordion-body">
                                                         <fieldset class="col-12">
                                                             <legend>Constantes</legend>
@@ -373,7 +371,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <label for="medicament" class="form-label">Medicament</label>
+                                                                    <label for="medicament" class="form-label">Médicament</label>
                                                                     <select class="form-control" name="medicament" id="medicament">
                                                                         <option value="oui">Oui</option>
                                                                         <option value="non" selected>Non</option>
@@ -424,7 +422,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-2">
-                                                                    <label for="nbrJour" class="form-label"></label>
+                                                                    <label for="nbrJour" class="form-label">en (heure/jour)</label>
                                                                     <select class="form-control" name="nbrJour" id="nbrJour">
                                                                         <option value="Heure" selected>Heure</option>
                                                                         <option value="Jour" >Jour</option>
@@ -446,7 +444,7 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <label for="repriseService" class="form-label">Repise de service</label>
+                                                                    <label for="repriseService" class="form-label">Reprise de service</label>
                                                                     <select class="form-control" name="repriseService" id="repriseService">
                                                                         <option value="apte" selected>Apte</option>
                                                                         <option value="inapte">Inapte</option>
@@ -532,14 +530,13 @@
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <h6 class="card-title">ORDONNANCE DU COLLABORATEUR</h6>
 
                                         <!-- Default Accordion -->
                                         <div class="accordion" id="accordionExample2">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingFour">
                                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                                                        Médicament #1
+                                                        ORDONNANCE DU COLLABORATEUR
                                                     </button>
                                                 </h2>
                                                 <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample2">
@@ -582,7 +579,7 @@
 
                                                                 <div class="col-md-6">
                                                                     <div class="row">
-                                                                        <label for="nbrJrs" class="col-sm-12 col-form-label">Nbre de jours</label>
+                                                                        <label for="nbrJrs" class="col-sm-12 col-form-label">Nombre de jours</label>
                                                                         <div class="col-sm-12">
                                                                             <input type="number" class="form-control w-100" id="nbrJrsPrescription">
                                                                         </div>
@@ -604,11 +601,9 @@
                                                                 <thead>
                                                                 <tr>
                                                                     <th width="25%">Type</th>
-                                                                    <th width="50%">Medicament</th>
-                                                                    <th width="12%">Qté</th>
-                                                                    <th width="10%">Nbre Jour</th>
-                                                                    <th width="3%"></th>
-                                                                </tr>
+                                                                    <th width="40%">Medicament</th>
+                                                                    <th width="10%">Qté</th>
+                                                                    <th width="20%">Nb Jour</th>                                                                </tr>
                                                                 </thead>
                                                                 <tbody id="tbody">
 
