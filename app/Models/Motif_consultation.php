@@ -10,4 +10,8 @@ class Motif_consultation extends Model
     use HasFactory;
     protected $fillable = ['intitule'];
 
+    public function Consultations(){
+        return $this->hasMany(Consultation::class);
+    }
+
 }

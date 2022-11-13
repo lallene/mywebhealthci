@@ -22,6 +22,7 @@ class Agent extends Model
         'sousfonction_id',
         'contrat_id',
         'societe_id',
+        'dateNaissance',
     ];
 
     public $timestamps = false;

@@ -6,7 +6,9 @@ use App\Models\Agent;
 use App\Models\Consultation;
 use App\Models\Motif_consultation;
 use App\Models\Ordonnance;
+use App\Models\Site;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ConsultationController extends Controller
 {
@@ -32,12 +34,15 @@ class ConsultationController extends Controller
     public function consulter($id){
         $agent = Agent::find($id);
         $motifs = Motif_consultation::all();
-        return view($this->templatePath.'.liste', ['titre' => "Recherche de l'agent", 'agent' => $agent, 'motifs' => $motifs, 'link' => $this->link]);
+        $sites = Site::all();
+        return view($this->templatePath.'.liste', ['titre' => "Recherche de l'agent", 'agent' => $agent, 'motifs' => $motifs, 'sites' => $sites, 'link' => $this->link]);
     }
 
     public function store(Request $request)
     {
         $userId = Auth::id();
+
+        //echo('<pre>'); die(print_r($_POST));
 
         $consultation = Consultation::create([
             "agent_id" => $_POST['agent_id'],
@@ -64,19 +69,26 @@ class ConsultationController extends Controller
             "motif_consultation_id" => $_POST['motif_consultation_id'],
             "user_id" => $userId,
             "natureDuree" => $_POST['nbrJour'],
+            "dateConsultation" => date('Y-m-d'),
+            "typeConsultation" => 'Interne',
+            "etatValidite" => 'valide',
+            "natureReception" => $_POST['natureReception'],
         ]);
 
-        $nbreProduit = sizeof($_POST['typeMedicament']);
+        if(isset($_POST['typeMedicament']) AND !empty($_POST['typeMedicament'])){
+            $nbreProduit = sizeof($_POST['typeMedicament']);
 
-        for ($i=0; $i < $nbreProduit; $i++) {
-            Ordonnance::create([
-                'typeMedicament' => $_POST['typeMedicament'][$i],
-                'natureMedicament' => $_POST['natureMedicament'][$i],
-                'qte' => $_POST['qte'][$i],
-                'joursTraitement' => $_POST['joursTraitement'][$i],
-                'consultation_id' => $consultation->id
-            ]);
+            for ($i=0; $i < $nbreProduit; $i++) {
+                Ordonnance::create([
+                    'typeMedicament' => $_POST['typeMedicament'][$i],
+                    'natureMedicament' => $_POST['natureMedicament'][$i],
+                    'qte' => $_POST['qte'][$i],
+                    'joursTraitement' => $_POST['joursTraitement'][$i],
+                    'consultation_id' => $consultation->id
+                ]);
+            }
         }
+
 
         return redirect()->route('home');
 

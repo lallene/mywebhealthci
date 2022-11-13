@@ -38,221 +38,6 @@
                 </div>
             </div>
             <section class="section dashboard row">
-
-
-                    <div class="col-lg-3 d-none">
-
-                            <div class="card">
-                            <div class="card-body">
-                                <h6 class="card-title">HISTORIQUE DU COLLABORATEUR</h6>
-
-                                <!-- Default Accordion -->
-                                <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Track #1
-                                    </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-
-                                            <div class="row mb-3">
-                                            <label for="inputText" class="col-sm-12 col-form-label">Date de dernière consultation</label>
-                                            <div class="col-sm-12">
-                                                <input type="date" class="form-control" value ="30/10/2022" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputEmail" class="col-sm-12 col-form-label">Nbre Arrêt</label>
-                                            <div class="col-sm-12">
-                                                <input type="number" class="form-control" value ="4" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputPassword" class="col-sm-12 col-form-label">Date de dernier arrêt</label>
-                                            <div class="col-sm-12">
-                                                <input type="date" class="form-control" value ="29/10/2022" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputNumber" class="col-sm-12 col-form-label">Nombre de jours</label>
-                                            <div class="col-sm-12">
-                                                <input type="number" class="form-control" value ="3" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputNumber" class="col-sm-12 col-form-label">Delivré par</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value ="medecin 1" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputDate" class="col-sm-12 col-form-label">Motif consultation</label>
-                                            <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="Paludisme" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputDate" class="col-sm-12 col-form-label">Medicament 1</label>
-                                                <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="medoc 1" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputDate" class="col-sm-12 col-form-label">Medicament 2</label>
-                                                <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="medoc 2" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputDate" class="col-sm-12 col-form-label">Medicament 3</label>
-                                                <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="medoc 3" disabled>
-                                                </div>
-                                            </div>
-
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Track #2
-                                    </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                            <div class="row mb-3">
-                                            <label for="inputText" class="col-sm-12 col-form-label">Date de dernière consultation</label>
-                                            <div class="col-sm-12">
-                                                <input type="date" class="form-control" value ="30/10/2022" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputEmail" class="col-sm-12 col-form-label">Nombre d'arrêts reçus (EX/IN)</label>
-                                            <div class="col-sm-12">
-                                                <input type="number" class="form-control" value ="4" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputPassword" class="col-sm-12 col-form-label">Date de dernier arrêt</label>
-                                            <div class="col-sm-12">
-                                                <input type="date" class="form-control" value ="29/10/2022" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputNumber" class="col-sm-12 col-form-label">Nombre de jours</label>
-                                            <div class="col-sm-12">
-                                                <input type="number" class="form-control" value ="3" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputNumber" class="col-sm-12 col-form-label">Delivré par</label>
-                                            <div class="col-sm-12">
-                                                <input class="form-control" type="text" value ="medecin 1" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                            <label for="inputDate" class="col-sm-12 col-form-label">Motif consultation</label>
-                                            <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="Paludisme" disabled>
-                                            </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputDate" class="col-sm-12 col-form-label">Medicament 1</label>
-                                                <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="medoc 1" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputDate" class="col-sm-12 col-form-label">Medicament 2</label>
-                                                <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="medoc 2" disabled>
-                                                </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                                <label for="inputDate" class="col-sm-12 col-form-label">Medicament 3</label>
-                                                <div class="col-sm-12">
-                                                <input type="text" class="form-control" value ="medoc 3" disabled>
-                                                </div>
-                                            </div>
-
-                                    </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingThree">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                        Track #3
-                                    </button>
-                                    </h2>
-                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div class="row mb-3">
-                                        <label for="inputText" class="col-sm-12 col-form-label">Date de dernière consultation</label>
-                                        <div class="col-sm-12">
-                                            <input type="date" class="form-control" value ="30/10/2022" disabled>
-                                        </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                        <label for="inputEmail" class="col-sm-12 col-form-label">Nombre d'arrêts reçus (EX/IN)</label>
-                                        <div class="col-sm-12">
-                                            <input type="number" class="form-control" value ="4" disabled>
-                                        </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                        <label for="inputPassword" class="col-sm-12 col-form-label">Date de dernier arrêt</label>
-                                        <div class="col-sm-12">
-                                            <input type="date" class="form-control" value ="29/10/2022" disabled>
-                                        </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                        <label for="inputNumber" class="col-sm-12 col-form-label">Nombre de jours</label>
-                                        <div class="col-sm-12">
-                                            <input type="number" class="form-control" value ="3" disabled>
-                                        </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                        <label for="inputNumber" class="col-sm-12 col-form-label">Delivré par</label>
-                                        <div class="col-sm-12">
-                                            <input class="form-control" type="text" value ="medecin 1" disabled>
-                                        </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                        <label for="inputDate" class="col-sm-12 col-form-label">Motif consultationultation</label>
-                                        <div class="col-sm-12">
-                                            <input type="text" class="form-control" value ="Paludisme" disabled>
-                                        </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="inputDate" class="col-sm-12 col-form-label">Médicament 1</label>
-                                            <div class="col-sm-12">
-                                            <input type="text" class="form-control" value ="medoc 1" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="inputDate" class="col-sm-12 col-form-label">Médicament 2</label>
-                                            <div class="col-sm-12">
-                                            <input type="text" class="form-control" value ="medoc 2" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="inputDate" class="col-sm-12 col-form-label">Médicament 3</label>
-                                            <div class="col-sm-12">
-                                            <input type="text" class="form-control" value ="medoc 3" disabled>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    </div>
-                                </div>
-                                </div><!-- End Default Accordion Example -->
-
-                            </div>
-                            </div>
-                        </div>
-
                     <!-- Right side columns -->
 
                     <form class="col-md-12" method="post" action="{{ route($link.'.store') }}">
@@ -279,9 +64,14 @@
                                                                 <label for="iris" class="form-label">Iris</label>
                                                                 <input type="number" class="form-control" id="iris" value="{{ $agent->iris }}" disabled>
                                                             </div>
-                                                            <div class="col-md-7">
+                                                            <div class="col-md-5">
                                                                 <label for="nom" class="form-label">Nom & Prénom(s)</label>
                                                                 <input type="text" class="form-control" id="nom" value="{{ $agent->nom. ' '.$agent->prenom }}" disabled>
+                                                            </div>
+
+                                                            <div class="col-md-2">
+                                                                <label for="dateNaissance" class="form-label">Date de Naissance</label>
+                                                                <input type="text" class="form-control" id="dateNaissance" value="<?= date('d-m-Y', strtotime($agent->dateNaissance)) ?>"  disabled>
                                                             </div>
 
                                                             <div class="col-md-3">
@@ -294,15 +84,22 @@
                                                                 <label for="iris" class="form-label">Site</label>
                                                                 <input type="text" class="form-control" id="iris" value="{{ $agent->projet->site->designation }}" disabled>
                                                             </div>
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-4">
                                                                 <label for="emploi" class="form-label">Emploi</label>
                                                                 <input type="text" class="form-control" id="emploi" value="{{ $agent->Emploi->designation }}" disabled>
                                                             </div>
 
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-3">
+                                                                <label for="contrat" class="form-label">Type de Contrat</label>
+                                                                <input type="text" class="form-control" id="contrat" value="{{ $agent->Contrat->designation }}" disabled>
+                                                            </div>
+
+                                                            <div class="col-md-3">
                                                                 <label for="manager" class="form-label">Manager</label>
                                                                 <input type="text" class="form-control" id="manager" value="{{ $agent->Manager->nom.' '.$agent->Manager->prenom }}" disabled>
                                                             </div>
+
+
 
                                                         </div>
                                                     </div>
@@ -317,6 +114,20 @@
                                                 </h2>
                                                 <div id="collapseSeven" class="accordion-collapse collapse show" aria-labelledby="collapseSeven" data-bs-parent="#accordionExample1">
                                                     <div class="row g-3 accordion-body">
+
+                                                        <div class="col-md-12 row mb-2 mt-2">
+                                                            <label for="natureReception" class="form-label">Site de consultation </label>
+                                                            <select name="natureReception" class="form-control w-100" id="natureReception">
+                                                                <?php
+                                                                    foreach ($sites as $site) {
+                                                                        ?>
+                                                                        <option  value="{{ $site->id }}">{{ $site->designation }}</option>
+                                                                        <?php
+                                                                    }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
                                                         <fieldset class="col-12">
                                                             <legend>Constantes</legend>
 
@@ -347,14 +158,24 @@
                                                             <legend>Diagnostique</legend>
 
                                                             <div class="row">
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-2">
                                                                     <label for="assurance" class="form-label">Assuré</label>
                                                                     <select class="form-control" name="assurance" id="assurance">
-                                                                        <option value="nom" selected>Non</option>
+                                                                        <option value="non" selected>Non</option>
                                                                         <option value="oui">Oui</option>
                                                                     </select>
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <?php
+                                                                if($agent->Contrat->designation == 'CDI'){
+                                                                ?>
+                                                                <div class="col-md-2">
+                                                                    <label for="matriculeAssurance" class="form-label">Matricule Assurance</label>
+                                                                    <input type="text"  class="form-control" id="matriculeAssurance" name="matriculeAssurance" >
+                                                                </div>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                                <div class="col-md-2">
                                                                     <label for="accident" class="form-label">Accident de travail </label>
                                                                     <select class="form-control" name="accident" id="accident">
                                                                         <option value="oui">Oui</option>
@@ -410,24 +231,20 @@
                                                                 </div>
 
                                                                 <div class="col-md-3">
-                                                                    <label for="duree_arret" class="form-label">Durée arrêt maladie</label>
-                                                                    <select class="form-control" name="duree_arret" id="duree_arret">
-                                                                        <?php
-                                                                        for ($i=1; $i<=24; $i++){
-                                                                        ?>
-                                                                        <option value="<?php echo $i;?>"><?php echo $i;?></option>
-                                                                        <?php
-                                                                        }
-                                                                        ?>
-                                                                    </select>
+                                                                    <label for="duree_arret" class="form-label">Durée arrêt maladie (en heure)</label>
+                                                                    <input type="number" class="form-control" name="duree_arret" id="duree_arret">
                                                                 </div>
                                                                 <div class="col-md-2">
+                                                                    <label for="enJours" class="form-label">En Jour</label>
+                                                                    <input type="text" class="form-control" disabled id="enJours">
+                                                                </div>
+                                                                <div class="col-md-2 d-none">
                                                                     <label for="nbrJour" class="form-label">en (heure/jour)</label>
                                                                     <select class="form-control" name="nbrJour" id="nbrJour">
                                                                         <option value="Heure" selected>Heure</option>
-                                                                        <option value="Jour" >Jour</option>
                                                                     </select>
                                                                 </div>
+
                                                                 <div class="col-md-3">
                                                                     <label for="debutArret" class="form-label">Date de début </label>
                                                                     <input type="date" class="form-control" id="debutArret"  name="debutArret" >
@@ -514,8 +331,8 @@
                                                             <textarea class="form-control" rows="3" id="observation" name="observation"></textarea>
                                                         </div>
 
-                                                        <div class="col-md-3">
-                                                            <button class="btn btn-primary" type="submit">Enregistrer</button>
+                                                        <div class="col-md-12 text-center">
+                                                            <button class="btn btn-primary btn-lg" type="submit">Enregistrer</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -549,7 +366,7 @@
                                                                     <div class="row">
                                                                         <label for="typeMedicament" class="col-sm-12 col-form-label">Type de médicament</label>
                                                                         <div class="col-sm-12">
-                                                                            <select name="typeMedicament" class="form-control" id="typeMedicamentPrescrit">
+                                                                            <select name="typeMedicament_1" class="form-control" id="typeMedicamentPrescrit">
                                                                                 <option value="Comprimé">Comprimé</option>
                                                                                 <option value="Injection">Injection</option>
                                                                                 <option value="Géllule">Géllule</option>
@@ -682,7 +499,7 @@
                                             <td><?= date('d/m/Y', strtotime($consultation->created_at)) ?></td>
                                             <td><?= date('H:i:s', strtotime($consultation->created_at)) ?></td>
                                             <td><?= $consultation->MotifConsultation->intitule ?></td>
-                                            <td>User_id</td>
+                                            <td><?= $consultation->Medecin->name ?></td>
                                             <td><?= ucfirst($consultation->arretMaladie) ?></td>
                                             <td><?= $consultation->arretMaladie == 'non' ? '-' : $consultation->duree_arret ?></td>
                                             <td><?= $consultation->arretMaladie == 'non' ? '-' : date('d/m/Y', strtotime($consultation->debutArret)) ?></td>
@@ -738,5 +555,33 @@
         });
     </script>
     <script src="{{ asset("assets/js/scripts/prescrire.js") }}"></script>
+
+    <script>
+        function SplitTime(numberOfHours){
+            var Days = Math.floor(numberOfHours/24);
+            var Remainder = numberOfHours % 24;
+            var Hours = Math.floor(Remainder);
+            var Minutes = Math.floor(60*(Remainder-Hours));
+            return({"Days":Days,"Hours":Hours,"Minutes":Minutes})
+        }
+
+        $('#duree_arret').keyup(function () {
+            let qte = $(this).val();
+            let resultats = SplitTime(qte);
+            let jour = (resultats.Days > 1) ? ' Jours ' : ' Jour ';
+            let heure = (resultats.Hours > 1) ? ' Heures ' : ' Heure ';
+            let texte = resultats.Days + jour + ' ' + resultats.Hours + heure;
+            $('#enJours').val(texte);
+        });
+
+        $('#duree_arret').change(function () {
+            let qte = $(this).val();
+            let resultats = SplitTime(qte);
+            let jour = (resultats.Days > 1) ? ' Jours ' : ' Jour ';
+            let heure = (resultats.Hours > 1) ? ' Heures ' : ' Heure ';
+            let texte = resultats.Days + jour + ' ' + resultats.Hours + heure;
+            $('#enJours').val(texte);
+        });
+    </script>
 @stop
 

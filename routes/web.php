@@ -29,12 +29,12 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('fonction', \App\Http\Controllers\FonctionController::class);
     Route::resource('sub_fonction', \App\Http\Controllers\Sub_FonctionController::class);
     Route::resource('typecontrat', \App\Http\Controllers\ContratController::class);
-    Route::resource('agent_sante', \App\Http\Controllers\Agent_santeController::class);
+    //Route::resource('agent_sante', \App\Http\Controllers\Agent_santeController::class);
     Route::resource('motif_consultation', \App\Http\Controllers\Motif_consultationController::class);
-    Route::resource('maladie_contagieuse', \App\Http\Controllers\Maladie_contagieuseController::class);
-    Route::resource('maladie_prof', \App\Http\Controllers\Maladie_profController::class);
+   // Route::resource('maladie_contagieuse', \App\Http\Controllers\Maladie_contagieuseController::class);
+    //Route::resource('maladie_prof', \App\Http\Controllers\Maladie_profController::class);
     Route::resource('consultation', \App\Http\Controllers\ConsultationController::class);
-    Route::resource('justificatif_externe', \App\Http\Controllers\Justificatif_externeController::class);
+    Route::resource('justificatif_externe', \App\Http\Controllers\JustificatifController::class);
     Route::resource('projet', \App\Http\Controllers\ProjetController::class);
     //Route::resource('teste', \App\Http\Controllers\TesteController::class);
 
@@ -50,4 +50,4 @@ Route::get('profil/revoquer/{idRole}/{idPermission}', [\App\Http\Controllers\Rol
 
 Route::post('/getAgent/{id}', [\App\Http\Controllers\AgentController::class, 'getAgentByIris'])->name('getAgent');
 Route::get('/consulter/{id}', [\App\Http\Controllers\ConsultationController::class, 'consulter']);
-Route::get('/reception/{id}', [\App\Http\Controllers\Justificatif_externeController::class, 'reception']);
+Route::get('/reception/{id}', [\App\Http\Controllers\JustificatifController::class, 'reception']);

@@ -26,6 +26,7 @@ class AgentController extends Controller
      */
     public function index()
     {
+
         $items = Agent::all();
 
         return view($this->templatePath.'.liste', ['titre' => "Liste des agents", 'items' => $items, 'link' => $this->link]);

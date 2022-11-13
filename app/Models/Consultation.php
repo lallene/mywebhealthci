@@ -38,6 +38,9 @@ class Consultation extends Model
         'natureReception',
         'natureDuree',
         'user_id',
+        'dateConsultation',
+        'typeConsultation',
+        'etatValidite',
     ];
 
     public function MotifConsultation(){
@@ -50,6 +53,14 @@ class Consultation extends Model
 
     public function Ordonnances(){
         return $this->hasMany(Ordonnance::class);
+    }
+
+    public function Medecin(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function Justificatif(){
+        return $this->belongsTo(Justificatif::class);
     }
 }
 
