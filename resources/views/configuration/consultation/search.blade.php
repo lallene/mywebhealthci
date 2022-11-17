@@ -36,7 +36,7 @@
                                     <input type="text" class="form-control" id="nom" readonly>
                                 </div>
                                 <div class="col-md-7">
-                                    <label for="prenom" class="form-label">Prémons</label>
+                                    <label for="prenom" class="form-label">Prénoms</label>
                                     <input type="text" class="form-control" id="prenom" readonly>
                                 </div>
                                 <div class="col-md-6">
@@ -52,8 +52,8 @@
                                     <input type="text" class="form-control" id="projet" readonly>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="fonction" class="form-label">Fonction</label>
-                                    <input type="text" class="form-control" id="fonction" readonly>
+                                    <label for="contrat" class="form-label">Type de Contrat</label>
+                                    <input type="text" class="form-control" id="contrat" readonly>
                                 </div>
                                 <div class="col-md-4">
                                     <label for="service" class="form-label">Emploi</label>

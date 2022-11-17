@@ -31,7 +31,7 @@
                             <button class="btn btn-primary btn-modal"
                                     data-toggle="modal"
                                     data-target="#fsModal">
-                                Afficher le Track
+                                Afficher le Tracker
                             </button>
                         </div>
                     </div>
@@ -64,12 +64,12 @@
                                                                 <label for="iris" class="form-label">Iris</label>
                                                                 <input type="number" class="form-control" id="iris" value="{{ $agent->iris }}" disabled>
                                                             </div>
-                                                            <div class="col-md-5">
+                                                            <div class="col-md-4">
                                                                 <label for="nom" class="form-label">Nom & Prénom(s)</label>
                                                                 <input type="text" class="form-control" id="nom" value="{{ $agent->nom. ' '.$agent->prenom }}" disabled>
                                                             </div>
 
-                                                            <div class="col-md-2">
+                                                            <div class="col-md-3">
                                                                 <label for="dateNaissance" class="form-label">Date de Naissance</label>
                                                                 <input type="text" class="form-control" id="dateNaissance" value="<?= date('d-m-Y', strtotime($agent->dateNaissance)) ?>"  disabled>
                                                             </div>
@@ -158,24 +158,18 @@
                                                             <legend>Diagnostique</legend>
 
                                                             <div class="row">
-                                                                <div class="col-md-2">
-                                                                    <label for="assurance" class="form-label">Assuré</label>
-                                                                    <select class="form-control" name="assurance" id="assurance">
-                                                                        <option value="non" selected>Non</option>
-                                                                        <option value="oui">Oui</option>
-                                                                    </select>
-                                                                </div>
+
                                                                 <?php
                                                                 if($agent->Contrat->designation == 'CDI'){
                                                                 ?>
-                                                                <div class="col-md-2">
+                                                                <div class="col-md-3">
                                                                     <label for="matriculeAssurance" class="form-label">Matricule Assurance</label>
                                                                     <input type="text"  class="form-control" id="matriculeAssurance" name="matriculeAssurance" >
                                                                 </div>
                                                                 <?php
                                                                 }
                                                                 ?>
-                                                                <div class="col-md-2">
+                                                                <div class="col-md-3">
                                                                     <label for="accident" class="form-label">Accident de travail </label>
                                                                     <select class="form-control" name="accident" id="accident">
                                                                         <option value="oui">Oui</option>
@@ -231,7 +225,7 @@
                                                                 </div>
 
                                                                 <div class="col-md-3">
-                                                                    <label for="duree_arret" class="form-label">Durée arrêt maladie (en heure)</label>
+                                                                    <label for="duree_arret" class="form-label">Durée arrêt maladie (heure)</label>
                                                                     <input type="number" class="form-control" name="duree_arret" id="duree_arret">
                                                                 </div>
                                                                 <div class="col-md-2">
@@ -289,8 +283,6 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-
-
                                                         </fieldset>
 
                                                         <fieldset class="col-12">
@@ -347,16 +339,54 @@
 
                                 <div class="card">
                                     <div class="card-body">
-
                                         <!-- Default Accordion -->
                                         <div class="accordion" id="accordionExample2">
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingFour">
                                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                                                        ORDONNANCE DU COLLABORATEUR
+                                                        TRACKER DU COLLABORATEUR
                                                     </button>
                                                 </h2>
                                                 <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample2">
+                                                    <div class="accordion-body" id="prescription">
+
+                                                        <fieldset class="mt-2">
+                                                            <legend>Liste des arrêts</legend>
+
+                                                            <table class="table table-striped table-responsive-sm table-bordered">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th width="25%">N°</th>
+                                                                    <th width="30%">Site</th>
+                                                                    <th width="20%">Date</th>
+                                                                    <th width="25%">Agent de santé</th>                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="tbody">
+
+                                                                </tbody>
+                                                            </table>
+                                                        </fieldset>
+
+                                                        <div id="formulaire"></div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- End Default Accordion Example -->
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <!-- Default Accordion -->
+                                        <div class="accordion" id="accordionExample2">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingFive">
+                                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                                        ORDONNANCE DU COLLABORATEUR
+                                                    </button>
+                                                </h2>
+                                                <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingFive" data-bs-parent="#accordionExample2">
                                                     <div class="accordion-body" id="prescription">
                                                         <fieldset>
                                                             <legend>Prescription</legend>
@@ -534,7 +564,7 @@
                 <div class="modal-footer">
                     <button class="btn btn-primary btn-lg"
                             data-dismiss="modal">
-                        <i class="fa fa-close"></i> Fermer Track
+                        <i class="fa fa-close"></i> Fermer Tracker
                     </button>
                 </div>
                 <!-- footer -->

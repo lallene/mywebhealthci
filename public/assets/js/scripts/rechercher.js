@@ -13,7 +13,7 @@ $('#searchIris').click(function (e) {
     $('#dateEmbauche').val('');
     $('#projet').val('');
     $('#fonction').val('');
-    $('#emploi').val('');
+    $('#contrat').val('');
 
     let iris = $('#iris').val();
 
@@ -35,7 +35,7 @@ $('#searchIris').click(function (e) {
                 $('#sexe').val(data.Sexe);
                 $('#dateEmbauche').val(data.DateEmbauche);
                 $('#projet').val(data.Projet);
-                $('#fonction').val(data.Fonction);
+                $('#contrat').val(data.Projet);
                 $('#emploi').val(data.Emploi);
 
                 let id = $('#id').val()+data.Id;
