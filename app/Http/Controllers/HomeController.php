@@ -48,7 +48,7 @@ class HomeController extends Controller
         $arretsBySite = self::getArretsBySites($begin, $end);
 
 
-        //echo('<pre>'); die(print_r($arretsBySite));
+        //echo('<pre>'); die(print_r($bySexe));
 
 
 

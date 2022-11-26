@@ -48,7 +48,7 @@ class Consultation extends Model
     }
 
     public function Site(){
-        return $this->belongsTo(site::class, 'site_id');
+        return $this->belongsTo(site::class, 'natureReception');
     }
 
     public function Ordonnances(){

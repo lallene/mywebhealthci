@@ -154,7 +154,7 @@
                                                             <?php
                                                                 if($agent->Contrat->designation == 'CDI'){
                                                                     ?>
-                                                                    <div class="col-md-2">
+                                                                    <div class="col-md-2 d-none" id="matriculeAssuranceDiv">
                                                                         <label for="matriculeAssurance" class="form-label">Matricule Assurance</label>
                                                                         <input type="text" class="form-control" id="matriculeAssurance" name="matriculeAssurance" >
                                                                     </div>
@@ -176,7 +176,8 @@
                                                             </div>
                                                             <div class="col-md-2">
                                                                 <label for="enJours" class="form-label">En Jour</label>
-                                                                <input type="text" class="form-control" disabled id="enJours">
+                                                                <input type="text" class="form-control" disabled id="enJours" value="0">
+                                                                <input type="hidden" class="form-control" id="enJours2" value="0">
                                                             </div>
                                                             <div class="col-md-2 d-none">
                                                                 <label for="nbrJour" class="form-label">en (heure/jour)</label>
@@ -187,11 +188,11 @@
 
                                                             <div class="col-md-3">
                                                                 <label for="debutArret" class="form-label">Date de début </label>
-                                                                <input type="date" class="form-control" id="debutArret"  name="debutArret" >
+                                                                <input type="date" class="form-control" id="debutArret" min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>"  name="debutArret" >
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label for="dateReprise" class="form-label">Date de reprise</label>
-                                                                <input type="date" class="form-control" id="dateReprise" name="dateReprise">
+                                                                <input type="date" class="form-control" id="dateReprise" value="<?= date('Y-m-d') ?>" name="dateReprise">
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label for="justificatifValide" class="form-label">Justificatif valide </label>
@@ -283,22 +284,11 @@
   <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 @stop
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="{{ asset("assets/js/scripts/interact.js") }}"></script>
     <script>
         $( document ).ready(function() {
             $('#sidebarCollapse').trigger('click');
-        });
-
-        function SplitTime(numberOfHours){
-            var Days=Math.floor(numberOfHours/24);
-            var Remainder=numberOfHours % 24;
-            var Hours=Math.floor(Remainder);
-            var Minutes=Math.floor(60*(Remainder-Hours));
-            return({"Days":Days,"Hours":Hours,"Minutes":Minutes})
-        }
-
-        $('#duree_arret').change(function () {
-            let qte = $(this).val();
-            $('#enJours').val(SplitTime(qte))
         });
 
     </script>

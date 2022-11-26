@@ -159,17 +159,25 @@
 
                                                             <div class="row">
 
+                                                                <div class="col-md-2">
+                                                                    <label for="assurance" class="form-label">Assuré</label>
+                                                                    <select class="form-control" name="assurance" id="assurance">
+                                                                        <option value="non" selected>Non</option>
+                                                                        <option value="oui">Oui</option>
+                                                                    </select>
+                                                                </div>
+
                                                                 <?php
                                                                 if($agent->Contrat->designation == 'CDI'){
                                                                 ?>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 d-none" id="matriculeAssuranceDiv">
                                                                     <label for="matriculeAssurance" class="form-label">Matricule Assurance</label>
-                                                                    <input type="text"  class="form-control" id="matriculeAssurance" name="matriculeAssurance" >
+                                                                    <input type="text"  class="form-control" readonly id="matriculeAssurance" name="matriculeAssurance" >
                                                                 </div>
                                                                 <?php
                                                                 }
                                                                 ?>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-2">
                                                                     <label for="accident" class="form-label">Accident de travail </label>
                                                                     <select class="form-control" name="accident" id="accident">
                                                                         <option value="oui">Oui</option>
@@ -178,7 +186,7 @@
                                                                 </div>
 
 
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-2">
                                                                     <label for="traitement" class="form-label">Traitement</label>
                                                                     <select class="form-control" name="traitement" id="traitement">
                                                                         <option value="oui" selected>Oui</option>
@@ -224,13 +232,14 @@
                                                                     </select>
                                                                 </div>
 
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 arretMaladieSwitch d-none">
                                                                     <label for="duree_arret" class="form-label">Durée arrêt maladie (heure)</label>
-                                                                    <input type="number" class="form-control" name="duree_arret" id="duree_arret">
+                                                                    <input type="number" class="form-control" name="duree_arret" id="duree_arret" value="0">
                                                                 </div>
-                                                                <div class="col-md-2">
+                                                                <div class="col-md-2 arretMaladieSwitch d-none">
                                                                     <label for="enJours" class="form-label">En Jour</label>
-                                                                    <input type="text" class="form-control" disabled id="enJours">
+                                                                    <input type="text" class="form-control" disabled id="enJours" value="0">
+                                                                    <input type="hidden" class="form-control" id="enJours2" value="0">
                                                                 </div>
                                                                 <div class="col-md-2 d-none">
                                                                     <label for="nbrJour" class="form-label">en (heure/jour)</label>
@@ -239,15 +248,15 @@
                                                                     </select>
                                                                 </div>
 
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 arretMaladieSwitch d-none">
                                                                     <label for="debutArret" class="form-label">Date de début </label>
-                                                                    <input type="date" class="form-control" id="debutArret"  name="debutArret" >
+                                                                    <input type="date" class="form-control" min="<?= date('Y-m-d') ?>" id="debutArret" value="<?= date('Y-m-d') ?>"  name="debutArret" >
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 arretMaladieSwitch d-none">
                                                                     <label for="dateReprise" class="form-label">Date de reprise</label>
-                                                                    <input type="date" class="form-control" id="dateReprise" name="dateReprise">
+                                                                    <input type="date" class="form-control" readonly id="dateReprise" value="<?= date('Y-m-d') ?>" name="dateReprise">
                                                                 </div>
-                                                                <div class="col-md-3">
+                                                                <div class="col-md-3 arretMaladieSwitch d-none">
                                                                     <label for="billetSortie" class="form-label">Bulletin de sortie</label>
                                                                     <select class="form-control" name="billetSortie" id="billetSortie">
                                                                         <option value="oui" >Oui</option>
@@ -290,18 +299,18 @@
 
                                                             <div class="row">
                                                                 <div class="col-md-4">
-                                                                    <label for="vaccinCovid" class="form-label">Vacciné Covid-19</label>
-                                                                    <select class="form-control" name="vaccin_covid" id="vaccinCovid">
-                                                                        <option value="oui" >Oui</option>
-                                                                        <option value="non" selected>Non</option>
-                                                                    </select>
-                                                                </div>
-
-                                                                <div class="col-md-4">
                                                                     <label for="testCovid" class="form-label">Test Covid-19</label>
                                                                     <select class="form-control" name="testCovid" id="testCovid">
                                                                         <option value="Positif" >Positif</option>
                                                                         <option value="Negatif" selected>Negatif</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-4">
+                                                                    <label for="vaccinCovid" class="form-label">Vacciné Covid-19</label>
+                                                                    <select class="form-control" name="vaccin_covid" id="vaccinCovid">
+                                                                        <option value="oui" >Oui</option>
+                                                                        <option value="non" selected>Non</option>
                                                                     </select>
                                                                 </div>
 
@@ -355,21 +364,32 @@
 
                                                             <table class="table table-striped table-responsive-sm table-bordered">
                                                                 <thead>
-                                                                <tr>
-                                                                    <th width="25%">N°</th>
-                                                                    <th width="30%">Site</th>
-                                                                    <th width="20%">Date</th>
-                                                                    <th width="25%">Agent de santé</th>                                                                </tr>
-                                                                </thead>
-                                                                <tbody id="tbody">
-
+                                                                    <tr>
+                                                                        <th width="20%">Date</th>
+                                                                        <th width="30%">Site</th>
+                                                                        <th width="20%">Durée</th>
+                                                                        <th width="30%">Agent de santé</th>                                                                </tr>
+                                                                    </thead>
+                                                                <tbody>
+                                                                <?php
+                                                                    if(isset($agent->Consultations) AND !empty($agent->Consultations)){
+                                                                        foreach ($agent->Consultations as $consultation) {
+                                                                            if($consultation->arretMaladie == 'oui'){
+                                                                                ?>
+                                                                                <tr>
+                                                                                    <td><?= date('d/m/Y', strtotime($consultation->dateConsultation)) ?></td>
+                                                                                    <td><?= $consultation->Site->designation ?></td>
+                                                                                    <td><?= $consultation->duree_arret ?> <?= $consultation->duree_arret > 1 ? 'Heures' : 'Heure' ?></td>
+                                                                                    <td><?= $consultation->Medecin->name ?></td>
+                                                                                </tr>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                ?>
                                                                 </tbody>
                                                             </table>
                                                         </fieldset>
-
-                                                        <div id="formulaire"></div>
-
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -584,34 +604,8 @@
             $('#sidebarCollapse').trigger('click');
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="{{ asset("assets/js/scripts/prescrire.js") }}"></script>
-
-    <script>
-        function SplitTime(numberOfHours){
-            var Days = Math.floor(numberOfHours/24);
-            var Remainder = numberOfHours % 24;
-            var Hours = Math.floor(Remainder);
-            var Minutes = Math.floor(60*(Remainder-Hours));
-            return({"Days":Days,"Hours":Hours,"Minutes":Minutes})
-        }
-
-        $('#duree_arret').keyup(function () {
-            let qte = $(this).val();
-            let resultats = SplitTime(qte);
-            let jour = (resultats.Days > 1) ? ' Jours ' : ' Jour ';
-            let heure = (resultats.Hours > 1) ? ' Heures ' : ' Heure ';
-            let texte = resultats.Days + jour + ' ' + resultats.Hours + heure;
-            $('#enJours').val(texte);
-        });
-
-        $('#duree_arret').change(function () {
-            let qte = $(this).val();
-            let resultats = SplitTime(qte);
-            let jour = (resultats.Days > 1) ? ' Jours ' : ' Jour ';
-            let heure = (resultats.Hours > 1) ? ' Heures ' : ' Heure ';
-            let texte = resultats.Days + jour + ' ' + resultats.Hours + heure;
-            $('#enJours').val(texte);
-        });
-    </script>
+    <script src="{{ asset("assets/js/scripts/interact.js") }}"></script>
 @stop
 

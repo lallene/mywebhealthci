@@ -112,7 +112,7 @@
                                                     <tr>
                                                         <th>Lieu Consultation</th>
                                                         <th class="text-center">Nbre Arrêt</th>
-                                                        <th class="text-center">Nbre Jrs Arrêt</th>
+                                                        <th class="text-center">Nbre Heure Arrêt</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -205,12 +205,12 @@
                                                             if($dataPoint['a'] > 0){
                                                                 $perc = ($dataPoint['b'] * 100) / $dataPoint['a'];
                                                             }else{
-                                                                $perc = 100;
+                                                                $perc = '-';
                                                             }
                                                             ?>
                                                             <tr>
                                                                 <td><?= $dataPoint['y'] ?></td>
-                                                                <td class="text-center"><?= $perc ?>%</td>
+                                                                <td class="text-center"><?= is_numeric($perc) ? round($perc, 2).'%' : '-' ?></td>
                                                             </tr>
                                                             <?php
                                                         }
@@ -309,7 +309,7 @@
                                                                 <td><?= $data['Motif'] ?></td>
                                                                 <td class="text-center"><?= $data['Consultation'] ?></td>
                                                                 <td class="text-center"><?= $data['Arret'] ?></td>
-                                                                <td class="text-center"><?= $perc ?>%</td>
+                                                                <td class="text-center"><?= round($perc, 2) ?>%</td>
                                                             </tr>
                                                             <?php
                                                         }
