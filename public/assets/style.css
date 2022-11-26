@@ -3429,3 +3429,7 @@ label{
     color: #000!important;
     font-weight: bolder;
 }
+
+.graph_revenue{
+    /* min-height: 150px !important; */
+}

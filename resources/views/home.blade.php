@@ -268,7 +268,7 @@
                         <div class="card">
                             <div class="card-header">Arrêt Par Trânche d'âge</div>
                             <div class="card-body">
-                                <div id="chartByAge" ></div>
+                                <div id="chartByTranche" ></div>
                             </div>
                         </div>
                     </div>
@@ -415,8 +415,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="content">
-                                            <table class="table">
-                                                <thead>
+                                            <table class="table table-bordered">
+                                                <thead class="bg-success text-white font-weight-bold">
                                                 <tr>
                                                     <th>Tranche</th>
                                                     <th>Nbre Consultation</th>
@@ -424,12 +424,59 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>Tranche</td>
-                                                    <td>10</td>
-                                                    <td>10</td>
-                                                </tr>
+                                                    <?php
+                                                        //echo('<pre>'); die(print_r($pathologieByTranche));
+                                                        $keys[0] = '18 - 25';
+                                                        $keys[1] = '25 - 30';
+                                                        $keys[2] = '> 30';
+                                                        $totalConsultation = 0;
+                                                        $totalArret = 0;
+                                                        foreach ($keys as $x => $key) {
+                                                            if (isset($pathologieByTranche[$key])){
+                                                                $data = $pathologieByTranche[$key];
+                                                                //echo('<pre>'); die(print_r($pathologieByTranche));
+                                                                $totalConsultation += $data['Consultation'];
+                                                                $totalArret += $data['Arret'];
+                                                                ?>
+                                                                <tr class="font-weight-bold">
+                                                                    <td><?= $key ?></td>
+                                                                    <td class="text-center"><?= $data['Consultation'] ?></td>
+                                                                    <td class="text-center"><?= $data['Arret'] ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                    if (isset($data['Items'])){
+                                                                        foreach ($data['Items'] as $value) {
+                                                                            ?>
+                                                                            <tr>
+                                                                                <td class="pl-4"><?= $value['Pathologie'] ?></td>
+                                                                                <td class="text-center"><?= $value['Consultation'] ?></td>
+                                                                                <td class="text-center"><?= $value['Arret'] ?></td>
+                                                                            </tr>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                            }else{
+                                                                ?>
+                                                                <tr class="font-weight-bold">
+                                                                    <td><?= $key ?></td>
+                                                                    <td class="text-center">0</td>
+                                                                    <td class="text-center">0</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pl-4" colspan="3">Vide</td>
+                                                                </tr>
+                                                                <?php
+                                                            }
+                                                        }
+                                                    ?>
                                                 </tbody>
+                                                <tfoot class="bg-success text-white font-weight-bold">
+                                                <tr>
+                                                    <td>Total Général</td>
+                                                    <td class="text-center"><?= $totalConsultation ?></td>
+                                                    <td class="text-center"><?= $totalArret ?></td>
+                                                </tr>
+                                                </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -551,6 +598,24 @@
                 element: 'chartBySexe',
                 data: <?= json_encode($bySexe, JSON_NUMERIC_CHECK) ?>
             });
+
+            // Par Tranche d'âge
+
+            var  config = {
+                data: <?= json_encode($arretsByTranche) ?>,
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Nbre Consultation', 'Nbre Arrêt'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors:['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors:['gray','red']
+            };
+            config.element = 'chartByTranche';
+            Morris.Bar(config);
 
             // Par Couverture Maladie
 

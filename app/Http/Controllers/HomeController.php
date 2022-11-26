@@ -37,6 +37,8 @@ class HomeController extends Controller
 
         $bySexe = self::getArretBySexe($begin, $end);
 
+        $arretsByTranche = self::getArretByTranche($begin, $end);
+
         $byCouverture = self::getArretByCouverture($begin, $end);
 
         $statByPathologie = self::getConsultationsByMotif($begin, $end);
@@ -46,6 +48,8 @@ class HomeController extends Controller
         $statByPathologieAndContagieux = self::getConsultationsByContagieux($begin, $end);
 
         $arretsBySite = self::getArretsBySites($begin, $end);
+
+        $pathologieByTranche = self::getPathologieByTranche($begin, $end);
 
 
         //echo('<pre>'); die(print_r($bySexe));
@@ -60,7 +64,9 @@ class HomeController extends Controller
             'statByPathologie' => $statByPathologie,
             'statByPathologieAndGenre' => $statByPathologieAndGenre,
             'statByPathologieAndContagieux' => $statByPathologieAndContagieux,
-            'arretsBySite' => $arretsBySite
+            'arretsBySite' => $arretsBySite,
+            'arretsByTranche' => $arretsByTranche,
+            'pathologieByTranche' => $pathologieByTranche
         ]);
     }
 
@@ -146,6 +152,57 @@ class HomeController extends Controller
 
         $array[1]['label'] = 'Féminin';
         $array[1]['value'] = sizeof($feminin);
+
+        return $array;
+    }
+
+    public function getArretByTranche($begin, $end){
+
+        $array = array();
+
+        $consultations = DB::table('consultations')
+            ->join('agents', 'consultations.agent_id', '=', 'agents.id')
+            ->whereDate('consultations.dateConsultation', '>=', $begin)
+            ->whereDate('consultations.dateConsultation', '<=', $end)
+            ->where('consultations.etatValidite', '=', 'valide')
+            ->get();
+
+        //echo('<pre>'); die(print_r($consultations));
+
+        $array[0]['y'] = '18 - 25';
+        $array[0]['a'] = 0;
+        $array[0]['b'] = 0;
+
+        $array[1]['y'] = '25 - 30';
+        $array[1]['a'] = 0;
+        $array[1]['b'] = 0;
+
+        $array[2]['y'] = '> 30';
+        $array[2]['a'] = 0;
+        $array[2]['b'] = 0;
+
+        foreach ($consultations as $consultation) {
+            $age = date('Y') - date('Y', strtotime($consultation->dateNaissance));
+
+            if($age < 25){
+                $array[0]['a'] += 1;
+                if($consultation->arretMaladie == 'oui'){
+                    $array[0]['b'] += 1;
+                }
+            }elseif ($age > 25 AND $age < 30){
+                $array[1]['a'] += 1;
+                if($consultation->arretMaladie == 'oui'){
+                    $array[1]['b'] += 1;
+                }
+            }else{
+                $array[2]['a'] += 1;
+                if($consultation->arretMaladie == 'oui'){
+                    $array[2]['b'] += 1;
+                }
+            }
+        }
+
+        //echo('<pre>'); die(print_r($array));
 
         return $array;
     }
@@ -415,6 +472,71 @@ class HomeController extends Controller
             if($arret->natureDuree == 'Jour')
                 $nbreTotalJrs += $arret->nbrJour;
         }
+    }
+
+    public function getPathologieByTranche($begin, $end){
+
+        $consultations = DB::table('consultations')
+            ->join('agents', 'consultations.agent_id', '=', 'agents.id')
+            ->whereDate('consultations.dateConsultation', '>=', $begin)
+            ->whereDate('consultations.dateConsultation', '<=', $end)
+            ->where('consultations.etatValidite', '=', 'valide')
+            ->get();
+
+        $bigArray = array();
+
+        foreach ($consultations as $consultation) {
+            $age = date('Y') - date('Y', strtotime($consultation->dateNaissance));
+
+            if($age < 25){
+                $key = '18 - 25';
+            }elseif ($age > 25 AND $age < 30){
+                $key = '25 - 30';
+            }else{
+                $key = '> 30';
+            }
+
+            if(isset($bigArray[$key][$consultation->motif_consultation_id])){
+                $bigArray[$key][$consultation->motif_consultation_id]['Consultation'] += 1;
+                if($consultation->arretMaladie == 'oui') {
+                    $bigArray[$key][$consultation->motif_consultation_id]['Arret'] += 1;
+                }
+            }else{
+                $pathologie = Motif_consultation::find($consultation->motif_consultation_id);
+                $bigArray[$key][$consultation->motif_consultation_id]['Pathologie'] = $pathologie->intitule;
+                $bigArray[$key][$consultation->motif_consultation_id]['Consultation'] = 1;
+                if($consultation->arretMaladie == 'oui') {
+                    $bigArray[$key][$consultation->motif_consultation_id]['Arret'] = 1;
+                }else{
+                    $bigArray[$key][$consultation->motif_consultation_id]['Arret'] = 0;
+                }
+            }
+        }
+
+        //echo('<pre>'); die(print_r($bigArray));
+
+        $array = array();
+
+        foreach ($bigArray as $key => $items) {
+            //if(!empty($items)){
+                $totalConsultation = 0;
+                $totalArret = 0;
+                foreach ($items as $item) {
+                    //echo('<pre>'); die(print_r($item));
+                    $totalConsultation += $item['Consultation'];
+                    $totalArret += $item['Arret'];
+                }
+                $array[$key]['Consultation'] = $totalConsultation;
+                $array[$key]['Arret'] = $totalArret;
+                $array[$key]['Items'] = $items;
+
+
+        }
+        //echo('<pre>'); die(print_r($array));
+
+        //echo('<pre>'); die(print_r($bigArray));
+
+        return $array;
     }
 
 }
