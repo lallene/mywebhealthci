@@ -50,7 +50,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        return view('configuration.role.edit', ['titre' => "Modifier Profil Utilisateur ".$role->guard_name, 'role' => $role]);
+        return view('configuration.role.edit', ['titre' => "Modifier Profil Utilisateur ".$role->name, 'role' => $role]);
     }
 
     public function update(Request $request, $id)
@@ -74,7 +74,7 @@ class RoleController extends Controller
         $permissions = $role->load('permissions');
 
         //echo('<pre>'); die(print_r($permisions->permissions));
-        return view('configuration.role.listePermission', ['titre' => "Liste des Permissions du Profil ".$role->guard_name, 'permissions' => $permissions->permissions, 'role' => $role]);
+        return view('configuration.role.listePermission', ['titre' => "Liste des Permissions du Profil ".$role->name, 'permissions' => $permissions->permissions, 'role' => $role]);
     }
 
     public function addPermission($id){
@@ -96,7 +96,7 @@ class RoleController extends Controller
         }
 
         //echo('<pre>'); die(print_r($permissions));
-        return view('configuration.role.ajouterPermission', ['titre' => "Ajouter Permissions du Profil ".$role->guard_name, 'role' => $role, 'permissions' => $permissions]);
+        return view('configuration.role.ajouterPermission', ['titre' => "Ajouter Permissions du Profil ".$role->name, 'role' => $role, 'permissions' => $permissions]);
     }
 
     public function grantPermission(Request $request, $id){

@@ -68,79 +68,86 @@
             <div class="sidebar_blog_2">
                 <h4>General</h4>
                 <ul class="list-unstyled components">
-                    <li><a href="{{ url('/') }}"><i class="fa fa-home orange_color"></i> <span>Accueil</span></a></li>
+                    @role('Agent de Santé|RH Manager|Administrateur')
+                        <li><a href="{{ url('/') }}"><i class="fa fa-home orange_color"></i> <span>Accueil</span></a></li>
+                    @endrole
+                    @role('RH Manager|Administrateur|IT')
+                        <li class="<?= (isset($menu) AND $menu == 'params') ? 'active' : '' ?>">
+                            <a href="#params" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                <i class="fa fa-key gs red_color"></i>
+                                <span>Paramètres</span>
+                            </a>
+                            <ul class="collapse list-unstyled" id="params">
+                                <li>
+                                    <a href="{{ route("permission.index") }}">> <span>Permissions</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ route("profil.index") }}">> <span>Profils Utilisateur</span></a>
+                                </li>
+                                <li>
+                                    <a href="{{ route("user.index") }}">> <span>Utilisateurs</span></a>
+                                </li>
+                            </ul>
+                        </li>
 
-                    <li class="<?= (isset($menu) AND $menu == 'params') ? 'active' : '' ?>">
-                        <a href="#params" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <i class="fa fa-key gs red_color"></i>
-                            <span>Paramètres</span>
-                        </a>
-                        <ul class="collapse list-unstyled" id="params">
-                            <li>
-                                <a href="{{ route("permission.index") }}">> <span>Permissions</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("profil.index") }}">> <span>Profils Utilisateur</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("user.index") }}">> <span>Utilisateurs</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="<?= (isset($menu) AND $menu == 'config') ? 'active' : '' ?>">
+                            <a href="#config" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                <i class="fa fa-cogs gs yellow_color"></i>
+                                <span>Configuration</span>
+                            </a>
+                            <ul class="collapse list-unstyled" id="config">
+                                @role('RH Manager|Administrateur')
+                                    <li>
+                                        <a href="{{ route("societe.index") }}">> <span>Sociétés</span></a>
+                                    </li>
 
-                    <li class="<?= (isset($menu) AND $menu == 'config') ? 'active' : '' ?>">
-                        <a href="#config" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <i class="fa fa-cogs gs yellow_color"></i>
-                            <span>Configuration</span>
-                        </a>
-                        <ul class="collapse list-unstyled" id="config">
-                            <li>
-                                <a href="{{ route("societe.index") }}">> <span>Sociétés</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("site.index") }}">> <span>Sites</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("famille.index") }}">> <span>Familles d'emploi</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("emploi.index") }}">> <span>Emplois</span></a>
-                            </li>
-                            <li>
-
-                                <a href="{{ route("fonction.index") }}">> <span>Fonctions</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("motif_consultation.index") }}">> <span>Motifs de consultations</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("projet.index") }}">> <span>Projets</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("effectif.index") }}">> <span>Effectif</span></a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="<?= (isset($menu) AND $menu == 'consulter') ? 'active' : '' ?>">
-                        <a href="#consulter" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                            <i class="fa fa-heartbeat gs green_color"></i>
-                            <span>Consultation</span>
-                        </a>
-                        <ul class="collapse list-unstyled" id="consulter">
-                            <li>
-                                <a href="{{ route("consultation.index") }}">> <span>Consultation</span></a>
-                            </li>
-                            <li>
-                                <a href="{{ route("justificatif_externe.index") }}">> <span>Justificatifs externes</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                                    <li>
+                                        <a href="{{ route("site.index") }}">> <span>Sites</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("famille.index") }}">> <span>Familles d'emploi</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("emploi.index") }}">> <span>Emplois</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("fonction.index") }}">> <span>Fonctions</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("sub_fonction.index") }}">> <span>Sous-Fonctions</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("motif_consultation.index") }}">> <span>Motifs de consultations</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("typecontrat.index") }}">> <span>Types de Contrat</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route("projet.index") }}">> <span>Projets</span></a>
+                                    </li>
+                                @endrole
+                                <li>
+                                    <a href="{{ route("effectif.index") }}">> <span>Effectif</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endrole
+                    @role('Agent de Santé')
+                        <li class="<?= (isset($menu) AND $menu == 'consulter') ? 'active' : '' ?>">
+                            <a href="#consulter" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                <i class="fa fa-heartbeat gs green_color"></i>
+                                <span>Consultation</span>
+                            </a>
+                            <ul class="collapse list-unstyled" id="consulter">
+                                <li>
+                                    <a href="{{ route("consultation.index") }}">> <span>Consultation</span></a>
+                                </li>
+                                <li class="d-none">
+                                    <a href="{{ route("justificatif_externe.index") }}">> <span>Justificatifs externes</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endrole
                 </ul>
             </div>
         </nav>

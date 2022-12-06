@@ -50,7 +50,7 @@ class PermissionController extends Controller
     public function edit($id)
     {
         $permission = Permission::find($id);
-        return view('configuration.permission.edit', ['titre' => "Modifier une Permission ".$permission->guard_name, 'role' => $permission]);
+        return view('configuration.permission.edit', ['titre' => "Modifier une Permission ".$permission->name, 'role' => $permission]);
     }
 
     public function update(Request $request, $id)
