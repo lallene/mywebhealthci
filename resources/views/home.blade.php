@@ -11,7 +11,7 @@
         <div class="row column_title mb-3" style="background-color: white;">
             <div class="col-md-3">
                 <div class="page_title mb-0" style="box-shadow: none!important">
-                    <h2>Dashboard Webhelp</h2>
+                    <h2>Dashboard MyHealth</h2>
                 </div>
             </div>
             <div class="col-md-9">
@@ -48,12 +48,73 @@
                         <button class="btn btn-success w-100">Afficher</button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="first" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés VS Consultations</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="second" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés VS Consultations</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="third" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">% Transformation</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="fourth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par type de contrat</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="fiveth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par Sexe</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="sixth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par Couverture Assurance</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="seventh" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par Trânche d'âge</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="eighth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Consultation par Pathologie</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="nineth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par Genre</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="tenth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par Tranche d'âge</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="eleventh" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Maladie Contagieuse</label>
+                        </div>
+                        <div class="form-check form-switch ">
+                            <input class="form-check-input" type="checkbox" role="switch" id="twelveth" checked>
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Statistique</label>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <div class="row column1">
+                <div class="row column1 twelveth ">
                     <div class="col-md-6 col-lg-3">
                         <div class="full counter_section margin_bottom_30">
                             <div class="counter_no">
@@ -95,15 +156,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="row column1 social_media_section mb-3">
-                    <div class="col-md-3">
+                <div class="row column1 social_media_section mb-3 " id="labels">
+                    <div class="col-md-3 first" >
                         <div class="white_shd full">
                             <div class="full graph_head">
                                 <div class="heading1 margin_0 text-center">
                                     <h2>Arrêt délivrés VS Consultations</h2>
                                 </div>
                             </div>
-                            <div class="full graph_revenue">
+                            <div class="full graph_revenue ">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="content">
@@ -157,7 +218,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 second">
                         <div class="white_shd full">
                             <div class="full graph_head">
                                 <div class="heading1 margin_0 text-center">
@@ -177,7 +238,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3  third">
                         <div class="white_shd full">
                             <div class="full graph_head">
                                 <div class="heading1 margin_0 text-center">
@@ -236,11 +297,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row column1 mb-2">
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-3 fourth">
                         <div class="card">
                             <div class="card-header">Arrêt Par type de contrat</div>
                             <div class="card-body">
@@ -248,7 +308,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-3 fiveth">
                         <div class="card">
                             <div class="card-header">Arrêt Par Sexe</div>
                             <div class="card-body">
@@ -256,7 +316,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-3 sixth">
                         <div class="card">
                             <div class="card-header">Arrêt Par Couverture Assurance</div>
                             <div class="card-body">
@@ -264,7 +324,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-3">
+                    <div class="col-md-6 col-lg-3 seventh">
                         <div class="card">
                             <div class="card-header">Arrêt Par Trânche d'âge</div>
                             <div class="card-body">
@@ -275,8 +335,7 @@
                 </div>
 
                 <div class="row column1 mb-2">
-                    <div class="col-md-6 col-lg-6">
-
+                    <div class="col-md-6 col-lg-6 eighth">
                         <div class="white_shd full">
                             <div class="full graph_head">
                                 <div class="heading1 margin_0 text-center">
@@ -337,7 +396,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 col-lg-6">
+                    <div class="col-md-6 col-lg-6 nineth">
 
                         <div class="white_shd full">
                             <div class="full graph_head">
@@ -402,8 +461,7 @@
                 </div>
 
                 <div class="row column1 mb-2">
-
-                    <div class="col-md-6 col-lg-6">
+                    <div class="col-md-6 col-lg-6 tenth">
 
                         <div class="white_shd full">
                             <div class="full graph_head">
@@ -485,9 +543,7 @@
                         </div>
                     </div>
 
-
-                    <div class="col-md-6 col-lg-6">
-
+                    <div class="col-md-6 col-lg-6 eleventh">
                         <div class="white_shd full">
                             <div class="full graph_head">
                                 <div class="heading1 margin_0 text-center">
@@ -551,6 +607,24 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+
+
+        // affichage multiple
+        $('#first').change(function(){   if($(this).is(":checked")) {    $('.first').removeClass('d-none');    } else {        $('.first').addClass('d-none');} });
+        $('#second').change(function(){   if($(this).is(":checked")) {    $('.second').removeClass('d-none');    } else {        $('.second').addClass('d-none');} });
+        $('#third').change(function(){   if($(this).is(":checked")) {    $('.third').removeClass('d-none');    } else {        $('.third').addClass('d-none');} });
+        $('#fourth').change(function(){   if($(this).is(":checked")) {    $('.fourth').removeClass('d-none');    } else {        $('.fourth').addClass('d-none');} });
+        $('#fiveth').change(function(){   if($(this).is(":checked")) {    $('.fiveth').removeClass('d-none');    } else {        $('.fiveth').addClass('d-none');} });
+        $('#sixth').change(function(){   if($(this).is(":checked")) {    $('.sixth').removeClass('d-none');    } else {        $('.sixth').addClass('d-none');} });
+        $('#seventh').change(function(){   if($(this).is(":checked")) {    $('.seventh').removeClass('d-none');    } else {        $('.seventh').addClass('d-none');} });
+        $('#eighth').change(function(){   if($(this).is(":checked")) {    $('.eighth').removeClass('d-none');    } else {        $('.eighth').addClass('d-none');} });
+        $('#nineth').change(function(){   if($(this).is(":checked")) {    $('.nineth').removeClass('d-none');    } else {        $('.nineth').addClass('d-none');} });
+        $('#tenth').change(function(){   if($(this).is(":checked")) {    $('.tenth').removeClass('d-none');    } else {        $('.tenth').addClass('d-none');} });
+        $('#eleventh').change(function(){   if($(this).is(":checked")) {    $('.eleventh').removeClass('d-none');    } else {        $('.eleventh').addClass('d-none');} });
+        $('#twelveth').change(function(){   if($(this).is(":checked")) {    $('.twelveth').removeClass('d-none');    } else {        $('.twelveth').addClass('d-none');} });
+
+
+
         $( document ).ready(function() {
             $('#sidebarCollapse').trigger('click');
 

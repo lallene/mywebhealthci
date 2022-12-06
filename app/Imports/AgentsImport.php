@@ -4,7 +4,6 @@ namespace App\Imports;
 
 use App\Models\Agent;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\ToArray;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -18,11 +17,17 @@ class AgentsImport implements  ToModel, WithHeadingRow, WithBatchInserts, WithCh
         $iris = DB::table('agents')->where('iris', $row['matricule_iris'])->first();
         $email_agent = DB::table('agents')->where('email_agent', $row['business_e_mail'])->first();
 
+        //
+
 
         $projet= DB::table('projets')->where('designation', $row['projetservice'])->first();
         $emploi= DB::table('emplois')->where('designation', $row['emploi'])->first();
         $sousfonction= DB::table('sub_fonctions')->where('intitule', $row['sub_fonction'])->first();
         $contrat = DB::table('contrats')->where('designation', $row['type_contrat'])->first();
+
+
+
+
         $societe= DB::table('societes')->where('designation', $row['societe'])->first();
         $dateNaissance= \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date_naissance'])->format('Y-m-d');
         $dateembauche= \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date_debut_contrat'])->format('Y-m-d');

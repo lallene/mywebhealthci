@@ -51,10 +51,7 @@
                                     <label for="projet" class="form-label">Projet</label>
                                     <input type="text" class="form-control" id="projet" readonly>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="contrat" class="form-label">Type de Contrat</label>
-                                    <input type="text" class="form-control" id="contrat" readonly>
-                                </div>
+
                                 <div class="col-md-4">
                                     <label for="service" class="form-label">Emploi</label>
                                     <input type="text" class="form-control" id="emploi" readonly>
