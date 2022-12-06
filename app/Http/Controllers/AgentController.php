@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\AgentsImport;
 use App\Models\Agent;
 use App\Models\Contrat;
 use App\Models\Emploi;
@@ -9,6 +10,7 @@ use App\Models\Projet;
 use App\Models\Societe;
 use App\Models\Sub_fonction;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AgentController extends Controller
 {
@@ -195,4 +197,12 @@ class AgentController extends Controller
 
         return json_encode($array);
     }
+
+    public function import (Request $req){
+
+       Excel::import(new AgentsImport, $req->file('agent_file') );
+
+        return back();
+    }
+
 }

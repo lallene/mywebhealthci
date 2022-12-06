@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Agent extends Model
 {
     use HasFactory;
+        /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+
 
     public $fillable = [
         'iris',
@@ -23,6 +29,7 @@ class Agent extends Model
         'contrat_id',
         'societe_id',
         'dateNaissance',
+        'email_agent'
     ];
 
     public $timestamps = false;
@@ -54,4 +61,6 @@ class Agent extends Model
     public function Consultations(){
         return $this->hasMany(Consultation::class);
     }
+
+
 }

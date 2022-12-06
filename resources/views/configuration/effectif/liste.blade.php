@@ -20,6 +20,28 @@
                                 <a href="{{ route($link.".create") }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
                                 <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-plus"></i> Quitter</a>
                             </div>
+                            <form action="/import" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-3 ">
+                                        <label for="formFile" class="form-label">La liste des effectifs(**.xlsx,.xls,.csv**)</label>
+                                        <input class="form-control" type="file" id="formFile" name="agent_file" accept=".xlsx,.xls,.csv" required>
+                                        <br>
+                                        <button type="submit" class="btn btn-success ">Upload</button>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <p class="fw-bold">**Entité / Société /Matricule IRIS / Projet_Service / Nom / Prénom**</p>
+                                        <p class="fw-bold">**EmploI / Date naissance / Sexe /Fonction emploi /Sub-fonction**</p>
+                                        <p class="fw-bold">**Manager hiérarchique /Type contrat / Date début contrat / Business e-mail**</p>
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </form>
                         </div>
                     </div>
                     <div class="card-body">
@@ -44,6 +66,7 @@
                                         if(isset($items)){
                                             $i = 0;
                                             foreach ($items as $item) {
+
                                                 $i++;
                                                 ?>
                                                 <tr>
@@ -55,7 +78,7 @@
                                                     <td><?= $item->SousFonction->intitule ?></td>
                                                     <td><?= $item->Contrat->designation ?></td>
                                                     <td><?= $item->Societe->designation ?></td>
-                                                    <td><?= !is_null($item->manager) ? $item->Manager->nom.' '.$item->Manager->prenom : '-' ?></td>
+                                                    <td><?= !is_null($item->Manager) ? $item->Manager->nom.' '.$item->Manager->prenom : '-' ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">

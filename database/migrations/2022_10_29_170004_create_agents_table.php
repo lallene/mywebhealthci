@@ -22,7 +22,8 @@ class CreateAgentsTable extends Migration
             $table->string('prenom');
             $table->string('sexe');
             $table->date('dateembauche');
-            $table->integer('manager')->nullable();
+            $table->string('manager')->nullable();
+            //$table->string('email', 250);
 
             $table->unsignedBigInteger('projet_id')->nullable();
             $table->foreign('projet_id')
@@ -79,3 +80,8 @@ class CreateAgentsTable extends Migration
         Schema::dropIfExists('agents');
     }
 }
+
+
+
+
+
