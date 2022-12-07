@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-    @role('RH Manager|Agent de Santé')
+    @role('RH Manager|Agent de Santé|Administrateur')
         <div class="container-fluid">
 
             <div class="row column_title mb-3" style="background-color: white;">
@@ -19,19 +19,27 @@
                     <div class="row">
                         <div class="col-12 text-center pt-2 pb-2 mb-2" style="font-weight: bolder; border: 1px black solid;">Filtrer </div>
                     </div>
-                    <div class="row">
+                    <form method="post" class="row" action="/dashboard" enctype="multipart/form-data">
+                        @csrf
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="debut" class="center">Période</label>
-                                <input id="debut" type="text" class="form-control" name="datefilter">
+                                <input id="debut" type="text" class="form-control" placeholder="<?= isset($periode) ? $periode : '' ?>" name="datefilter">
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="site" class="center">Site</label>
-                                <select class="form-control" id="site">
+                                <select class="form-control" id="site" name="siteSelected">
                                     <option value="all">Tous les Sites</option>
+                                    <?php
+                                        foreach ($sites as $site) {
+                                            ?>
+                                            <option <?= (isset($theSite) AND $theSite == $site->id) ? 'selected' : '' ?>  value="<?= $site->id ?>"><?= $site->designation ?></option>
+                                            <?php
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -39,16 +47,23 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="projet" class="center">Projet</label>
-                                <select class="form-control" id="projet">
+                                <select class="form-control" id="projet" name="projetSelected">
                                     <option value="all">Tous les Projets</option>
+                                    <?php
+                                        foreach ($projets as $projet) {
+                                            ?>
+                                            <option value="<?= $projet->id ?>"><?= $projet->designation ?></option>
+                                            <?php
+                                        }
+                                    ?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <label for="debut" class="center">&nbsp; &nbsp;</label>
-                            <button class="btn btn-success w-100">Afficher</button>
+                            <button class="btn btn-success w-100" type="submit">Afficher</button>
                         </div>
-                    </div>
+                    </form>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-check form-switch ">
@@ -113,6 +128,35 @@
 
             </div>
 
+            <?php
+                $totalHeureArret = 0;
+                $totalArret = 0;
+                $interne = 0;
+                $externe = 0;
+
+                foreach ($arretsBySite as $key => $data) {
+                    $totalArret += $data['TotalConsultation'];
+                    $totalHeureArret += $data['TotalArret'];
+                    if($key == 'Interne'){
+                        $interne += $totalArret;
+                    }else{
+                        $externe += $totalArret;
+                    }
+                }
+
+                if($totalArret > 0){
+                    $pourcentage = ($interne * 100) / $totalArret;
+                }else{
+                    $pourcentage = 0;
+                }
+
+                $totalConsultation = 0;
+
+                foreach ($dataPoints as $chartDatum) {
+                    $totalConsultation += $chartDatum['a'];
+                }
+            ?>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="row column1 twelveth ">
@@ -120,7 +164,7 @@
                             <div class="full counter_section margin_bottom_30">
                                 <div class="counter_no">
                                     <div>
-                                        <p class="total_no">2500</p>
+                                        <p class="total_no"><?= $totalConsultation ?></p>
                                         <p class="head_couter">Nbre Consultation</p>
                                     </div>
                                 </div>
@@ -130,7 +174,7 @@
                             <div class="full counter_section margin_bottom_30">
                                 <div class="counter_no">
                                     <div>
-                                        <p class="total_no">123.50</p>
+                                        <p class="total_no"><?= $totalArret ?></p>
                                         <p class="head_couter">Nbre d'arrêt</p>
                                     </div>
                                 </div>
@@ -140,7 +184,7 @@
                             <div class="full counter_section margin_bottom_30">
                                 <div class="counter_no">
                                     <div>
-                                        <p class="total_no">1,805</p>
+                                        <p class="total_no"><?= $totalHeureArret / 24 ?></p>
                                         <p class="head_couter">Nbre Total de Jour</p>
                                     </div>
                                 </div>
@@ -150,7 +194,7 @@
                             <div class="full counter_section margin_bottom_30">
                                 <div class="counter_no">
                                     <div>
-                                        <p class="total_no">54</p>
+                                        <p class="total_no"><?= $pourcentage ?></p>
                                         <p class="head_couter">% Arrêt Interne</p>
                                     </div>
                                 </div>

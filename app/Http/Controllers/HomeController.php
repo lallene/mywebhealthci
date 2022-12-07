@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contrat;
 use App\Models\Motif_consultation;
+use App\Models\Projet;
 use App\Models\Site;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,6 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $projets = Projet::all();
+        $sites = Site::all();
+
         $begin = date('Y-m-d');
         $end = date('Y-m-d');
 
@@ -57,6 +61,8 @@ class HomeController extends Controller
 
 
         return view('home', [
+            'projets' => $projets,
+            'sites' => $sites,
             'dataPoints' => $chartData,
             'byTypeContrat' => $byTypeContrat,
             'bySexe' => $bySexe,
@@ -70,7 +76,83 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getStatsByMedecin($begin, $end){
+    public function filter(Request $request)
+    {
+
+        //echo'<pre>';die(print_r($_POST));
+        $projets = Projet::all();
+        $sites = Site::all();
+
+        if(isset($_POST['datefilter']) AND $_POST['datefilter'] != ''){
+            $temp = explode(' - ', $_POST['datefilter']);
+
+            $begin = date('Y-m-d', strtotime($temp[0]));
+            $end = date('Y-m-d', strtotime($temp[1]));
+        }else{
+            $begin = date('Y-m-d');
+            $end = date('Y-m-d');
+        }
+
+        if(isset($_POST['siteSelected']) AND $_POST['siteSelected'] != 'all' AND is_numeric($_POST['siteSelected'])){
+            $siteSelected = $_POST['siteSelected'];
+        }else{
+            $siteSelected = null;
+        }
+
+
+
+        $chartData = self::getStatsByMedecin($begin, $end, $siteSelected);
+        //echo'<pre>';die(print_r($chartData));
+
+        $byTypeContrat = self::getArretByTypeContrat($begin, $end, $siteSelected);
+
+        $bySexe = self::getArretBySexe($begin, $end, $siteSelected);
+
+        $arretsByTranche = self::getArretByTranche($begin, $end, $siteSelected);
+
+        $byCouverture = self::getArretByCouverture($begin, $end, $siteSelected);
+
+        $statByPathologie = self::getConsultationsByMotif($begin, $end, $siteSelected);
+
+        $statByPathologieAndGenre = self::getConsultationsByMotifAndGenre($begin, $end, $siteSelected);
+
+        $statByPathologieAndContagieux = self::getConsultationsByContagieux($begin, $end, $siteSelected);
+
+        $arretsBySite = self::getArretsBySites($begin, $end, $siteSelected);
+
+        $pathologieByTranche = self::getPathologieByTranche($begin, $end, $siteSelected);
+
+
+        //echo('<pre>'); die(print_r($bySexe));
+
+        $theSite = '';
+
+        if(isset($_POST['siteSelected'])){
+            $theSite = $_POST['siteSelected'];
+        }
+
+        $periode = date('d/m/Y', strtotime($begin)). ' - ' .date('d/m/Y', strtotime($end));
+
+
+        return view('home', [
+            'projets' => $projets,
+            'sites' => $sites,
+            'theSite' => $theSite,
+            'periode' => $periode,
+            'dataPoints' => $chartData,
+            'byTypeContrat' => $byTypeContrat,
+            'bySexe' => $bySexe,
+            'byCouverture' => $byCouverture,
+            'statByPathologie' => $statByPathologie,
+            'statByPathologieAndGenre' => $statByPathologieAndGenre,
+            'statByPathologieAndContagieux' => $statByPathologieAndContagieux,
+            'arretsBySite' => $arretsBySite,
+            'arretsByTranche' => $arretsByTranche,
+            'pathologieByTranche' => $pathologieByTranche
+        ]);
+    }
+
+    public function getStatsByMedecin($begin, $end, $site = null){
         $users = User::all();
 
         $chartData = array();
@@ -91,10 +173,18 @@ class HomeController extends Controller
 
             if(!empty($consultations)){
                 foreach ($consultations as $consultation) {
-
-                    $chartData[$key]['a'] += 1;
-                    if($consultation->arretMaladie == 'oui'){
-                        $chartData[$key]['b'] += 1;
+                    if(is_null($site)){
+                        $chartData[$key]['a'] += 1;
+                        if($consultation->arretMaladie == 'oui'){
+                            $chartData[$key]['b'] += 1;
+                        }
+                    }else{
+                        if($site == $consultation->natureReception){
+                            $chartData[$key]['a'] += 1;
+                            if($consultation->arretMaladie == 'oui'){
+                                $chartData[$key]['b'] += 1;
+                            }
+                        }
                     }
                 }
             }
@@ -102,20 +192,25 @@ class HomeController extends Controller
         return $chartData;
     }
     
-    public function getArretByTypeContrat($begin, $end){
+    public function getArretByTypeContrat($begin, $end, $site = null){
         $contrats = Contrat::all();
 
         $arrayContrat = array();
 
         foreach ($contrats as $key => $contrat) {
-            $nombre = DB::table('consultations')
+            $query = DB::table('consultations')
                 ->join('agents', 'consultations.agent_id', '=', 'agents.id')
                 ->whereDate('consultations.dateConsultation', '>=', $begin)
                 ->whereDate('consultations.dateConsultation', '<=', $end)
                 ->where('consultations.etatValidite', '=', 'valide')
                 ->where('consultations.arretMaladie', '=', 'oui')
-                ->where('agents.contrat_id', '=', $contrat->id)
-                ->get();
+                ->where('agents.contrat_id', '=', $contrat->id);
+
+            if(!is_null($site)){
+                $query->where('natureReception', '=', $site);
+            }
+
+            $nombre = $query->get();
 
             $arrayContrat[$key]['label'] = $contrat->designation;
             $arrayContrat[$key]['value'] = sizeof($nombre);
@@ -125,27 +220,35 @@ class HomeController extends Controller
         return $arrayContrat;
     }
 
-    public function getArretBySexe($begin, $end){
+    public function getArretBySexe($begin, $end, $site = null){
 
         $array = array();
 
-        $masculin = DB::table('consultations')
+        $queryMasculin = DB::table('consultations')
             ->join('agents', 'consultations.agent_id', '=', 'agents.id')
             ->whereDate('consultations.dateConsultation', '>=', $begin)
             ->whereDate('consultations.dateConsultation', '<=', $end)
             ->where('consultations.etatValidite', '=', 'valide')
             ->where('consultations.arretMaladie', '=', 'oui')
-            ->where('agents.sexe', '=', 'M')
-            ->get();
+            ->where('agents.sexe', '=', 'M');
 
-        $feminin = DB::table('consultations')
+
+
+        $queryFeminin = DB::table('consultations')
             ->join('agents', 'consultations.agent_id', '=', 'agents.id')
             ->whereDate('consultations.dateConsultation', '>=', $begin)
             ->whereDate('consultations.dateConsultation', '<=', $end)
             ->where('consultations.etatValidite', '=', 'valide')
             ->where('consultations.arretMaladie', '=', 'oui')
-            ->where('agents.sexe', '=', 'F')
-            ->get();
+            ->where('agents.sexe', '=', 'F');
+
+        if(!is_null($site)){
+            $queryFeminin->where('natureReception', '=', $site);
+            $queryMasculin->where('natureReception', '=', $site);
+        }
+
+        $masculin = $queryMasculin->get();
+        $feminin = $queryFeminin->get();
 
         $array[0]['label'] = 'Masculin';
         $array[0]['value'] = sizeof($masculin);
@@ -156,16 +259,22 @@ class HomeController extends Controller
         return $array;
     }
 
-    public function getArretByTranche($begin, $end){
+    public function getArretByTranche($begin, $end, $site = false){
 
         $array = array();
 
-        $consultations = DB::table('consultations')
+        $query = DB::table('consultations')
             ->join('agents', 'consultations.agent_id', '=', 'agents.id')
             ->whereDate('consultations.dateConsultation', '>=', $begin)
             ->whereDate('consultations.dateConsultation', '<=', $end)
-            ->where('consultations.etatValidite', '=', 'valide')
-            ->get();
+            ->where('consultations.etatValidite', '=', 'valide');
+
+        if(!is_null($site)){
+            $query->where('natureReception', '=', $site);
+        }
+
+        $consultations = $query->get();
+
 
         //echo('<pre>'); die(print_r($consultations));
 
@@ -207,25 +316,31 @@ class HomeController extends Controller
         return $array;
     }
 
-    public function getArretByCouverture($begin, $end){
+    public function getArretByCouverture($begin, $end, $site = false){
 
         $chartData = array();
 
-        $oui = DB::table('consultations')
+        $queryOui = DB::table('consultations')
             ->whereDate('consultations.dateConsultation', '>=', $begin)
             ->whereDate('consultations.dateConsultation', '<=', $end)
             ->where('consultations.etatValidite', '=', 'valide')
             ->where('consultations.arretMaladie', '=', 'oui')
-            ->where('consultations.assurance', '=', 'oui')
-            ->get();
+            ->where('consultations.assurance', '=', 'oui');
 
-        $non = DB::table('consultations')
+        $queryNon = DB::table('consultations')
             ->whereDate('consultations.dateConsultation', '>=', $begin)
             ->whereDate('consultations.dateConsultation', '<=', $end)
             ->where('consultations.etatValidite', '=', 'valide')
             ->where('consultations.arretMaladie', '=', 'oui')
-            ->where('consultations.assurance', '=', 'non')
-            ->get();
+            ->where('consultations.assurance', '=', 'non');
+
+        if(!is_null($site)){
+            $queryOui->where('natureReception', '=', $site);
+            $queryNon->where('natureReception', '=', $site);
+        }
+
+        $oui = $queryOui->get();
+        $non = $queryNon->get();
 
         $chartData[0]['y'] = 'Oui';
         $chartData[0]['a'] = sizeof($oui);
@@ -236,7 +351,7 @@ class HomeController extends Controller
         return $chartData;
     }
 
-    public function getConsultationsByMotif($begin, $end){
+    public function getConsultationsByMotif($begin, $end, $site = false){
         $motifs = Motif_consultation::all();
 
         $returnArray = array();
@@ -245,25 +360,35 @@ class HomeController extends Controller
 
 
 
-            $consultations =  DB::table('consultations')
+            $query =  DB::table('consultations')
                 ->where('etatValidite', '=', 'valide')
-                ->whereDate('created_at', '>=', $begin)
-                ->whereDate('created_at', '<=', $end)
-                ->where('motif_consultation_id', '=', $motif->id)
-                ->get();
+                ->whereDate('dateConsultation', '>=', $begin)
+                ->whereDate('dateConsultation', '<=', $end)
+                ->where('motif_consultation_id', '=', $motif->id);
+
+            if(!is_null($site)){
+                $query->where('natureReception', '=', $site);
+            }
+
+            $consultations = $query->get();
 
             if(sizeof($consultations) > 0){
                 $returnArray[$key]['Motif'] = $motif->intitule;
                 $returnArray[$key]['Consultation'] = sizeof($consultations);
 
 
-                $arrets =  DB::table('consultations')
+                $queryArrets =  DB::table('consultations')
                     ->where('consultations.etatValidite', '=', 'valide')
-                    ->whereDate('created_at', '>=', $begin)
-                    ->whereDate('created_at', '<=', $end)
+                    ->whereDate('dateConsultation', '>=', $begin)
+                    ->whereDate('dateConsultation', '<=', $end)
                     ->where('arretMaladie', '=', 'oui')
-                    ->where('motif_consultation_id', '=', $motif->id)
-                    ->get();
+                    ->where('motif_consultation_id', '=', $motif->id);
+
+                if(!is_null($site)){
+                    $queryArrets->where('natureReception', '=', $site);
+                }
+
+                $arrets = $queryArrets->get();
 
                 $returnArray[$key]['Arret'] = sizeof($arrets);
             }
@@ -272,7 +397,7 @@ class HomeController extends Controller
         return $returnArray;
     }
 
-    public function getConsultationsByMotifAndGenre($begin, $end){
+    public function getConsultationsByMotifAndGenre($begin, $end, $site = false){
         $motifs = Motif_consultation::all();
 
         $returnArray = array();
@@ -286,37 +411,48 @@ class HomeController extends Controller
 
 
 
-            $consultationsFemme =  DB::table('consultations')
+            $queryFemme =  DB::table('consultations')
                 ->join('agents', 'consultations.agent_id', '=', 'agents.id')
                 ->where('consultations.etatValidite', '=', 'valide')
-                ->whereDate('created_at', '>=', $begin)
-                ->whereDate('created_at', '<=', $end)
+                ->whereDate('dateConsultation', '>=', $begin)
+                ->whereDate('dateConsultation', '<=', $end)
                 ->where('agents.sexe', '=', 'F')
-                ->where('motif_consultation_id', '=', $motif->id)
-                ->get();
+                ->where('motif_consultation_id', '=', $motif->id);
 
-            $consultationsHomme =  DB::table('consultations')
+            $queryHomme =  DB::table('consultations')
                 ->join('agents', 'consultations.agent_id', '=', 'agents.id')
                 ->where('consultations.etatValidite', '=', 'valide')
-                ->whereDate('created_at', '>=', $begin)
-                ->whereDate('created_at', '<=', $end)
+                ->whereDate('dateConsultation', '>=', $begin)
+                ->whereDate('dateConsultation', '<=', $end)
                 ->where('agents.sexe', '=', 'M')
-                ->where('motif_consultation_id', '=', $motif->id)
-                ->get();
+                ->where('motif_consultation_id', '=', $motif->id);
+
+            if(!is_null($site)){
+                $queryHomme->where('natureReception', '=', $site);
+                $queryFemme->where('natureReception', '=', $site);
+            }
+
+            $consultationsHomme = $queryHomme->get();
+            $consultationsFemme = $queryFemme->get();
 
             if(sizeof($consultationsFemme) > 0){
                 $returnArray['Féminin']["stats"][$key]['Motif'] = $motif->intitule;
                 $returnArray['Féminin']["stats"][$key]['Consultation'] = sizeof($consultationsFemme);
 
-                $arrets =  DB::table('consultations')
+                $queryArrets =  DB::table('consultations')
                      ->join('agents', 'consultations.agent_id', '=', 'agents.id')
                     ->where('consultations.etatValidite', '=', 'valide')
-                    ->whereDate('created_at', '>=', $begin)
-                    ->whereDate('created_at', '<=', $end)
+                    ->whereDate('dateConsultation', '>=', $begin)
+                    ->whereDate('dateConsultation', '<=', $end)
                     ->where('arretMaladie', '=', 'oui')
                     ->where('agents.sexe', '=', 'F')
-                    ->where('motif_consultation_id', '=', $motif->id)
-                    ->get();
+                    ->where('motif_consultation_id', '=', $motif->id);
+
+                if(!is_null($site)){
+                    $queryArrets->where('natureReception', '=', $site);
+                }
+
+                $arrets = $queryArrets->get();
 
                 $returnArray['Féminin']["stats"][$key]['Arret'] = sizeof($arrets);
 
@@ -329,15 +465,20 @@ class HomeController extends Controller
                 $returnArray['Masculin']["stats"][$key]['Consultation'] = sizeof($consultationsHomme);
 
 
-                $arrets =  DB::table('consultations')
+                $queryArrets2 =  DB::table('consultations')
                     ->join('agents', 'consultations.agent_id', '=', 'agents.id')
                     ->where('consultations.etatValidite', '=', 'valide')
-                    ->whereDate('created_at', '>=', $begin)
-                    ->whereDate('created_at', '<=', $end)
+                    ->whereDate('dateConsultation', '>=', $begin)
+                    ->whereDate('dateConsultation', '<=', $end)
                     ->where('arretMaladie', '=', 'oui')
                     ->where('agents.sexe', '=', 'M')
-                    ->where('motif_consultation_id', '=', $motif->id)
-                    ->get();
+                    ->where('motif_consultation_id', '=', $motif->id);
+
+                if(!is_null($site)){
+                    $queryArrets2->where('natureReception', '=', $site);
+                }
+
+                $arrets = $queryArrets2->get();
 
                 $returnArray['Masculin']["stats"][$key]['Arret'] = sizeof($arrets);
 
@@ -349,7 +490,7 @@ class HomeController extends Controller
         return $returnArray;
     }
 
-    public function getConsultationsByContagieux($begin, $end){
+    public function getConsultationsByContagieux($begin, $end, $site = false){
         $motifs = Motif_consultation::all();
 
         $returnArray = array();
@@ -357,26 +498,36 @@ class HomeController extends Controller
         foreach ($motifs as $key => $motif) {
 
 
-            $consultations =  DB::table('consultations')
+            $query =  DB::table('consultations')
                 ->where('consultations.etatValidite', '=', 'valide')
-                ->whereDate('created_at', '>=', $begin)
-                ->whereDate('created_at', '<=', $end)
+                ->whereDate('dateConsultation', '>=', $begin)
+                ->whereDate('dateConsultation', '<=', $end)
                 ->where('motif_consultation_id', '=', $motif->id)
-                ->where('maladie_contagieuse', '=', 'oui')
-                ->get();
+                ->where('maladie_contagieuse', '=', 'oui');
+
+            if(!is_null($site)){
+                $query->where('natureReception', '=', $site);
+            }
+
+            $consultations = $query->get();
 
             if(sizeof($consultations) > 0){
                 $returnArray[$key]['Motif'] = $motif->intitule;
                 $returnArray[$key]['Consultation'] = sizeof($consultations);
 
 
-                $arrets =  DB::table('consultations')
+                $queryArrets =  DB::table('consultations')
                     ->where('consultations.etatValidite', '=', 'valide')
-                    ->whereDate('created_at', '>=', $begin)
-                    ->whereDate('created_at', '<=', $end)
+                    ->whereDate('dateConsultation', '>=', $begin)
+                    ->whereDate('dateConsultation', '<=', $end)
                     ->where('arretMaladie', '=', 'oui')
-                    ->where('motif_consultation_id', '=', $motif->id)
-                    ->get();
+                    ->where('motif_consultation_id', '=', $motif->id);
+
+                if(!is_null($site)){
+                    $queryArrets->where('natureReception', '=', $site);
+                }
+
+                $arrets = $queryArrets->get();
 
                 $returnArray[$key]['Arret'] = sizeof($arrets);
             }
@@ -385,7 +536,7 @@ class HomeController extends Controller
         return $returnArray;
     }
 
-    public function getArretsBySites($begin, $end){
+    public function getArretsBySites($begin, $end, $site = null){
         $sites = Site::all();
 
         $returnArray = array();
@@ -397,23 +548,25 @@ class HomeController extends Controller
 
         foreach ($sites as $key => $site) {
 
-            $consultationExterne =  DB::table('consultations')
+            $queryExterne =  DB::table('consultations')
                 ->where('etatValidite', '=', 'valide')
                 ->where('typeConsultation', '=', 'Externe')
                 ->whereDate('dateConsultation', '>=', $begin)
                 ->whereDate('dateConsultation', '<=', $end)
                 ->where('arretMaladie', '=', 'oui')
-                ->where('natureReception', '=', $site->id)
-                ->get();
+                ->where('natureReception', '=', $site->id);
 
-            $consultationInterne =  DB::table('consultations')
+            $queryInterne =  DB::table('consultations')
                 ->where('etatValidite', '=', 'valide')
                 ->where('typeConsultation', '=', 'Interne')
                 ->whereDate('dateConsultation', '>=', $begin)
                 ->whereDate('dateConsultation', '<=', $end)
                 ->where('arretMaladie', '=', 'oui')
-                ->where('natureReception', '=', $site->id)
-                ->get();
+                ->where('natureReception', '=', $site->id);
+
+            $consultationInterne = $queryInterne->get();
+            $consultationExterne = $queryExterne->get();
+
 
             if(sizeof($consultationExterne) > 0){
                 $returnArray['Externe']["stats"][$key]['Site'] = $site->designation;
@@ -455,8 +608,8 @@ class HomeController extends Controller
     public function getGlobalStats($begin, $end){
         $consultations =  DB::table('consultations')
             ->where('etatValidite', '=', 'valide')
-            ->whereDate('created_at', '>=', $begin)
-            ->whereDate('created_at', '<=', $end)
+            ->whereDate('dateConsultation', '>=', $begin)
+            ->whereDate('dateConsultation', '<=', $end)
             ->get();
 
         $arrets =  DB::table('consultations')
@@ -474,14 +627,19 @@ class HomeController extends Controller
         }
     }
 
-    public function getPathologieByTranche($begin, $end){
+    public function getPathologieByTranche($begin, $end, $site = false){
 
-        $consultations = DB::table('consultations')
+        $query = DB::table('consultations')
             ->join('agents', 'consultations.agent_id', '=', 'agents.id')
             ->whereDate('consultations.dateConsultation', '>=', $begin)
             ->whereDate('consultations.dateConsultation', '<=', $end)
-            ->where('consultations.etatValidite', '=', 'valide')
-            ->get();
+            ->where('consultations.etatValidite', '=', 'valide');
+
+        if(!is_null($site)){
+            $query->where('natureReception', '=', $site);
+        }
+
+        $consultations = $query->get();
 
         $bigArray = array();
 
