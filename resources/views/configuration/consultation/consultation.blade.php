@@ -263,21 +263,6 @@
 
                                                             <div class="row">
 
-                                                                <div class="col-md-5 row">
-                                                                    <div class="input-container focus">
-                                                                        <select name="motif_consultation_id" class="input" id="motif_consultation_id">
-                                                                            <?php
-                                                                            foreach ($motifs as $motif) {
-                                                                            ?>
-                                                                            <option  value="{{ $motif->id }}">{{ $motif->intitule }}</option>
-                                                                            <?php
-                                                                            }
-                                                                            ?>
-                                                                        </select>
-                                                                        <label for="motif_consultation_id">Motif de consultation</label>
-                                                                        <span>Motif de consultation</span>
-                                                                    </div>
-                                                                </div>
 
                                                                 <div class="col-md-3">
                                                                     <div class="input-container focus">
@@ -288,7 +273,6 @@
                                                                         <label for="accident">Accident de travail</label>
                                                                         <span>Accident de travail</span>
                                                                     </div>
-                                                                    
                                                                 </div>
 
                                                                 <div class="col-md-3">
@@ -312,6 +296,64 @@
                                                                         <span>Médicament</span>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="input-container focus">
+                                                                        <select class="input" name="maladie_contagieuse" id="maladie_contagieuse">
+                                                                            <option value="oui">Oui</option>
+                                                                            <option value="non" selected >Non</option>
+                                                                        </select>
+                                                                    <label for="maladie_contagieuse">Maladie contagieuse</label>
+                                                                    <span>Maladie contagieuse</span>
+                                                                </div>
+                                                                </div>
+                                                                <div class="col-md-5 ">
+                                                                    <div class="input-container focus">
+                                                                        <select name="motif_consultation_id" class="input" id="motif_consultation_id">
+                                                                            <?php
+                                                                            foreach ($motifs as $motif) {
+                                                                            ?>
+                                                                            <option  value="{{ $motif->id }}">{{ $motif->intitule }}</option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                        <label for="motif_consultation_id">Motif de consultation</label>
+                                                                        <span>Motif de consultation</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3 arretMaladieSwitch d-none">
+                                                                    <div class="input-container focus">
+                                                                    <select class="input" name="billetSortie" id="billetSortie">
+                                                                        <option value="oui" >Oui</option>
+                                                                        <option value="non" selected>Non</option>
+                                                                    </select>
+                                                                    <label for="billetSortie">Bulletin de sortie</label>
+                                                                    <span>Bulletin de sortie</span>
+                                                                     </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="input-container focus">
+                                                                    <select class="input" name="maladie_prof" id="maladie_prof">
+                                                                        <option value="oui">Oui</option>
+                                                                        <option value="non" selected >Non</option>
+                                                                    </select>
+                                                                    <label for="maladie_prof">Maladie professionnelle</label>
+                                                                    <span>Maladie professionnelle</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="input-container focus">
+                                                                        <select class="input" name="traitement_adm" id="traitement_adm">
+                                                                            <option value="oui" >Oui</option>
+                                                                            <option value="non" selected >Non</option>
+                                                                        </select>
+                                                                        <label for="traitement_adm">Traitement administré</label>
+                                                                        <span>Traitement administré</span>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
 
                                                         </fieldset>
@@ -332,24 +374,23 @@
 
                                                                 </div>
 
-                                                                <div class="col-md-3 arretMaladieSwitch d-none">
+                                                                <div class="col-md-4 arretMaladieSwitch d-none">
                                                                     <div class="input-container focus">
                                                                         <input type="number" class="input" name="duree_arret" id="duree_arret" value="0">
                                                                         <label for="dateConsultation">Durée arrêt maladie (heure)</label>
                                                                         <span>Durée arrêt maladie (heure)</span>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-md-2 arretMaladieSwitch d-none">
-                                                                    <div class="input-container focus">
-                                                                        <input type="date" class=" input " max="<?= date('Y-m-d') ?>" id="dateConsultation" required name="dateConsultation" >
-                                                                        <label for="dateConsultation">Date consultation</label>
-                                                                        <span>Date consultation</span>
+
+                                                                <div class="col-md-4">
+                                                                    <div class="input-container arretMaladieSwitch focus">
+                                                                        <input type="text" class="input" disabled id="enJours" value="0">
+                                                                        <input type="hidden" class="input" id="enJours2" value="0">
+                                                                        <label for="enJours">Durée arrêt maladie (en jour)</label>
+                                                                        <span>Durée arrêt maladie (en jour)</span>
                                                                     </div>
-                                                                    <label for="enJours" class="form-label">En Jour</label>
-                                                                    <input type="text" class="form-control" disabled id="enJours" value="0">
-                                                                    <input type="hidden" class="form-control" id="enJours2" value="0">
                                                                 </div>
-                                                                <div class="col-md-2 d-none">
+                                                                <div class="col-md-4 d-none">
                                                                     <div class="input-container focus">
                                                                         <select class="input" name="nbrJour" id="nbrJour">
                                                                             <option value="Heure" selected>Heure</option>
@@ -359,31 +400,22 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-md-3 arretMaladieSwitch d-none">
+                                                                <div class="col-md-4 arretMaladieSwitch d-none">
                                                                     <div class="input-container focus">
                                                                     <input type="date" class="input" min="<?= date('Y-m-d') ?>" id="debutArret" value="<?= date('Y-m-d') ?>"  name="debutArret" >
                                                                     <label for="debutArret">Date de début </label>
                                                                     <span>Date de début </span>
                                                                 </div>
                                                                 </div>
-                                                                <div class="col-md-3 arretMaladieSwitch d-none">
+                                                                <div class="col-md-4 arretMaladieSwitch d-none">
                                                                     <div class="input-container focus">
                                                                     <input type="date" class="input" readonly id="dateReprise" value="<?= date('Y-m-d') ?>" name="dateReprise">
                                                                     <label for="dateReprise">Date de reprise</label>
                                                                     <span>Date de reprise</span>
                                                                 </div>
                                                                 </div>
-                                                                <div class="col-md-3 arretMaladieSwitch d-none">
-                                                                    <div class="input-container focus">
-                                                                    <select class="input" name="billetSortie" id="billetSortie">
-                                                                        <option value="oui" >Oui</option>
-                                                                        <option value="non" selected>Non</option>
-                                                                    </select>
-                                                                    <label for="billetSortie">Bulletin de sortie</label>
-                                                                    <span>Bulletin de sortie</span>
-                                                                </div>
-                                                                </div>
-                                                                <div class="col-md-3">
+
+                                                                <div class="col-md-4">
                                                                     <div class="input-container focus">
                                                                     <select class="input" name="repriseService" id="repriseService">
                                                                         <option value="apte" selected>Apte</option>
@@ -393,16 +425,7 @@
                                                                     <span>Reprise de service</span>
                                                                 </div>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="input-container focus">
-                                                                        <select class="input" name="maladie_contagieuse" id="maladie_contagieuse">
-                                                                            <option value="oui">Oui</option>
-                                                                            <option value="non" selected >Non</option>
-                                                                        </select>
-                                                                    <label for="maladie_contagieuse">Maladie contagieuse</label>
-                                                                    <span>Maladie contagieuse</span>
-                                                                </div>
-                                                                </div>
+
 
                                                             </div>
                                                         </fieldset>
