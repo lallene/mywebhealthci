@@ -11,7 +11,7 @@ class Familleemploi extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['designation', 'description'];
+    protected $fillable = ['designation'];
 
     public function Emplois(){
         return $this->hasMany(Emploi::class);

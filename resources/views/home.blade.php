@@ -1,30 +1,60 @@
 @extends('layouts.app')
 
+<style>
+    .form-check-input:checked {
+    background-color: #cc3262 !important;
+    border-color: #cc3262 !important;
+}
+.bg-sucess {
+    background-color: #1d4851!important;
+}
+ .filter{
+    background-color: white;
+    box-shadow: 0px 0px 68px 3px #1d4851;
+    width: 100%;
+    border-radius: 6px;
+    MARGIN-LEFT: 0PX;
+}
+.title{
+    padding: 25px 35px 22px 38px;
+    margin-left: -40px;
+    margin-right: -40px;
+    position: relative;
+    font-size: 28px;
+    font-weight: bold;
+
+    text-align: center;
+}
+.title h2 {
+    color: #cc3262 ;
+}
+</style>
+
 @section('link')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.oesmith.co.uk/morris-0.5.1.css" />
 @stop
 
 @section('content')
-    @role('RH Manager|Agent de Santé|Administrateur')
+    @role('RH Manager|Agent de santé|IT')
         <div class="container-fluid">
 
-            <div class="row column_title mb-3" style="background-color: white;">
+            <div class="row column_title mb-3 filter" style="background-color: white;">
                 <div class="col-md-3">
-                    <div class="page_title mb-0" style="box-shadow: none!important">
-                        <h2>Dashboard MyHealth</h2>
+                    <div class="title mb-0" style="box-shadow: none!important">
+                        <h2> MyWebhealth CI</h2>
                     </div>
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <div class="col-12 text-center pt-2 pb-2 mb-2" style="font-weight: bolder; border: 1px black solid;">Filtrer </div>
+                        <div class="col-12 text-center pt-2 pb-2 mb-2" style="font-weight: bolder;">Filtrer </div>
                     </div>
                     <form method="post" class="row" action="/dashboard" enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="debut" class="center">Période</label>
-                                <input id="debut" type="text" class="form-control" placeholder="<?= isset($periode) ? $periode : '' ?>" name="datefilter">
+                                <input id="debut" type="text" class="form-control"  placeholder="<?= isset($periode) ? $periode : '' ?>" name="datefilter">
                             </div>
                         </div>
 
@@ -32,7 +62,7 @@
                             <div class="form-group">
                                 <label for="site" class="center">Site</label>
                                 <select class="form-control" id="site" name="siteSelected">
-                                    <option value="all">Tous les Sites</option>
+                                    <option value="all">Tous les sites</option>
                                     <?php
                                         foreach ($sites as $site) {
                                             ?>
@@ -48,8 +78,9 @@
                             <div class="form-group">
                                 <label for="projet" class="center">Projet</label>
                                 <select class="form-control" id="projet" name="projetSelected">
-                                    <option value="all">Tous les Projets</option>
+                                    <option value="all">Tous les projets</option>
                                     <?php
+
                                         foreach ($projets as $projet) {
                                             ?>
                                             <option value="<?= $projet->id ?>"><?= $projet->designation ?></option>
@@ -65,57 +96,63 @@
                         </div>
                     </form>
                     <div class="row">
+                        @role('RH Manager')
                         <div class="col-md-3">
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="first" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés VS Consultations</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés vs consultations</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="second" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés VS Consultations</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés vs consultations</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="third" checked>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">% Transformation</label>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="fourth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par type de contrat</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par type de contrat</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="fiveth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par Sexe</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par sexe</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="sixth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par Couverture Assurance</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par couverture assurance</label>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="seventh" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt Par Trânche d'âge</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par trânche d'âge</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="eighth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Consultation par Pathologie</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Consultation par pathologie</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="nineth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par Genre</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par genre</label>
                             </div>
                         </div>
+                        @endrole
                         <div class="col-md-3">
+                            @role('RH Manager')
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="tenth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par Tranche d'âge</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par tranche d'âge</label>
                             </div>
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="eleventh" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Maladie Contagieuse</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Maladie contagieuse</label>
                             </div>
+                            @endrole
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="twelveth" checked>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Statistique</label>
@@ -165,7 +202,7 @@
                                 <div class="counter_no">
                                     <div>
                                         <p class="total_no"><?= $totalConsultation ?></p>
-                                        <p class="head_couter">Nbre Consultation</p>
+                                        <p class="head_couter">Nbre consultation</p>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +222,7 @@
                                 <div class="counter_no">
                                     <div>
                                         <p class="total_no"><?= $totalHeureArret / 24 ?></p>
-                                        <p class="head_couter">Nbre Total de Jour</p>
+                                        <p class="head_couter">Nbre total de Jour</p>
                                     </div>
                                 </div>
                             </div>
@@ -195,18 +232,19 @@
                                 <div class="counter_no">
                                     <div>
                                         <p class="total_no"><?= $pourcentage ?></p>
-                                        <p class="head_couter">% Arrêt Interne</p>
+                                        <p class="head_couter">% Arrêt interne</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row column1 social_media_section mb-3 " id="labels">
+                        @role('RH Manager')
                         <div class="col-md-3 first" >
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Arrêt délivrés VS Consultations</h2>
+                                        <h2>Arrêt délivrés vs consultations</h2>
                                     </div>
                                 </div>
                                 <div class="full graph_revenue ">
@@ -214,11 +252,11 @@
                                         <div class="col-md-12">
                                             <div class="content">
                                                 <table class="table">
-                                                    <thead class="bg-success text-white font-weight-bold">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
-                                                            <th>Lieu Consultation</th>
-                                                            <th class="text-center">Nbre Arrêt</th>
-                                                            <th class="text-center">Nbre Heure Arrêt</th>
+                                                            <th>Lieu consultation</th>
+                                                            <th class="text-center">Nbre arrêt</th>
+                                                            <th class="text-center">Nbre heure arrêt</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -249,9 +287,9 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-success text-white font-weight-bold">
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
                                                         <tr>
-                                                            <td>Total Général</td>
+                                                            <td>Total général</td>
                                                             <td class="text-center"><?= $totalConsultation ?></td>
                                                             <td class="text-center"><?= $totalArret ?></td>
                                                         </tr>
@@ -263,11 +301,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-6 second">
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Arrêt délivrés VS Consultations</h2>
+                                        <h2>Arrêt délivrés vs consultations</h2>
                                     </div>
                                 </div>
                                 <div class="full graph_revenue">
@@ -295,7 +334,7 @@
                                         <div class="col-md-12">
                                             <div class="content">
                                                 <table class="table table-bordered">
-                                                    <thead class="bg-success text-white font-weight-bold">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <th>Agent</th>
                                                             <th class="text-center">%</th>
@@ -322,7 +361,7 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-success text-white font-weight-bold">
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
                                                         <?php
                                                             if($totalA > 0){
                                                                 $totalPerc = ($totalB * 100) / $totalA;
@@ -331,7 +370,7 @@
                                                             }
                                                         ?>
                                                         <tr>
-                                                            <td>Total Général</td>
+                                                            <td>Total général</td>
                                                             <td class="text-center"><?= round($totalPerc, 2) ?>%</td>
                                                         </tr>
                                                     </tfoot>
@@ -347,7 +386,7 @@
                     <div class="row column1 mb-2">
                         <div class="col-md-6 col-lg-3 fourth">
                             <div class="card">
-                                <div class="card-header">Arrêt Par type de contrat</div>
+                                <div class="card-header">Arrêt par type de contrat</div>
                                 <div class="card-body">
                                     <div id="chartByContrat" ></div>
                                 </div>
@@ -355,7 +394,7 @@
                         </div>
                         <div class="col-md-6 col-lg-3 fiveth">
                             <div class="card">
-                                <div class="card-header">Arrêt Par Sexe</div>
+                                <div class="card-header">Arrêt par sexe</div>
                                 <div class="card-body">
                                     <div id="chartBySexe" ></div>
                                 </div>
@@ -363,7 +402,7 @@
                         </div>
                         <div class="col-md-6 col-lg-3 sixth">
                             <div class="card">
-                                <div class="card-header">Arrêt Par Couverture Assurance</div>
+                                <div class="card-header">Arrêt par couverture assurance</div>
                                 <div class="card-body">
                                     <div id="chartByAssurance" ></div>
                                 </div>
@@ -371,7 +410,7 @@
                         </div>
                         <div class="col-md-6 col-lg-3 seventh">
                             <div class="card">
-                                <div class="card-header">Arrêt Par Trânche d'âge</div>
+                                <div class="card-header">Arrêt par trânche d'âge</div>
                                 <div class="card-body">
                                     <div id="chartByTranche" ></div>
                                 </div>
@@ -384,7 +423,7 @@
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Consultation par Pathologie</h2>
+                                        <h2>Consultation par pathologie</h2>
                                     </div>
                                 </div>
                                 <div class="full graph_revenue">
@@ -392,7 +431,7 @@
                                         <div class="col-md-12">
                                             <div class="content">
                                                 <table class="table table-bordered">
-                                                    <thead class="bg-success text-white font-weight-bold">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <th>Pathologie</th>
                                                             <th class="text-center">Consultation</th>
@@ -419,7 +458,7 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-success text-white font-weight-bold">
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <?php
                                                                 if($totalConsultation > 0)
@@ -427,7 +466,7 @@
                                                                 else
                                                                     $totalPerc = '100%'
                                                             ?>
-                                                            <th>Total Général</th>
+                                                            <th>Total général</th>
                                                             <th class="text-center"><?= $totalConsultation ?></th>
                                                             <th class="text-center"><?= $totalArret ?></th>
                                                             <th class="text-center"><?= round($totalPerc, 2) ?>%</th>
@@ -446,7 +485,7 @@
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Pathologie par Genre</h2>
+                                        <h2>Pathologie par genre</h2>
                                     </div>
                                 </div>
                                 <div class="full graph_revenue">
@@ -454,11 +493,11 @@
                                         <div class="col-md-12">
                                             <div class="content">
                                                 <table class="table table-bordered">
-                                                    <thead class="bg-success text-white font-weight-bold">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <th>Genre</th>
-                                                            <th class="text-center">Nbre Consultation</th>
-                                                            <th class="text-center">Nbre Arrêt</th>
+                                                            <th class="text-center">Nbre consultation</th>
+                                                            <th class="text-center">Nbre arrêt</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -489,9 +528,9 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-success text-white font-weight-bold">
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
                                                         <tr>
-                                                            <td>Total Général</td>
+                                                            <td>Total général</td>
                                                             <td class="text-center"><?= $totalConsultation ?></td>
                                                             <td class="text-center"><?= $totalArret ?></td>
                                                         </tr>
@@ -511,7 +550,7 @@
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Pathologie par Tranche d'âge</h2>
+                                        <h2>Pathologie par tranche d'âge</h2>
                                     </div>
                                 </div>
                                 <div class="full graph_revenue">
@@ -519,11 +558,11 @@
                                         <div class="col-md-12">
                                             <div class="content">
                                                 <table class="table table-bordered">
-                                                    <thead class="bg-success text-white font-weight-bold">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
                                                     <tr>
                                                         <th>Tranche</th>
-                                                        <th>Nbre Consultation</th>
-                                                        <th>Nbre Arrêt</th>
+                                                        <th>Nbre consultation</th>
+                                                        <th>Nbre arrêt</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -573,9 +612,9 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-success text-white font-weight-bold">
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
                                                     <tr>
-                                                        <td>Total Général</td>
+                                                        <td>Total général</td>
                                                         <td class="text-center"><?= $totalConsultation ?></td>
                                                         <td class="text-center"><?= $totalArret ?></td>
                                                     </tr>
@@ -592,7 +631,7 @@
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Maladie Contagieuse</h2>
+                                        <h2>Maladie contagieuse</h2>
                                     </div>
                                 </div>
                                 <div class="full graph_revenue">
@@ -600,11 +639,11 @@
                                         <div class="col-md-12">
                                             <div class="content">
                                                 <table class="table table-bordered">
-                                                    <thead class="bg-success text-white font-weight-bold">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <th>Tranche</th>
-                                                            <th class="text-center">Nbre Consultation</th>
-                                                            <th class="text-center">Nbre Arrêt</th>
+                                                            <th class="text-center">Nbre consultation</th>
+                                                            <th class="text-center">Nbre arrêt</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -624,9 +663,9 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-success text-white font-weight-bold">
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
                                                         <tr>
-                                                            <th>Total Général</th>
+                                                            <th>Total général</th>
                                                             <th class="text-center"><?= $totalConsultation ?></th>
                                                             <th class="text-center"><?= $totalArret ?></th>
                                                         </tr>
@@ -638,6 +677,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endrole
 
                     </div>
                 </div>

@@ -81,10 +81,13 @@ html,
 body {
     color: #898989;
     font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     line-height: normal;
     font-weight: 300;
     overflow-x: hidden !important;
+}
+body, input, textarea {
+    font-family: "Poppins", sans-serif !important;
 }
 
 body.demos .section {
@@ -625,8 +628,8 @@ a:focus {
     position: fixed;
     width: 100%;
     padding-left: 280px;
-    z-index: 2;
-    background: #15283c;
+    z-index: 1000000;
+    background: #1d4750;
     top: 0;
     transition: ease all 0.3s;
     left: 0;
@@ -878,7 +881,7 @@ CC3262
 }
 
 #sidebar ul.components ul {
-    background: #007380;
+    background: #dc35452e;
     padding: 20px 0;
 }
 
@@ -917,7 +920,7 @@ a[data-toggle="collapse"] {
     transition: ease all 0.3s;
     position: relative;
     /*padding: 60px 25px 25px 305px;*/
-    padding: 60px 0px 25px 281px;
+    padding: 80px 9px 29px 130px;
     background: #f8f8f8;
 }
 
@@ -933,9 +936,10 @@ a[data-toggle="collapse"] {
 }
 
 .page_title h2 {
-    font-size: 20px;
-    font-weight: 500;
-    color: #15283c;
+    font-size: 28px;
+    font-weight: bold;
+    color: #cc3262;
+    text-align: center;
 }
 
 #sidebar.active+#content {
@@ -1973,6 +1977,7 @@ button.main_bt {
     font-weight: 300;
     color: #007380;
     padding: 25px 15px;
+    margin-top: 100px;
 }
 
 
@@ -3425,10 +3430,7 @@ table.projects tr td:first-child {
     height: 33px!important;
 }
 
-label{
-    color: #000!important;
-    font-weight: bolder;
-}
+
 
 .graph_revenue{
     /* min-height: 150px !important; */

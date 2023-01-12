@@ -25,10 +25,6 @@ class Justificatif extends Model
         return $this->belongsTo(Motif_consultation::class, 'motif_consultation_id');
     }
 
-    public function Consultation(){
-        return $this->belongsTo(Consultation::class, 'consultation_id');
-    }
-
 
 }
 

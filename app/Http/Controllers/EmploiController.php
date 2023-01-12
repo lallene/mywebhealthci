@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Emploi;
-use App\Models\Familleemploi;
 use Illuminate\Http\Request;
+use App\Imports\AgentsImport;
+use App\Imports\EmploiImport;
+use App\Models\Familleemploi;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmploiController extends Controller
 {
@@ -14,6 +17,7 @@ class EmploiController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager');
     }
 
     /**
@@ -23,8 +27,9 @@ class EmploiController extends Controller
      */
     public function index()
     {
-        $items = Emploi::all();
-        return view($this->templatePath.'.liste', ['titre' => "Liste des emplois", 'items' => $items, 'link' => $this->link]);
+        $emplois = Emploi::with((['Familleemploi']))->paginate(15);
+        return view($this->templatePath.'.liste', compact('emplois'), ['titre' => "Liste des emplois", 'link' => $this->link]);
+
     }
 
     /**
@@ -49,7 +54,6 @@ class EmploiController extends Controller
         Emploi::create(
             [
                 'designation' => $request->input('designation'),
-                'description' => $request->input('description'),
                 'familleemploi_id' => $request->input('familleemploi_id')
             ]
         );
@@ -92,9 +96,7 @@ class EmploiController extends Controller
     public function update(Request $request, $id)
     {
         $item = Emploi::find($id);
-
         $item->designation = $request->input('designation');
-        $item->description = $request->input('description');
         $item->familleemploi_id = $request->input('familleemploi_id');
 
         try{
@@ -120,4 +122,14 @@ class EmploiController extends Controller
         return redirect()->route('emploi.index')
             ->with('success', "Emploi Supprimé avec succes");
     }
+
+
+    public function import (Request $req){
+
+        Excel::import(new EmploiImport, $req->file('emploi_file'),
+
+     );
+
+         return back();
+     }
 }

@@ -17,7 +17,6 @@ class CreateFamilleemploisTable extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->string('designation');
-            $table->text('description')->nullable();
         });
     }
 

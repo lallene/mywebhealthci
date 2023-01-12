@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+
+
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('profil', \App\Http\Controllers\RoleController::class);
@@ -48,7 +50,12 @@ Route::get('profil/addPermission/{id}', [\App\Http\Controllers\RoleController::c
 Route::post('profil/grantPermission/{id}', [\App\Http\Controllers\RoleController::class, 'grantPermission']);
 Route::get('profil/revoquer/{idRole}/{idPermission}', [\App\Http\Controllers\RoleController::class, 'revoquer']);
 
-Route::post('/import',[\App\Http\Controllers\AgentController::class, 'import']);
+Route::post('/import', [App\Http\Controllers\AgentController::class, 'import']);
+Route::post('/importprojet', [App\Http\Controllers\ProjetController::class, 'import']);
+Route::post('/importemploi', [App\Http\Controllers\EmploiController::class, 'import']);
+Route::post('/importsubfonction', [App\Http\Controllers\Sub_FonctionController::class, 'import']);
+Route::post('/importmotif', [App\Http\Controllers\Motif_consultationController::class, 'import']);
+
 
 Route::post('/getAgent/{id}', [\App\Http\Controllers\AgentController::class, 'getAgentByIris'])->name('getAgent');
 Route::get('/consulter/{id}', [\App\Http\Controllers\ConsultationController::class, 'consulter']);

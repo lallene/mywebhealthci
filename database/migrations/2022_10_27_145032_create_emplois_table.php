@@ -16,9 +16,6 @@ class CreateEmploisTable extends Migration
         Schema::create('emplois', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('designation');
-            $table->text('description')->nullable();
-
             $table->unsignedBigInteger('familleemploi_id')->nullable();
             $table->foreign('familleemploi_id')
                 ->references('id')

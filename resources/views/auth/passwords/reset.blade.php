@@ -1,10 +1,49 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Se connecter</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- site icon -->
+      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
+      <!-- site css -->
+      <link rel="stylesheet" href="{{ asset('assets/style.css') }}" />
+      <!-- responsive css -->
+      <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
+      <!-- color css -->
+      <link rel="stylesheet" href="{{ asset('assets/css/colors_2.css') }}" />
+      <!-- select bootstrap -->
+      <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.css') }}" />
+      <!-- scrollbar css -->
+      <link rel="stylesheet" href="{{ asset('assets/css/perfect-scrollbar.css') }}" />
+      <!-- custom css -->
+      <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+      <!-- calendar file css -->
+      <link rel="stylesheet" href="{{ asset('assets/js/semantic.min.css') }}" />
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+   </head>
+<div class="container"></div>
+    <div class="center verticle_center full_height">
+        <div class="col-md-8 login_section">
             <div class="card">
+                <div class="logo_login">
+                    <div class="center">
+                       <img width="210" src="{{ asset('images/logo/logo.png') }}" alt="#" />
+                    </div>
+                 </div>
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
@@ -62,4 +101,21 @@
         </div>
     </div>
 </div>
-@endsection
+      <!-- jQuery -->
+      <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+      <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+      <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+      <!-- wow animation -->
+      <script src="{{ asset('assets/js/animate.js') }}"></script>
+      <!-- select country -->
+      <script src="{{ asset('assets/js/bootstrap-select.js') }}"></script>
+      <!-- nice scrollbar -->
+      <script src="{{ asset('assets/js/perfect-scrollbar.min.js') }}"></script>
+      <script>
+         var ps = new PerfectScrollbar('#sidebar');
+      </script>
+
+      <script src="{{ asset("assets/js/custom.js") }}"></script>
+   </body>
+</html>
+

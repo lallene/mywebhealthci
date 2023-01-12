@@ -29,7 +29,6 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Designation</th>
-                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -43,7 +42,6 @@
                                                 <tr>
                                                     <td><?= $i ?></td>
                                                     <td><?= $item->designation ?></td>
-                                                    <td><?= $item->description ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">

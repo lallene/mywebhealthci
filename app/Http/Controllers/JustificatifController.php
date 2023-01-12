@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Mail\Justificatif_externe;
 use App\Models\Agent;
 use App\Models\Consultation;
 use App\Models\Justificatif;
@@ -9,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\Motif_consultation;
 use App\Models\Site;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class JustificatifController extends Controller
 {
@@ -18,6 +21,8 @@ class JustificatifController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:Agent de santé');
+
     }
 
      /**
@@ -27,8 +32,13 @@ class JustificatifController extends Controller
      */
     public function index()
     {
-        $items = Justificatif::all();
-        return view($this->templatePath.'.liste', ['titre' => "Jutificatif externe  agent", 'items' => $items, 'link' => $this->link]);
+
+     //   $consultations= Consultation::all();
+      //  $agents= Agent::all();
+        $items = Consultation::with('Agent')->paginate(500);
+        //$agents= Agent::all();
+        //dd($items);
+        return view($this->templatePath.'.liste', ['titre' => "Justificatif d'arret maladie externe", 'items' => $items, 'link' => $this->link]);
     }
 
     public function reception ($id){
@@ -54,8 +64,10 @@ class JustificatifController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+
+    public function store (Request $request){
+
+
         $userId = Auth::id();
 
         $etatValidite = 'valide';
@@ -70,7 +82,7 @@ class JustificatifController extends Controller
             $motifRejet = $_POST['motifRejet'];
         }
 
-        //echo'<pre>'; die(print_r($_POST));
+        $agent = Agent::find($_POST['agent_id']);
 
         $consultation = Consultation::create([
             "agent_id" => $_POST['agent_id'],
@@ -78,7 +90,6 @@ class JustificatifController extends Controller
             "poul" => '-',
             "temperature" => '-',
             "tension" => '-',
-            "assurance" => $_POST['assurance'],
             "accident" => 'non',
             "traitement" => 'non',
             "arretMaladie" => 'oui',
@@ -89,7 +100,6 @@ class JustificatifController extends Controller
             "typeConsultation" => 'Externe',
             "etatValidite" => $etatValidite,
             "natureReception" => $_POST['natureReception'],
-
             "debutArret" => $_POST['debutArret'],
             "dateReprise" => $_POST['dateReprise'],
             "billetSortie" => $_POST['billet_sortie'],
@@ -102,22 +112,36 @@ class JustificatifController extends Controller
             "observation" => $_POST['observation'],
             "motif_consultation_id" => $_POST['motif_consultation_id'],
             "user_id" => $userId,
+            'nomMedecin' => $request->input('nomMedecin'),
+            'designationCentreExterne' => $request->input('designationCentreExterne'),
+            'justificatifValide' => $etatValidite,
+            'motifRejet' => $motifRejet,
+            'duplicat_suite_valide' => $request->input('duplicat_suite_valide'),
+            'projet_id' => $agent->projet_id
         ]);
 
-        Justificatif::create(
-            [
-                'nomMedecin' => $request->input('nomMedecin'),
-                'designationCentreExterne' => $request->input('designationCentreExterne'),
-                'justificatifValide' => $etatValidite,
-                'motifRejet' => $motifRejet,
-                'duplicat_suite_valide' => $request->input('duplicat_suite_valide'),
-                'motif_consultation_id' => $request->input('motif_consultation_id'),
-                'consultation_id' => $consultation->id,
+        $agent = Agent::find($_POST['agent_id']);
+        $hrpbs =   Agent::where('emploi_id', '=', '36')->get();
+        $justificatif = Justificatif::find( $consultation->id);
+        $consultation = Consultation::find($consultation->id);
+        $sup = $agent->manager;
+        $emailsup = Agent::where('manager', '=', $sup)->get();
 
-            ]
-        );
+    //  dd($days );
+      Mail::to('setushi.lawson@webhelp.com')->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif ));
 
-        return redirect()->route('home');
+      return redirect()->route('consultation.index');
+
+      foreach ($hrpbs as $hrpb){
+            Mail::to($hrpb['email_agent'])->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif));
+                               }
+      $sup = $agent->manager;
+      $emailsup = Agent::where('manager', '=', $sup);
+      dd($emailsup);
+
+      return redirect()->route('consultation.index');
+
     }
+
 
 }

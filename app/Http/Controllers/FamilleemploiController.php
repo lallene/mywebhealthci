@@ -13,6 +13,7 @@ class FamilleemploiController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager');
     }
     /**
      * Display a listing of the resource.
@@ -46,7 +47,7 @@ class FamilleemploiController extends Controller
         Familleemploi::create(
             [
                 'designation' => $request->input('designation'),
-                'description' => $request->input('description')
+
             ]
         );
 
@@ -87,7 +88,7 @@ class FamilleemploiController extends Controller
     {
         $item = Familleemploi::find($id);
         $item->designation = $request->input('designation');
-        $item->description = $request->input('description');
+
 
         try{
             $item->save();

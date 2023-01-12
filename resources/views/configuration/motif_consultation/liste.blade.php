@@ -19,6 +19,24 @@
                             <div class="col-sm-12 text-right pb-2">
                                 <a href="{{ route("motif_consultation.create") }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
                                 <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-plus"></i> Quitter</a>
+                                <form action="/importmotif" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-3 ">
+                                            <label for="formFile" class="form-label">La liste des motifs de consultation(**.xlsx,.xls,.csv**)</label>
+                                            <input class="form-control" type="file" id="formFile" name="motif_file" accept=".xlsx,.xls,.csv" required>
+                                            <br>
+                                            <button type="submit" class="btn btn-success ">Upload</button>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <p class="fw-bold">**Entité / Société /Matricule IRIS / Projet_Service / Nom / Prénom**</p>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
                     </div>

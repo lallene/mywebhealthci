@@ -20,6 +20,11 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+
+
+
+
     }
 
     /**
@@ -95,32 +100,40 @@ class HomeController extends Controller
 
         if(isset($_POST['siteSelected']) AND $_POST['siteSelected'] != 'all' AND is_numeric($_POST['siteSelected'])){
             $siteSelected = $_POST['siteSelected'];
+            $projetSelected = Site::where('projet_id', '=', $siteSelected);
+
         }else{
             $siteSelected = null;
         }
 
+        if(isset($_POST['projetSelected']) AND $_POST['projetSelected'] != 'all' AND is_numeric($_POST['projetSelected'])){
+            $projetSelected = $_POST['projetSelected'];
+        }else{
+            $projetSelected = null;
+        }
 
 
-        $chartData = self::getStatsByMedecin($begin, $end, $siteSelected);
+
+        $chartData = self::getStatsByMedecin($begin, $end, $siteSelected, $projetSelected);
         //echo'<pre>';die(print_r($chartData));
 
-        $byTypeContrat = self::getArretByTypeContrat($begin, $end, $siteSelected);
+        $byTypeContrat = self::getArretByTypeContrat($begin, $end, $siteSelected, $projetSelected);
 
-        $bySexe = self::getArretBySexe($begin, $end, $siteSelected);
+        $bySexe = self::getArretBySexe($begin, $end, $siteSelected, $projetSelected);
 
-        $arretsByTranche = self::getArretByTranche($begin, $end, $siteSelected);
+        $arretsByTranche = self::getArretByTranche($begin, $end, $siteSelected, $projetSelected);
 
-        $byCouverture = self::getArretByCouverture($begin, $end, $siteSelected);
+        $byCouverture = self::getArretByCouverture($begin, $end, $siteSelected, $projetSelected);
 
-        $statByPathologie = self::getConsultationsByMotif($begin, $end, $siteSelected);
+        $statByPathologie = self::getConsultationsByMotif($begin, $end, $siteSelected, $projetSelected);
 
-        $statByPathologieAndGenre = self::getConsultationsByMotifAndGenre($begin, $end, $siteSelected);
+        $statByPathologieAndGenre = self::getConsultationsByMotifAndGenre($begin, $end, $siteSelected, $projetSelected);
 
-        $statByPathologieAndContagieux = self::getConsultationsByContagieux($begin, $end, $siteSelected);
+        $statByPathologieAndContagieux = self::getConsultationsByContagieux($begin, $end, $siteSelected, $projetSelected);
 
-        $arretsBySite = self::getArretsBySites($begin, $end, $siteSelected);
+        $arretsBySite = self::getArretsBySites($begin, $end, $siteSelected, $projetSelected);
 
-        $pathologieByTranche = self::getPathologieByTranche($begin, $end, $siteSelected);
+        $pathologieByTranche = self::getPathologieByTranche($begin, $end, $siteSelected, $projetSelected);
 
 
         //echo('<pre>'); die(print_r($bySexe));
@@ -191,7 +204,7 @@ class HomeController extends Controller
         }
         return $chartData;
     }
-    
+
     public function getArretByTypeContrat($begin, $end, $site = null){
         $contrats = Contrat::all();
 
@@ -606,25 +619,7 @@ class HomeController extends Controller
     }
 
     public function getGlobalStats($begin, $end){
-        $consultations =  DB::table('consultations')
-            ->where('etatValidite', '=', 'valide')
-            ->whereDate('dateConsultation', '>=', $begin)
-            ->whereDate('dateConsultation', '<=', $end)
-            ->get();
 
-        $arrets =  DB::table('consultations')
-            ->where('etatValidite', '=', 'valide')
-            ->whereDate('created_at', '>=', $begin)
-            ->whereDate('created_at', '<=', $end)
-            ->where('arretMaladie', '=', 'oui')
-            ->get();
-
-        $nbreTotalJrs = 0;
-
-        foreach ($arrets as $arret) {
-            if($arret->natureDuree == 'Jour')
-                $nbreTotalJrs += $arret->nbrJour;
-        }
     }
 
     public function getPathologieByTranche($begin, $end, $site = false){

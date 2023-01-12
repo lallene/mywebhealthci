@@ -11,7 +11,7 @@ class Projet extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['designation', 'description', 'site_id'];
+    protected $fillable = ['designation', 'site_id'];
 
     public function Site(){
         return $this->belongsTo(Site::class, 'site_id');
