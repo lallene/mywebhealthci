@@ -32,14 +32,9 @@
 
                                     <div class="col-6">
                                         <p class="fw-bold">**Entité / Société /Matricule IRIS / Projet_Service / Nom / Prénom**</p>
-                                        <p class="fw-bold">**EmploI / Date naissance / Sexe /Fonction emploi /Sub-fonction**</p>
-                                        <p class="fw-bold">**Manager hiérarchique /Type contrat / Date début contrat / Business e-mail**</p>
-
                                     </div>
 
                                 </div>
-
-
 
                             </form>
                         </div>
@@ -63,29 +58,29 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if(isset($items)){
+                                        if(isset($agents)){
                                             $i = 0;
-                                            foreach ($items as $item) {
+                                            foreach ($agents as $agent) {
 
                                                 $i++;
                                                 ?>
                                                 <tr>
-                                                    <td><?= $item->iris ?></td>
-                                                    <td><?= $item->nom. ' ' .$item->prenom ?></td>
-                                                    <td><?= ($item->sexe == 'M') ? 'Masculin' : 'Feminin' ?></td>
-                                                    <td><?= $item->Projet->designation ?></td>
-                                                    <td><?= $item->Emploi->designation ?></td>
-                                                    <td><?= $item->SousFonction->intitule ?></td>
-                                                    <td><?= $item->Contrat->designation ?></td>
-                                                    <td><?= $item->Societe->designation ?></td>
-                                                    <td><?= !is_null($item->Manager) ? $item->Manager->nom.' '.$item->Manager->prenom : '-' ?></td>
+                                                    <td><?= $agent->iris ?></td>
+                                                    <td><?= $agent->nom. ' ' .$agent->prenom ?></td>
+                                                    <td><?= ($agent->sexe == 'M') ? 'Masculin' : 'Feminin' ?></td>
+                                                    <td><?= $agent->Projet->designation ?></td>
+                                                    <td><?= $agent->Emploi->designation ?></td>
+                                                    <td><?= $agent->SousFonction->intitule ?></td>
+                                                    <td><?= $agent->Contrat->designation ?></td>
+                                                    <td><?= $agent->Societe->designation ?></td>
+                                                    <td><?= !is_null($agent->Manager) ? $agent->Manager->nom.' '.$agent->Manager->prenom : '-' ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Actions</button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="{{route($link.'.edit', $item->id)}}">Modifier</a>
-                                                                    <form action="{{ route($link.'.destroy', $item->id) }}" method="POST">
+                                                                    <a class="dropdown-item" href="{{route($link.'.edit', $agent->id)}}">Modifier</a>
+                                                                    <form action="{{ route($link.'.destroy', $agent->id) }}" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit" class="dropdown-item">Supprimer</button>

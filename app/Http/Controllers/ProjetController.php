@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Projet;
 use App\Models\Site;
+use App\Models\Projet;
 use Illuminate\Http\Request;
+use App\Imports\ProjetsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProjetController extends Controller
 {
@@ -14,6 +16,7 @@ class ProjetController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager');
     }
 
     /**
@@ -23,8 +26,9 @@ class ProjetController extends Controller
      */
     public function index()
     {
-        $items = Projet::all();
-        return view($this->templatePath.'.liste', ['titre' => "Liste des Projets/Services", 'items' => $items, 'link' => $this->link]);
+
+        $projets = Projet::with(['Site'])->paginate(100);
+        return view($this->templatePath.'.liste', ['titre' => "Liste des Projets/Services", 'projets' => $projets, 'link' => $this->link]);
     }
 
     /**
@@ -49,7 +53,6 @@ class ProjetController extends Controller
         Projet::create(
             [
                 'designation' => $request->input('designation'),
-                'description' => $request->input('description'),
                 'site_id' => $request->input('site_id')
             ]
         );
@@ -94,7 +97,6 @@ class ProjetController extends Controller
         $item = Projet::find($id);
 
         $item->designation = $request->input('designation');
-        $item->description = $request->input('description');
         $item->site_id = $request->input('site_id');
 
         try{
@@ -120,4 +122,13 @@ class ProjetController extends Controller
         return redirect()->route('projet.index')
             ->with('success', "Projet Supprimé avec succes");
     }
+
+    public function import (Request $req){
+
+        Excel::import(new ProjetsImport, $req->file('projet_file'),
+
+     );
+
+         return back();
+     }
 }

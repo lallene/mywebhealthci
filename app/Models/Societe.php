@@ -12,4 +12,5 @@ class Societe extends Model
     public $timestamps = false;
 
     protected $fillable = ['designation', 'responsable', 'contact'];
+
 }

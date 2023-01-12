@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
 
 class UtilisateurController extends Controller
 {
@@ -17,6 +19,10 @@ class UtilisateurController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:IT');
+        
+
+
     }
 
     /**
@@ -26,9 +32,14 @@ class UtilisateurController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        //$users = User::all()->paginate(20);
+        $roles = Role::all();
+        $users = DB::table('users')->simplePaginate(15);
 
-        return view('configuration.users.liste', ['titre' => "Liste des Utilisateurs", 'users' => $users]);
+      //  $user_dispatches = Dispatch::where('user_id', Auth::id())->paginate(10)
+
+
+        return view('configuration.users.liste', ['titre' => "Liste des Utilisateurs", 'users' => $users, 'roles' => $roles]);
     }
 
     public function edit($id)

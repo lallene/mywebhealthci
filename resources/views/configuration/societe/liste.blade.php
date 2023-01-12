@@ -22,6 +22,27 @@
                             </div>
                         </div>
                     </div>
+
+                    <form action="/import" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-3 ">
+                                <label for="formFile" class="form-label">La liste des sociétés(**.xlsx,.xls,.csv**)</label>
+                                <input class="form-control" type="file" id="formFile" name="societe_file" accept=".xlsx,.xls,.csv" required>
+                                <br>
+                                <button type="submit" class="btn btn-success ">Upload</button>
+                            </div>
+
+                            <div class="col-6">
+                                <p class="fw-bold">**Entité / Société /Matricule IRIS / Projet_Service / Nom / Prénom**</p>
+                                <p class="fw-bold">**EmploI / Date naissance / Sexe /Fonction emploi /Sub-fonction**</p>
+                                <p class="fw-bold">**Manager hiérarchique /Type contrat / Date début contrat / Business e-mail**</p>
+
+                            </div>
+
+                        </div>
+
+                    </form>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="zero_config" class="table table-striped table-bordered">

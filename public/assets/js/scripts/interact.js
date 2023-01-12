@@ -48,6 +48,19 @@ $('#arretMaladie').change(function () {
     }
 });
 
+
+
+
+$('#justificatifValide').change(function () {
+    if($(this).val() == 'oui'){
+        $('.arretMaladieSwitch').removeClass('d-none');
+    }else{
+        $('.arretMaladieSwitch').addClass('d-none');
+    }
+});
+
+
+
 $('#debutArret').change(function () {
     impactDate();
 });
@@ -63,3 +76,4 @@ function impactDate(){
         $('#dateReprise').val(endDate);
     }
 }
+

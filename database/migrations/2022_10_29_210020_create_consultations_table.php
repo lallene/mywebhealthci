@@ -29,7 +29,7 @@ class CreateConsultationsTable extends Migration
             $table->string('poul');
             $table->string('temperature');
             $table->string('tension');
-            $table->string('assurance');
+            $table->string('assurance')->default('non');
             $table->string('accident');
             $table->string('traitement');
             $table->string('arretMaladie');
@@ -44,9 +44,14 @@ class CreateConsultationsTable extends Migration
             $table->string('vaccin_covid');
             $table->string('testCovid');
             $table->integer('doseVaccinCovid');
-            $table->text('observation')->nullable();
+            $table->text('observation');
+
+
+
 
             $table->string('statut_arret')->nullable();
+
+
 
             $table->unsignedBigInteger('motif_consultation_id')->nullable();
             $table->foreign('motif_consultation_id')

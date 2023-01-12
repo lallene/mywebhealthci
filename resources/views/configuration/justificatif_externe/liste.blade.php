@@ -45,12 +45,13 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
+
                                                     <td><?= $item->agent->iris ?></td>
                                                     <td><?= $item->agent->nom ?></td>
                                                     <td><?= $item->agent->prenom ?></td>
-                                                    <td><?= $item->date_dbt_arret ?></td>
-                                                    <td><?= $item->date_repise_trvl ?></td>
-                                                    <td><?= $item->nbre_jours ?></td>
+                                                    <td><?= $item->debutArret ?></td>
+                                                    <td><?= $item->dateReprise ?></td>
+                                                    <td><?= $item->duree_arret ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">

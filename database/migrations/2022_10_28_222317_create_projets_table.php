@@ -16,7 +16,6 @@ class CreateProjetsTable extends Migration
         Schema::create('projets', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->string('designation');
             $table->text('description')->nullable();
 
             $table->unsignedBigInteger('site_id')->nullable();

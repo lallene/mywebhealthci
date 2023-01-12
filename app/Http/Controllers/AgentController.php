@@ -20,6 +20,7 @@ class AgentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager|Agent de santé');
     }
     /**
      * Display a listing of the resource.
@@ -29,9 +30,10 @@ class AgentController extends Controller
     public function index()
     {
 
-        $items = Agent::all();
 
-        return view($this->templatePath.'.liste', ['titre' => "Liste des agents", 'items' => $items, 'link' => $this->link]);
+        $agents = Agent::with(['Projet','Emploi', 'SousFonction', 'Contrat', 'Societe', 'Manager'])->paginate(3000);
+
+        return view($this->templatePath.'.liste', ['titre' => "Liste des collaborateurs", 'agents' => $agents, 'link' => $this->link]);
     }
 
     /**
@@ -200,7 +202,9 @@ class AgentController extends Controller
 
     public function import (Request $req){
 
-       Excel::import(new AgentsImport, $req->file('agent_file') );
+       Excel::import(new AgentsImport, $req->file('agent_file'),
+
+    );
 
         return back();
     }

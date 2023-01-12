@@ -17,7 +17,6 @@ class Consultation extends Model
         'poul',
         'temperature',
         'tension',
-        'assurance',
         'accident',
         'traitement',
         'arretMaladie',
@@ -41,6 +40,11 @@ class Consultation extends Model
         'dateConsultation',
         'typeConsultation',
         'etatValidite',
+        'justificatifValide',
+        'motifRejet',
+        'duplicat_suite_valide',
+        'nomMedecin',
+        'designationCentreExterne',
     ];
 
     public function MotifConsultation(){
@@ -59,9 +63,15 @@ class Consultation extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function Justificatif(){
-        return $this->belongsTo(Justificatif::class);
+    public function Agent(){
+        return $this->belongsTo(Agent::class, 'agent_id');
     }
+
+    public function Projet(){
+        return $this->belongsTo(Projet::class, 'projet_id');
+    }
+
+
 }
 
 

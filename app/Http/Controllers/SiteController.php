@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Site;
+use App\Imports\SitesImport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiteController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager');
     }
 
     /**
@@ -108,4 +111,5 @@ class SiteController extends Controller
         return redirect()->route('site.index')
             ->with('success', 'Site Supprimé avec succes');
     }
+
 }

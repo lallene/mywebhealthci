@@ -19,6 +19,24 @@
                             <div class="col-sm-12 text-right pb-2">
                                 <a href="{{ route($link.".create") }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter</a>
                                 <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-plus"></i> Quitter</a>
+                                <form action="/importsubfonction" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-3 ">
+                                            <label for="formFile" class="form-label">La liste des sous-fonctions(**.xlsx,.xls,.csv**) <br>** Sous-focntion / Fonction **</label>
+                                            <input class="form-control" type="file" id="formFile" name="subfonction_file" accept=".xlsx,.xls,.csv" required>
+                                            <br>
+                                            <button type="submit" class="btn btn-success ">Upload</button>
+                                        </div>
+
+                                        <div class="col-6">
+                                            <p class="fw-bold"></p>
+
+                                        </div>
+
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -35,22 +53,22 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                        if(isset($items)){
+                                        if(isset($subfonctions)){
                                             $i = 0;
-                                            foreach ($items as $item) {
+                                            foreach ($subfonctions as $subfonction) {
                                                 $i++;
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
-                                                    <td><?= $item->intitule ?></td>
-                                                    <td><?= $item->fonction->intitule ?></td>
+                                                    <td><?= $subfonction->intitule ?></td>
+                                                    <td><?= $subfonction->fonction->intitule ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">
                                                                 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">Actions</button>
                                                                 <div class="dropdown-menu">
-                                                                    <a class="dropdown-item" href="{{route($link.'.edit', $item->id)}}">Modifier</a>
-                                                                    <form action="{{ route($link.'.destroy', $item->id) }}" method="POST">
+                                                                    <a class="dropdown-item" href="{{route($link.'.edit', $subfonction->id)}}">Modifier</a>
+                                                                    <form action="{{ route($link.'.destroy', $subfonction->id) }}" method="POST">
                                                                         @csrf
                                                                         @method('DELETE')
                                                                         <button type="submit" class="dropdown-item">Supprimer</button>

@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Motif_consultation;
+use App\Imports\MotifConsultationImport;
 use Illuminate\Http\Request;
+use App\Models\Motif_consultation;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Motif_consultationController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager');
+
     }
 
     /**
@@ -100,4 +104,14 @@ class Motif_consultationController extends Controller
         return redirect()->route('motif_consultation.index')
             ->with('success', 'Site Supprimé avec succes');
     }
+
+    public function import (Request $req){
+
+        Excel::import(new MotifConsultationImport, $req->file('motif_file'),
+
+     );
+
+         return back();
+     }
+
 }

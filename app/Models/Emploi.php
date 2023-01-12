@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Familleemploi;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Emploi extends Model
 {
@@ -11,9 +12,13 @@ class Emploi extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['designation', 'description', 'familleemploi_id'];
+    protected $fillable = ['designation', 'familleemploi_id'];
 
-    public function Famille(){
-        return $this->belongsTo(Familleemploi::class, 'familleemploi_id');
+
+
+
+    public function Familleemploi(){
+
+        return $this->belongsTo( Familleemploi::class, "familleemploi_id");
     }
 }

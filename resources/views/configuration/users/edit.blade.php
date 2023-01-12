@@ -48,7 +48,7 @@
 
                             <div class="row mt-3">
                                 <div class="col-sm-12 text-center">
-                                    <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-close"></i> Annuler</a>
+                                    <a href="#" class="btn btn-danger"><i class="fa fa-close"></i> Annuler</a>
                                     <button class="btn btn-primary"><i class="fa fa-save"></i> Modifier</button>
                                 </div>
                             </div>

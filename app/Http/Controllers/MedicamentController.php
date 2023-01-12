@@ -14,6 +14,7 @@ class MedicamentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:Agent de santé');
     }
     /**
      * Display a listing of the resource.

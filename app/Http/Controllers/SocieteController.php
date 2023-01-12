@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\SocietesImport;
 use App\Models\Societe;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SocieteController extends Controller
 {
@@ -12,6 +14,7 @@ class SocieteController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:RH Manager');
     }
 
     /**
@@ -110,4 +113,6 @@ class SocieteController extends Controller
         return redirect()->route('societe.index')
             ->with('success', 'Société Supprimée avec succes');
     }
+
+
 }
