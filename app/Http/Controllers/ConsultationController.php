@@ -155,7 +155,7 @@ class ConsultationController extends Controller
         /*le collaborateur*/
         Mail::to($agent->email_agent)->send(new Justificatif_externe($hrpbs, $agent, $consultation, $dateFin, $nbreJour, $emailsup));
 
-         return redirect()->route('consultation.index');
+         return redirect()->route('consultation.index')->with('success','Consulattion enregistrée avec succès. Email envoyé aux supervviseurs');
 
     }
 

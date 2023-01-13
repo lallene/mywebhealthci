@@ -72,7 +72,7 @@ class UtilisateurController extends Controller
         }catch (\Exception $e){
             echo'e';
         }
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success','Utilisateur modifié avec succès.');
     }
 
     public function permissions($id){
@@ -121,7 +121,7 @@ class UtilisateurController extends Controller
                 $role->givePermissionTo($permission->name);
             }
         }
-        return redirect('profil/permission/'.$id);
+        return redirect('profil/permission/'.$id)->with('success','Action effectuée avec succès.');
         //echo('<pre>'); die(print_r($_POST));
     }
 
