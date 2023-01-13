@@ -18,7 +18,7 @@ class Justificatif_externe extends Mailable
 
 
 
-    public $agent, $consultation, $nhr, $justificatif, $dateFin, $nbreJour, $dateReprise, $dateDebut,  $dateConsul;
+    public $agent, $consultation, $nhr, $justificatif, $dateFin, $nbreJour, $dateReprise, $dateDebut,  $dateConsul, $projet ;
 
     /**
      * Create a new message instance.
@@ -34,6 +34,7 @@ class Justificatif_externe extends Mailable
         $dateDebut = date('d-m-Y', strtotime($consultation->debutArret));
         $dateReprise = date('d-m-Y', strtotime($consultation->dateReprise));
         $dateConsul = date('d-m-Y', strtotime($consultation->created_at));
+        $projet = $agent->Projet->designation;
 
 
 
@@ -47,6 +48,9 @@ class Justificatif_externe extends Mailable
         $this->dateDebut = $dateDebut;
         $this->dateReprise = $dateReprise;
         $this->dateConsul =  $dateConsul;
+        $this->projet = $projet;
+
+      //  dd($projet);
 
 
 
@@ -61,7 +65,7 @@ class Justificatif_externe extends Mailable
     public function build()
     {
         return $this->markdown('emails.justificatif_externe')
-                    ->subject("My Webhealth CI - Notification de reception/délivrance d'un arrêt maladie.")
+                    ->subject("My Webhealth CI -Projet $this->projet Notification de reception/délivrance d'un arrêt maladie.")
                     ->with([
                         'nhr'=>$this->nhr,
                         'agent'=>$this->agent,
@@ -71,7 +75,7 @@ class Justificatif_externe extends Mailable
                         'nbreJour'=>$this->nbreJour,
                         'dateDebut'=> $this->dateDebut,
                         'dateConsul'=> $this->dateConsul,
-
+                        'projet' => $this->projet
 
                     ]);
     }

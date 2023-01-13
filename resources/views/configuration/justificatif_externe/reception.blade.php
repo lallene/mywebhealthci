@@ -226,18 +226,6 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-4">
-                                                                <div class="input-container focus">
-                                                                    <select class=" input" name="motifRejet" id="motifRejet">
-                                                                        <option value="Pièce incomplètes"  selected>Pièce incomplètes</option>
-                                                                        <option value="authenticite" > Doute sur l'authenticité</option>
-                                                                        <option value="Hors délai de 72H" >Hors délai de 72H</option>
-                                                                        <option value="Hors délai de 72H" >non conforme</option>
-                                                                    </select>
-                                                                    <label for="motifRejet">Motif du rejet</label>
-                                                                    <span>Motif du rejet</span>
-                                                                </div>
-                                                            </div>
 
                                                             <div class="col-md-2">
                                                                 <div class="input-container focus arretMaladieSwitch ">
@@ -264,7 +252,7 @@
 
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="number" class=" input " name="duree_arret" id="duree_arret">
+                                                                    <input type="number" class=" input " name="duree_arret" id="duree_arret" value="0">
                                                                     <label for="duree_arret">Durée arrêt maladie (en heure)</label>
                                                                     <span>Durée arrêt maladie (en heure)</span>
                                                                 </div>
@@ -301,6 +289,19 @@
                                                                     <span>Date de reprise</span>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-4">
+                                                                <div class="input-container focus repos d-none">
+                                                                    <select class=" input " name="motifRejet" id="motifRejet">
+                                                                        <option value="Pièce incomplètes"  selected>Pièce incomplètes</option>
+                                                                        <option value="authenticite" > Doute sur l'authenticité</option>
+                                                                        <option value="Hors délai de 72H" >Hors délai de 72H</option>
+                                                                        <option value="Hors délai de 72H" >non conforme</option>
+                                                                    </select>
+                                                                    <label for="motifRejet">Motif du rejet</label>
+                                                                    <span>Motif du rejet</span>
+                                                                </div>
+                                                            </div>
+
 
 
                                                         </div>

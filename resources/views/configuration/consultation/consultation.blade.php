@@ -71,6 +71,13 @@
                     font-weight: bold !important;;
                 }
 
+                .accoradd{
+                    TOP: 1PX;
+                    width: 99%;
+                    LEFT: 15px;
+                    margin-bottom: 9PX;
+                }
+
             </style>
             <div class="row column_title">
                 <div class="col-md-12">
@@ -101,7 +108,7 @@
 
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="headingEight">
-                                                    <button class="accordion-button collapsed accordiontt" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                    <button class="accordion-button collapsed accordiontt" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
                                                         INFORMATION DU COLLABORATEUR
                                                     </button>
                                                 </h2>
@@ -182,10 +189,10 @@
                                                         CONSULTATION
                                                     </button>
                                                 </h2>
-                                                <div id="collapseSeven" class="accordion-collapse collapse show " aria-labelledby="collapseSeven" data-bs-parent="#accordionExample1">
+                                                <div id="collapseSeven" class="accordion-collapse collapse show " aria-labelledby="collapseSeven" data-bs-parent="#headingSeven">
                                                        <div class="row g-3 accordion-body ">
-                                                        <div class="contact-form row">
-                                                            <div class="col-md-5 row ">
+                                                        <div class="contact-form accoradd row">
+                                                            <div class="col-md-5  ">
                                                                 <div class="input-container focus">
                                                                     <select name="natureReception" class="input" id="natureReception">
                                                                         <?php
@@ -221,16 +228,16 @@
 
                                                             <div class="row">
                                                                 <div class="col-md-3">
-                                                                    <div class="input-container ">
-                                                                        <input type="numeric" class="input" step="any" id="poids" name="poids" required>
+                                                                    <div class="input-container focus">
+                                                                        <input type="numeric" class="input" step="any" id="poids" name="poids" style="border: 2px solid #dc3545" required>
                                                                         <label for="poids">Poids</label>
                                                                         <span>Poids</span>
                                                                     </div>
 
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="input-container ">
-                                                                    <input type="numeric" class="input" step="any" id="poul" name="poul" required>
+                                                                    <div class="input-container focus">
+                                                                    <input type="numeric" class="input" step="any" id="poul" name="poul"  style="border: 2px solid #dc3545" required>
                                                                     <label for="poul">Pouls</label>
                                                                     <span>Pouls</span>
                                                                 </div>
@@ -238,15 +245,15 @@
 
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="input-container ">
-                                                                    <input type="numeric" class="input" step="any" id="temperature" name="temperature" required>
+                                                                    <div class="input-container focus ">
+                                                                    <input type="numeric" class="input" step="any" id="temperature" name="temperature" style="border: 2px solid #dc3545" required>
                                                                     <label for="temperature">Température</label>
                                                                     <span>Température</span>
                                                                 </div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <div class="input-container ">
-                                                                    <input type="numeric" class="input" step="any" id="tension" name="tension" required>
+                                                                    <div class="input-container focus ">
+                                                                    <input type="numeric" class="input" step="any" id="tension" name="tension" style="border: 2px solid #dc3545"  required>
                                                                     <label for="tension">Tension Art</label>
                                                                     <span>Tension Art</span>
                                                                 </div>
@@ -321,6 +328,16 @@
                                                                         <span>Motif de consultation</span>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="input-container focus">
+                                                                    <select class="input" name="repriseService" id="repriseService">
+                                                                        <option value="apte" selected>Apte</option>
+                                                                        <option value="inapte">Inapte</option>
+                                                                    </select>
+                                                                    <label for="repriseService">Reprise de service</label>
+                                                                    <span>Reprise de service</span>
+                                                                </div>
+                                                                </div>
 
                                                                 <div class="col-md-3 arretMaladieSwitch d-none">
                                                                     <div class="input-container focus">
@@ -332,6 +349,7 @@
                                                                     <span>Bulletin de sortie</span>
                                                                      </div>
                                                                 </div>
+
 
                                                                 <div class="col-md-3">
                                                                     <div class="input-container focus">
@@ -353,6 +371,9 @@
                                                                         <span>Traitement administré</span>
                                                                     </div>
                                                                 </div>
+                                                                <div>
+
+                                                                </div>
 
                                                             </div>
 
@@ -367,6 +388,7 @@
                                                                         <select class="input" name="arretMaladie" id="arretMaladie">
                                                                             <option value="oui">Oui</option>
                                                                             <option value="non" selected>Non</option>
+                                                                            <option value="repos" >Repos</option>
                                                                         </select>
                                                                         <label for="arretMaladie">Arrêt maladie</label>
                                                                         <span>Arrêt maladie</span>
@@ -374,16 +396,23 @@
 
                                                                 </div>
 
-                                                                <div class="col-md-4 arretMaladieSwitch d-none">
+                                                                <div class="col-md-4  arretMaladieSwitch d-none">
                                                                     <div class="input-container focus">
                                                                         <input type="number" class="input" name="duree_arret" id="duree_arret" value="0">
                                                                         <label for="dateConsultation">Durée arrêt maladie (heure)</label>
                                                                         <span>Durée arrêt maladie (heure)</span>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-4  repos d-none focus">
+                                                                    <div class="input-container focus">
+                                                                        <input type="number" class="input" name="repos" id="repos" value="0">
+                                                                        <label for="dateConsultation">Repos (heure)</label>
+                                                                        <span>Repos (heure)</span>
+                                                                    </div>
+                                                                </div>
 
                                                                 <div class="col-md-4">
-                                                                    <div class="input-container arretMaladieSwitch focus">
+                                                                    <div class="input-container arretMaladieSwitch  d-none focus">
                                                                         <input type="text" class="input" disabled id="enJours" value="0">
                                                                         <input type="hidden" class="input" id="enJours2" value="0">
                                                                         <label for="enJours">Durée arrêt maladie (en jour)</label>
@@ -391,7 +420,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-4 d-none">
-                                                                    <div class="input-container focus">
+                                                                    <div class="input-container  d-none focus">
                                                                         <select class="input" name="nbrJour" id="nbrJour">
                                                                             <option value="Heure" selected>Heure</option>
                                                                         </select>
@@ -414,19 +443,43 @@
                                                                     <span>Date de reprise</span>
                                                                 </div>
                                                                 </div>
+                                                                <div class="col-md-4">
+                                                                    <div class="input-container focus arretMaladieSwitch d-none">
+                                                                        <select class=" input" name="billet_sortie" id="billet_sortie">
+                                                                            <option value="1" >Oui</option>
+                                                                            <option value="0" selected>Non</option>
+                                                                        </select>
+                                                                        <label for="billet_sortie">Reprise de bulletin de sortie</label>
+                                                                        <span>Reprise de bulletin de sortie</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5 ">
+                                                                    <div class="input-container focus arretMaladieSwitch d-none">
+                                                                        <select name="motif_consultation_id" class="input" id="motif_consultation_id">
+                                                                            <?php
+                                                                            foreach ($motifs as $motif) {
+                                                                            ?>
+                                                                            <option  value="{{ $motif->id }}">{{ $motif->intitule }}</option>
+                                                                            <?php
+                                                                            }
+                                                                            ?>
+                                                                        </select>
+                                                                        <label for="motif_consultation_id">Motif de consultation</label>
+                                                                        <span>Motif de consultation</span>
+                                                                    </div>
+                                                                </div>
+
 
                                                                 <div class="col-md-4">
-                                                                    <div class="input-container focus">
-                                                                    <select class="input" name="repriseService" id="repriseService">
-                                                                        <option value="apte" selected>Apte</option>
-                                                                        <option value="inapte">Inapte</option>
-                                                                    </select>
-                                                                    <label for="repriseService">Reprise de service</label>
-                                                                    <span>Reprise de service</span>
+                                                                    <div class="input-container focus arretMaladieSwitch d-none">
+                                                                        <select class=" input" name="duplicat_suite_valide" id="">
+                                                                            <option value="1"  >oui</option>
+                                                                            <option value="0" selected>non</option>
+                                                                        </select>
+                                                                        <label for="duplicat_suite_valide">Duplicatat suite validation</label>
+                                                                        <span>Duplicatat suite validation</span>
+                                                                    </div>
                                                                 </div>
-                                                                </div>
-
-
                                                             </div>
                                                         </fieldset>
 
@@ -776,5 +829,44 @@
     <script src="{{ asset("assets/js/scripts/prescrire.js") }}"></script>
     <script src="{{ asset("assets/js/scripts/interact.js") }}"></script>
     <script src="{{ asset("assets/js/recherche.js") }}"></script>
+
+    <script>
+
+
+        document.getElementById('poids').addEventListener('input', event => {
+        if (document.getElementById('poids').value === '') {
+            document.getElementById('poids').style.border = '2px solid #dc3545';
+        } else {
+            document.getElementById('poids').style.border = '2px solid #fafafa';
+        }
+        });
+
+        document.getElementById('temperature').addEventListener('input', event => {
+        if (document.getElementById('temperature').value === '') {
+            document.getElementById('temperature').style.border = '2px solid #dc3545';
+        } else {
+            document.getElementById('temperature').style.border = '2px solid #fafafa';
+        }
+        });
+
+        document.getElementById('poul').addEventListener('input', event => {
+        if (document.getElementById('poul').value === '') {
+            document.getElementById('poul').style.border = '2px solid #dc3545';
+        } else {
+            document.getElementById('poul').style.border = '2px solid #fafafa';
+        }
+        });
+
+        document.getElementById('tension').addEventListener('input', event => {
+        if (document.getElementById('tension').value === '') {
+            document.getElementById('tension').style.border = '2px solid #dc3545';
+        } else {
+            document.getElementById('tension').style.border = '2px solid #fafafa';
+        }
+        });
+
+
+
+</script>
 @stop
 

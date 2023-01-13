@@ -62,11 +62,16 @@ class ConsultationController extends Controller
         //dd($projet);
 
         $agent = Agent::find($_POST['agent_id']);
-       // dd($agent->projet_id);
+      // dd($_POST);
 
-
+      if($_POST['assurance'] = ''){
+        $assurance = '000000';
+      }else{
+        $assurance =  $_POST['assurance'];
+      }
 
         //echo('<pre>'); die(print_r($_POST));
+
 
         $consultation = Consultation::create([
             "agent_id" => $_POST['agent_id'],
@@ -102,8 +107,9 @@ class ConsultationController extends Controller
             'justificatifValide' => '-',
             'motifRejet' => 'Aucun',
             'duplicat_suite_valide' =>'-',
-            'projet' => $agent->projet_id
-
+            'projet' => $agent->projet_id,
+             'assurance' => $assurance,
+             'repos' => $_POST['repos']
 
         ]);
 
@@ -131,14 +137,17 @@ class ConsultationController extends Controller
         $nbreJour = round($nbreJour/24);
         $dateFin = $consultation->dateReprise;
         $dateFin = date('d-m-Y', strtotime($dateFin. ' - 1 days'));
-        dd($dateFin);
         $cfs = Agent::where('emploi_id', '=', '9' )->where('projet_id', '=', $agent->projet_id)->get();
+        dd($cfs);
 
-        Mail::to('lachi@webhelp.fr')->send(new Justificatif_externe($cfs, $agent, $consultation, $dateFin, $nbreJour, ));
+        Mail::to('lallene2016@gmail.com')->send(new Justificatif_externe($cfs, $agent, $consultation, $dateFin, $nbreJour, ));
+        Mail::to('dlt-ci-hr-business-partner@ci.webhelp.com')->send(new Justificatif_externe($cfs, $agent, $consultation, $dateFin, $nbreJour, ));
         dd($agent->email_agent);
+
         /*charge de flux*/
         $cfs = Agent::where('emploi_id', '=', '9' )->where('projet_id', '=', $agent->projet_id)->get();
-        dd($dateFin);
+
+
         foreach ($cfs as $cf){
         Mail::to($cf->email_agent)->send(new Justificatif_externe($cf, $agent, $consultation, $dateFin, $nbreJour, ));
         }

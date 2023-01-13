@@ -78,11 +78,25 @@ class JustificatifController extends Controller
             $etatValidite = 'non';
         }
 
+        if($_POST['justificatifValide'] != 'non'){
+            $duree_arret = 0;
+        }else{
+            $duree_arret =  $_POST['duree_arret'];
+        }
+
+        if($_POST['motif_consultation_id'] != 'Autres'){
+            $motif_consultation_id = 25;
+        }else{
+            $motif_consultation_id =  $_POST['motif_consultation_id'];
+        }
+
         if($_POST['justificatifValide'] != 'oui'){
             $motifRejet = $_POST['motifRejet'];
         }
 
         $agent = Agent::find($_POST['agent_id']);
+
+      //  dd($_POST);
 
         $consultation = Consultation::create([
             "agent_id" => $_POST['agent_id'],
@@ -93,7 +107,7 @@ class JustificatifController extends Controller
             "accident" => 'non',
             "traitement" => 'non',
             "arretMaladie" => 'oui',
-            "duree_arret" => $_POST['duree_arret'],
+            "duree_arret" => $duree_arret,
             "nbrJour" => $_POST['nbrJour'],
             "natureDuree" => $_POST['nbrJour'],
             "dateConsultation" => $_POST['dateConsultation'],
@@ -102,7 +116,7 @@ class JustificatifController extends Controller
             "natureReception" => $_POST['natureReception'],
             "debutArret" => $_POST['debutArret'],
             "dateReprise" => $_POST['dateReprise'],
-            "billetSortie" => $_POST['billet_sortie'],
+            "billetSortie" => '-',
             "repriseService" => $_POST['repriseService'],
             "maladie_contagieuse" => $_POST['maladie_contagieuse'],
             "maladie_prof" => 'non',
@@ -110,14 +124,15 @@ class JustificatifController extends Controller
             "testCovid" => '-',
             "doseVaccinCovid" => 0,
             "observation" => $_POST['observation'],
-            "motif_consultation_id" => $_POST['motif_consultation_id'],
+            "motif_consultation_id" => $motif_consultation_id,
             "user_id" => $userId,
             'nomMedecin' => $request->input('nomMedecin'),
             'designationCentreExterne' => $request->input('designationCentreExterne'),
             'justificatifValide' => $etatValidite,
             'motifRejet' => $motifRejet,
-            'duplicat_suite_valide' => $request->input('duplicat_suite_valide'),
-            'projet_id' => $agent->projet_id
+            'duplicat_suite_valide' => '-',
+            'projet_id' => $agent->projet_id,
+            'repos' => '0',
         ]);
 
         $agent = Agent::find($_POST['agent_id']);
@@ -126,9 +141,10 @@ class JustificatifController extends Controller
         $consultation = Consultation::find($consultation->id);
         $sup = $agent->manager;
         $emailsup = Agent::where('manager', '=', $sup)->get();
+        $projet = $agent->Projet->designation;
 
-    //  dd($days );
-      Mail::to('setushi.lawson@webhelp.com')->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif ));
+      //dd($projet);
+      Mail::to('lallene2016@gmaiL.com')->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif, $projet ));
 
       return redirect()->route('consultation.index');
 
