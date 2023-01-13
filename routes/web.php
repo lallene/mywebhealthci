@@ -62,3 +62,8 @@ Route::get('/consulter/{id}', [\App\Http\Controllers\ConsultationController::cla
 Route::get('/reception/{id}', [\App\Http\Controllers\JustificatifController::class, 'reception']);
 
 Route::post('/dashboard',[\App\Http\Controllers\HomeController::class, 'filter']);
+
+
+Route::any('{url}', function(){
+    return back();
+})->where('url', '.*');

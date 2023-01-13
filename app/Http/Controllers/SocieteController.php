@@ -54,7 +54,7 @@ class SocieteController extends Controller
             ]
         );
 
-        return redirect()->route('societe.index');
+        return redirect()->route('societe.index')->with('success','Société enregistrée avec succès.');
     }
 
     /**
@@ -97,7 +97,7 @@ class SocieteController extends Controller
         }catch (\Exception $e){
             echo'e';
         }
-        return redirect()->route('societe.index');
+        return redirect()->route('societe.index')->with('success','Société Modifiée avec succès.');
     }
 
     /**

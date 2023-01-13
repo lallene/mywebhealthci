@@ -52,7 +52,7 @@ class SiteController extends Controller
             ]
         );
 
-        return redirect()->route('site.index');
+        return redirect()->route('site.index')->with('success','Site ajouté avec succès.');
     }
 
     /**
@@ -95,7 +95,7 @@ class SiteController extends Controller
         }catch (\Exception $e){
             echo'e';
         }
-        return redirect()->route('site.index');
+        return redirect()->route('site.index')->with('success','Site modifié avec succès.');
     }
 
     /**

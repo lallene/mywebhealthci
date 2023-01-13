@@ -189,6 +189,7 @@
                 <!-- end topbar -->
                 <!-- dashboard inner -->
                 <div class="midde_cont">
+                    @include('message')
                     @yield('content')
                     <!-- footer -->
                     <div class="container-fluid">

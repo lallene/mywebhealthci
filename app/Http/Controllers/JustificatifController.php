@@ -117,6 +117,8 @@ class JustificatifController extends Controller
             "debutArret" => $_POST['debutArret'],
             "dateReprise" => $_POST['dateReprise'],
             "billetSortie" => '-',
+            //"billetSortie" => $_POST['billet_sortie'],
+            "billetSortie" => 'non',
             "repriseService" => $_POST['repriseService'],
             "maladie_contagieuse" => $_POST['maladie_contagieuse'],
             "maladie_prof" => 'non',
@@ -146,16 +148,16 @@ class JustificatifController extends Controller
       //dd($projet);
       Mail::to('lallene2016@gmaiL.com')->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif, $projet ));
 
-      return redirect()->route('consultation.index');
+      return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');;
 
       foreach ($hrpbs as $hrpb){
             Mail::to($hrpb['email_agent'])->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif));
-                               }
+       }
       $sup = $agent->manager;
       $emailsup = Agent::where('manager', '=', $sup);
-      dd($emailsup);
+      //dd($emailsup);
 
-      return redirect()->route('consultation.index');
+      return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');
 
     }
 
