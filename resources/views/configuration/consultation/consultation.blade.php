@@ -212,7 +212,7 @@
                                                                     ?>
                                                                     <div class="col-md-4 " id="matriculeAssuranceDiv">
                                                                         <div class="input-container focus">
-                                                                            <input type="text" class="input" id="matriculeAssurance" name="matriculeAssurance"  readonly disabled>
+                                                                            <input type="text" class="input" id="matriculeAssurance" name="matriculeAssurance" value="{{ $agent->iris }}" readonly disabled>
                                                                             <label for="matriculeAssurance">Matricule assurance</label>
                                                                             <span>Matricule assurance</span>
                                                                         </div>
@@ -281,26 +281,25 @@
                                                                         <span>Accident de travail</span>
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="col-md-3">
-                                                                    <div class="input-container focus">
-                                                                        <select class="input" name="traitement" id="traitement">
-                                                                            <option value="oui" selected>Oui</option>
-                                                                            <option value="non">Non</option>
-                                                                        </select>
-                                                                        <label for="traitement">Traitement</label>
-                                                                        <span>Traitement</span>
-                                                                    </div>
-
-                                                                </div>
                                                                 <div class="col-md-3">
                                                                     <div class="input-container focus">
                                                                         <select class="input" name="medicament" id="medicament">
                                                                             <option value="oui">Oui</option>
                                                                             <option value="non" selected>Non</option>
                                                                         </select>
-                                                                        <label for="medicament">Médicament</label>
-                                                                        <span>Médicament</span>
+                                                                        <label for="medicament">Médicament administré</label>
+                                                                        <span>Médicament administré</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-3">
+                                                                    <div class="input-container focus">
+                                                                        <select class="input" name="traitement" id="traitement">
+                                                                            <option value="oui" >Oui</option>
+                                                                            <option value="non" selected >Non</option>
+                                                                        </select>
+                                                                        <label for="traitement">Traitement administré</label>
+                                                                        <span>Traitement administré</span>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-3">
@@ -312,6 +311,16 @@
                                                                     <label for="maladie_contagieuse">Maladie contagieuse</label>
                                                                     <span>Maladie contagieuse</span>
                                                                 </div>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <div class="input-container focus">
+                                                                    <select class="input" name="maladie_prof" id="maladie_prof">
+                                                                        <option value="oui">Oui</option>
+                                                                        <option value="non" selected >Non</option>
+                                                                    </select>
+                                                                    <label for="maladie_prof">Maladie professionnelle</label>
+                                                                    <span>Maladie professionnelle</span>
+                                                                    </div>
                                                                 </div>
                                                                 <div class="col-md-5 ">
                                                                     <div class="input-container focus">
@@ -339,7 +348,7 @@
                                                                 </div>
                                                                 </div>
 
-                                                                <div class="col-md-3 arretMaladieSwitch d-none">
+                                                                <div class="col-md-4 repriseServiceswitch d-none">
                                                                     <div class="input-container focus">
                                                                     <select class="input" name="billetSortie" id="billetSortie">
                                                                         <option value="oui" >Oui</option>
@@ -351,26 +360,8 @@
                                                                 </div>
 
 
-                                                                <div class="col-md-3">
-                                                                    <div class="input-container focus">
-                                                                    <select class="input" name="maladie_prof" id="maladie_prof">
-                                                                        <option value="oui">Oui</option>
-                                                                        <option value="non" selected >Non</option>
-                                                                    </select>
-                                                                    <label for="maladie_prof">Maladie professionnelle</label>
-                                                                    <span>Maladie professionnelle</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="input-container focus">
-                                                                        <select class="input" name="traitement_adm" id="traitement_adm">
-                                                                            <option value="oui" >Oui</option>
-                                                                            <option value="non" selected >Non</option>
-                                                                        </select>
-                                                                        <label for="traitement_adm">Traitement administré</label>
-                                                                        <span>Traitement administré</span>
-                                                                    </div>
-                                                                </div>
+
+
                                                                 <div>
 
                                                                 </div>
@@ -406,7 +397,7 @@
                                                                 <div class="col-md-4  repos d-none focus">
                                                                     <div class="input-container focus">
                                                                         <input type="number" class="input" name="repos" id="repos" value="0">
-                                                                        <label for="dateConsultation">Repos (heure)</label>
+                                                                        <label for="repos">Repos (heure)</label>
                                                                         <span>Repos (heure)</span>
                                                                     </div>
                                                                 </div>
@@ -443,17 +434,7 @@
                                                                     <span>Date de reprise</span>
                                                                 </div>
                                                                 </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="input-container focus arretMaladieSwitch d-none">
-                                                                        <select class=" input" name="billet_sortie" id="billet_sortie">
-                                                                            <option value="1" >Oui</option>
-                                                                            <option value="0" selected>Non</option>
-                                                                        </select>
-                                                                        <label for="billet_sortie">Reprise de bulletin de sortie</label>
-                                                                        <span>Reprise de bulletin de sortie</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-5 ">
+                                                                <div class="col-md-4 ">
                                                                     <div class="input-container focus arretMaladieSwitch d-none">
                                                                         <select name="motif_consultation_id" class="input" id="motif_consultation_id">
                                                                             <?php
@@ -466,18 +447,6 @@
                                                                         </select>
                                                                         <label for="motif_consultation_id">Motif de consultation</label>
                                                                         <span>Motif de consultation</span>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-md-4">
-                                                                    <div class="input-container focus arretMaladieSwitch d-none">
-                                                                        <select class=" input" name="duplicat_suite_valide" id="">
-                                                                            <option value="1"  >oui</option>
-                                                                            <option value="0" selected>non</option>
-                                                                        </select>
-                                                                        <label for="duplicat_suite_valide">Duplicatat suite validation</label>
-                                                                        <span>Duplicatat suite validation</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -522,22 +491,27 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </fieldset>
-                                                        <div class="contact-form">
-                                                            <div class="col-md-12">
-                                                                <div class="input-container focus">
-                                                                    <textarea class="input" rows="3" id="observation" name="observation"></textarea>
-                                                                    <label for="observation">Observation</label>
-                                                                    <span>Observation</span>
+                                                        </fieldset >
+                                                        <fieldset class="col-12 contact-form">
+                                                            <legend>Observations</legend>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="input-container focus">
+                                                                        <textarea class="input" rows="3" id="observation" name="observation"></textarea>
+                                                                        <label for="observation">Observations</label>
+                                                                        <span>Observations</span>
+                                                                    </div>
+
+
                                                                 </div>
 
-
+                                                                <div class="col-md-12 text-center">
+                                                                    <button class="btvalidate" type="submit">Enregistrer</button>
+                                                                </div>
                                                             </div>
 
-                                                            <div class="col-md-12 text-center">
-                                                                <button class="btvalidate" type="submit">Enregistrer</button>
-                                                            </div>
-                                                        </div>
+                                                        </fieldset>
+
 
                                                     </div>
                                                 </div>
@@ -572,7 +546,7 @@
                                                                         <th width="20%">Date</th>
                                                                         <th width="30%">Site</th>
                                                                         <th width="20%">Durée</th>
-                                                                        <th width="30%">Agent de santé</th>                                                                </tr>
+                                                                        <th width="30%">Corps médical</th>                                                                </tr>
                                                                     </thead>
                                                                 <tbody>
                                                                 <?php

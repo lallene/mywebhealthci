@@ -24,7 +24,7 @@
                                 @csrf
                                 <div class="row">
                                     <div class="col-3 ">
-                                        <label for="formFile" class="form-label">La liste des matricules(**.xlsx,.xls,.csv**)  <br>**  Nom du matricule /  Le site **</label>
+                                        <label for="formFile" class="form-label">La liste des matricules(**.xlsx,.xls,.csv**)  <br>**  Iris /  Matricle **</label>
                                         <input class="form-control" type="file" id="formFile" name="matricule_file" accept=".xlsx,.xls,.csv" required>
                                         <br>
                                         <button type="submit" class="btn btn-success ">Téléverser</button>

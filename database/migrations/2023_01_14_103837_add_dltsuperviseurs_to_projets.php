@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddReposToConsultations extends Migration
+class AddDltsuperviseursToProjets extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddReposToConsultations extends Migration
      */
     public function up()
     {
-        Schema::table('consultations', function (Blueprint $table) {
-            $table->integer('repos');
+        Schema::table('projets', function (Blueprint $table) {
+            $table->string('dltsuperviseur');
         });
     }
 
@@ -25,8 +25,8 @@ class AddReposToConsultations extends Migration
      */
     public function down()
     {
-        Schema::table('consultations', function (Blueprint $table) {
-            //
+        Schema::table('projets', function (Blueprint $table) {
+            $table->email('dltsuperviseur');
         });
     }
 }

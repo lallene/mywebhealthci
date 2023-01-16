@@ -17,7 +17,7 @@ class EmploiController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:RH Manager');
+        $this->middleware('role:Ressources Humaines');
     }
 
     /**

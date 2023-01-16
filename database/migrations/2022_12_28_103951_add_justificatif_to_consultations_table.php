@@ -18,7 +18,6 @@ class AddJustificatifToConsultationsTable extends Migration
             $table->string('designationCentreExterne');
             $table->string('justificatifValide');
             $table->string('motifRejet')->nullable();
-            $table->string('duplicat_suite_valide');
             $table->string('email_agent')->nullable()->unique();
 
         });

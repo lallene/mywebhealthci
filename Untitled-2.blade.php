@@ -25,7 +25,7 @@
                 <h4>General</h4>
                 <ul class="list-unstyled components" id=selectedactive >
 
-                    @role('RH Manager|Administrateur|IT')
+                    @role('Ressources Humaines|Administrateur|IT')
                         <li class="<?= (isset($menu) AND $menu == 'params') ? 'active' : '' ?>">
                             <a href="#params" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle btnselected">
                                 <i class="fa fa-key gs red_color"></i>
@@ -61,7 +61,7 @@
                                 <span >Configuration</span>
                             </a>
                             <ul class="collapse list-unstyled" id="config">
-                                @role('RH Manager|Administrateur')
+                                @role('Ressources Humaines|Administrateur')
                                     <li>
 
                                         <a href="{{ route("societe.index") }}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" class="btnselected" viewBox="0 0 16 16" color="gold">
@@ -126,7 +126,7 @@
                             </ul>
                         </li>
                     @endrole
-                    @role('Agent de Santé')
+                    @role('Corps médical')
                         <li class="<?= (isset($menu) AND $menu == 'consulter') ? 'active' : '' ?>">
                             <a href="#consulter" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
                                 <i class="fa fa-heartbeat gs green_color"></i>

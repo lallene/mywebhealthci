@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ConsultationController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +44,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('effectif', \App\Http\Controllers\AgentController::class);
     Route::resource('medicament', \App\Http\Controllers\MedicamentController::class);
+    Route::resource('matricle', \App\Http\Controllers\MatriculeControlleur::class);
 });
+
+
 
 
 Route::get('profil/permission/{id}', [\App\Http\Controllers\RoleController::class, 'permissions']);
@@ -55,12 +60,17 @@ Route::post('/importprojet', [App\Http\Controllers\ProjetController::class, 'imp
 Route::post('/importemploi', [App\Http\Controllers\EmploiController::class, 'import']);
 Route::post('/importsubfonction', [App\Http\Controllers\Sub_FonctionController::class, 'import']);
 Route::post('/importmotif', [App\Http\Controllers\Motif_consultationController::class, 'import']);
+Route::post('/importmatricule', [App\Http\Controllers\MatriculeControlleur::class, 'import']);
+Route::get('home/export/', [HomeController::class, 'export']);
+
 
 
 Route::post('/getAgent/{id}', [\App\Http\Controllers\AgentController::class, 'getAgentByIris'])->name('getAgent');
 Route::get('/consulter/{id}', [\App\Http\Controllers\ConsultationController::class, 'consulter']);
 Route::get('/reception/{id}', [\App\Http\Controllers\JustificatifController::class, 'reception']);
-
+Route::get('/dataConsul', [App\Http\Controllers\SearchController::class, 'index'])->name('data_search');
+Route::get('/dataConsul/simple', [App\Http\Controllers\SearchController::class, 'simple'])->name('simple_search');
+Route::get('/dataConsul/advance', [App\Http\Controllers\SearchController::class, 'advance'])->name('advance_search');
 Route::post('/dashboard',[\App\Http\Controllers\HomeController::class, 'filter']);
 
 

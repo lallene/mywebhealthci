@@ -16,7 +16,7 @@ class ProjetController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:RH Manager');
+        $this->middleware('role:Ressources Humaines');
     }
 
     /**
@@ -53,7 +53,8 @@ class ProjetController extends Controller
         Projet::create(
             [
                 'designation' => $request->input('designation'),
-                'site_id' => $request->input('site_id')
+                'site_id' => $request->input('site_id'),
+                'dltsuperviseur' => $request->input('dltsuperviseur')
             ]
         );
 
@@ -98,6 +99,8 @@ class ProjetController extends Controller
 
         $item->designation = $request->input('designation');
         $item->site_id = $request->input('site_id');
+        $item->dltsuperviseur = $request->input('dltsuperviseur');
+
 
         try{
             $item->save();

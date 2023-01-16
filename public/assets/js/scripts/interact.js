@@ -73,6 +73,22 @@ $('#justificatifValide').change(function () {
 
 
 
+
+$('#repriseService').change(function () {
+    if($(this).val() == 'inapte'){
+        $('.repriseServiceswitch').removeClass('d-none');
+
+    }else {
+        $('.repriseServiceswitch').addClass('d-none');
+
+    }
+});
+
+
+
+
+
+
 $('#debutArret').change(function () {
     impactDate();
 });

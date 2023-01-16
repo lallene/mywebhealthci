@@ -19,8 +19,8 @@
         <option value="1"  >oui</option>
         <option value="0" selected>non</option>
     </select>
-    <label for="validationDefault03">Duplicatat suite validation</label>
-    <span>Duplicatat suite validation</span>
+    <label for="validationDefault03">Duplicata suite validation</label>
+    <span>Duplicata suite validation</span>
 </div>
 </div>
 <div class="col-md-3">

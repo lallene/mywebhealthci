@@ -16,7 +16,7 @@ class MatriculeControlleur extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:RH Manager');
+        $this->middleware('role:Ressources Humaines');
     }
 
     /**
@@ -128,7 +128,6 @@ class MatriculeControlleur extends Controller
         Excel::import(new MatriculeImport, $req->file('matricule_file'),
 
      );
-
          return back();
      }
 }

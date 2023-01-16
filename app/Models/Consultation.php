@@ -42,7 +42,6 @@ class Consultation extends Model
         'etatValidite',
         'justificatifValide',
         'motifRejet',
-        'duplicat_suite_valide',
         'nomMedecin',
         'designationCentreExterne',
         'repos',

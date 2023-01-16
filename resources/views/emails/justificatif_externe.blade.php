@@ -24,15 +24,15 @@ Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$agent
 
 •            Date de reprise du travail :<b> {{$dateReprise}}</b>
 
-•            Délivré par un médecin <b>{{$consultation->typeConsultation}}</b>
+•            Délivré par un médecin <b>{{$consultation->typeConsultation}}</b>   @if(($consultation->typeConsultation =='Externe')){ de l’établissement de santé <b>{{$consultation->designationCentreExterne}}</b>}
 
 
 
-<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i>
+<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i><br><br>
 
 
 
-<br>Cordialement,
+Cordialement,<br>
 <b><h3>Votre Team RH Côte d'Ivoire</h3></b>
 
 @elseif ( $consultation->arretMaladie =='repos')
@@ -52,11 +52,11 @@ Vous trouverez ci-dessous les informations concernant cet arrêt :
 
 
 
-<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i>
+<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i><br><br>
 
 
 
-<br>Cordialement,
+Cordialement,<br>
 <b><h3>Votre Team RH Côte d'Ivoire</h3></b>
 
 
@@ -65,8 +65,8 @@ Vous trouverez ci-dessous les informations concernant cet arrêt :
 
  L'arrêt maladie est rejeté pour motif<b> {{$consultation->motifRejet}} </b>.
 
-<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i>
-<br>Cordialement,
+<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i><br><br>
+Cordialement,<br>
 
 <b><h3>Votre Team RH Côte d'Ivoire</h3></b>
 
@@ -74,5 +74,3 @@ Vous trouverez ci-dessous les informations concernant cet arrêt :
 
 
 @endcomponent
-
-

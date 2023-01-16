@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Imports;
-
-use App\Models\Matricule;
 use App\Models\Matricule;
 use Illuminate\Support\Facades\DB;
-use Maatwebagent\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
 class MatriculeImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow, SkipsOnError
 {
@@ -46,6 +48,4 @@ class MatriculeImport implements ToModel, WithBatchInserts, WithChunkReading, Wi
         // Handle the exception how you'd like.
     }
 
-        ]);
-    }
 }

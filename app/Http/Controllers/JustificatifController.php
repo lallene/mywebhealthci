@@ -21,7 +21,7 @@ class JustificatifController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:Agent de santé');
+        $this->middleware('role:Corps médical');
 
     }
 
@@ -45,7 +45,7 @@ class JustificatifController extends Controller
         $agents = Agent::find($id);
         $sites = Site::all();
         $foreigns = Motif_consultation::all();
-        return view($this->templatePath.'.reception', ['titre' => "Reception de Justificatif", 'agent' => $agents, 'sites' => $sites, 'foreigns'=>$foreigns, 'link' => $this->link]);
+        return view($this->templatePath.'.reception', ['titre' => "Réception de Justificatif", 'agent' => $agents, 'sites' => $sites, 'foreigns'=>$foreigns, 'link' => $this->link]);
     }
 
      /**
@@ -130,34 +130,65 @@ class JustificatifController extends Controller
             "user_id" => $userId,
             'nomMedecin' => $request->input('nomMedecin'),
             'designationCentreExterne' => $request->input('designationCentreExterne'),
-            'justificatifValide' => $etatValidite,
+            'justificatifValide' =>$_POST['justificatifValide'],
             'motifRejet' => $motifRejet,
-            'duplicat_suite_valide' => '-',
             'projet_id' => $agent->projet_id,
             'repos' => '0',
         ]);
 
+        //les variables
         $agent = Agent::find($_POST['agent_id']);
-        $hrpbs =   Agent::where('emploi_id', '=', '36')->get();
-        $justificatif = Justificatif::find( $consultation->id);
         $consultation = Consultation::find($consultation->id);
-        $sup = $agent->manager;
-        $emailsup = Agent::where('manager', '=', $sup)->get();
         $projet = $agent->Projet->designation;
+        $charge_flux = Agent::where('emploi_id', '=', '9' )->where('projet_id', '=', $agent->projet_id)->get();
 
-      //dd($projet);
-      Mail::to('lallene2016@gmaiL.com')->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif, $projet ));
+        // dd($consultation);
+        if ($consultation->justificatifValide =='oui'){
 
-      return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');;
 
-      foreach ($hrpbs as $hrpb){
-            Mail::to($hrpb['email_agent'])->send(new Justificatif_externe($hrpbs, $agent, $consultation, $justificatif));
-       }
-      $sup = $agent->manager;
-      $emailsup = Agent::where('manager', '=', $sup);
-      //dd($emailsup);
+            //les chargés de flux
+            foreach ($charge_flux as $cf){
+                Mail::to($cf['email_agent'])->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux));
+                                }
+            //les superviseurs
+            Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
 
-      return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');
+            //le collaborateur concerné
+            Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+            // les ressources humaines
+            Mail::to('dlt-ci-abj1-rh-cote-divoire@ci.webhelp.com')->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+            return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé ');
+
+
+        }else if ( $consultation->justificatifValide =='non'){
+
+
+            //les superviseurs
+            Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+            //le collaborateur concerné
+            Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+            return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé ');
+
+        }else if ($consultation->justificatifValide == 'en attente'){
+
+
+             //les chargés de flux
+             foreach ($charge_flux as $cf){
+                Mail::to($cf['email_agent'])->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux));
+                                }
+            //les superviseurs
+            Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+            //le collaborateur concerné
+            Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+            return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé ');
+
+        }
 
     }
 
