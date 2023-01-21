@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Site;
-use App\Models\Projet;
+use App\Imports\MatriculeImport;
+use App\Models\Agent;
+use App\Models\Matricule;
 use Illuminate\Http\Request;
-use App\Imports\ProjetsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ProjetController extends Controller
+class MatriculeControlleur extends Controller
 {
-    private $templatePath = 'configuration.projet';
-    private $link = 'projet';
+    private $templatePath = 'configuration.matricule';
+    private $link = 'matricule';
 
     public function __construct()
     {
@@ -27,8 +27,8 @@ class ProjetController extends Controller
     public function index()
     {
 
-        $projets = Projet::with(['Site'])->paginate(100);
-        return view($this->templatePath.'.liste', ['titre' => "Liste des Projets/Services", 'projets' => $projets, 'link' => $this->link]);
+        $matricules = Matricule::with(['Agent'])->paginate(100);
+        return view($this->templatePath.'.liste', ['titre' => "Liste des matricule", 'matricules' => $matricules, 'link' => $this->link]);
     }
 
     /**
@@ -38,8 +38,8 @@ class ProjetController extends Controller
      */
     public function create()
     {
-        $foreigns = Site::all();
-        return view($this->templatePath.'.create', ['titre' => "Ajouter un Projet/Service", 'link' => $this->link, 'foreigns' => $foreigns]);
+        $foreigns = Agent::all();
+        return view($this->templatePath.'.create', ['titre' => "Ajouter un Matricule", 'link' => $this->link, 'foreigns' => $foreigns]);
     }
 
     /**
@@ -50,24 +50,23 @@ class ProjetController extends Controller
      */
     public function store(Request $request)
     {
-        Projet::create(
+        Matricule::create(
             [
-                'designation' => $request->input('designation'),
-                'site_id' => $request->input('site_id'),
-                'dltsuperviseur' => $request->input('dltsuperviseur')
+                'matricule' => $request->input('matricule'),
+                'agent_id' => $request->input('agent_id')
             ]
         );
 
-        return redirect()->route('projet.index');
+        return redirect()->route('matricule.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Projet  $projet
+     * @param  \App\Models\Matricule  $matricule
      * @return \Illuminate\Http\Response
      */
-    public function show(Projet $projet)
+    public function show(Matricule $matricule)
     {
         //
     }
@@ -75,63 +74,60 @@ class ProjetController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Projet  $projet
+     * @param  \App\Models\Matricule  $matricule
      * @return \Illuminate\Http\Response
      */
-    public function edit(Projet $projet)
+    public function edit(Matricule $matricule)
     {
-        $item = $projet;
-        $foreigns = Site::all();
+        $item = $matricule;
+        $foreigns = Matricule::all();
 
-        return view($this->templatePath.'.edit', ['titre' => "Modifier Projet".$item->designation, 'item' => $item, 'link' => $this->link, 'foreigns' => $foreigns]);
+        return view($this->templatePath.'.edit', ['titre' => "Modifier Matricule".$item->designation, 'item' => $item, 'link' => $this->link, 'foreigns' => $foreigns]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Projet  $projet
+     * @param  \App\Models\Matricule  $matricule
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $item = Projet::find($id);
+        $item = Matricule::find($id);
 
         $item->designation = $request->input('designation');
         $item->site_id = $request->input('site_id');
-        $item->dltsuperviseur = $request->input('dltsuperviseur');
-
 
         try{
             $item->save();
         }catch (\Exception $e){
             echo'e';
         }
-        return redirect()->route('projet.index');
+        return redirect()->route('matricule.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Projet  $projet
+     * @param  \App\Models\Matricule  $matricule
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $item = Projet::find($id);
+        $item = Matricule::find($id);
 
         $item->delete();
 
-        return redirect()->route('projet.index')
-            ->with('success', "Projet Supprimé avec succes");
+        return redirect()->route('matricule.index')
+            ->with('success', "Matricule Supprimé avec succes");
     }
 
     public function import (Request $req){
 
-        Excel::import(new ProjetsImport, $req->file('projet_file'),
+        Excel::import(new MatriculeImport, $req->file('matricule_file'),
 
      );
-
          return back();
      }
 }

@@ -94,7 +94,7 @@
                                 <div class="col-sm-6 text-right">
                                     <a href="#" class="btn btn-primary" disabled id="reception">
                                         <i class="fa fa-save"></i>
-                                        Reception justificatif
+                                        Réception justificatif
                                     </a>
                                 </div>
                                 <div class="col-sm-6 text-left">

@@ -55,7 +55,7 @@
         <div class="row column_title">
             <div class="col-md-12">
                 <div class="page_title">
-                    <h2>RECEPTION DE JUSTIFICATIF DU COLLABORATEUR</h2>
+                    <h2>Réception de justificatif du collaborateur</h2>
                 </div>
             </div>
         </div>
@@ -203,8 +203,8 @@
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus">
                                                                     <input type="text" class=" input " id="nomMedecin" required name="nomMedecin" style="border: 2px solid #dc3545" >
-                                                                    <label for="nomMedecin">Medecin externe</label>
-                                                                    <span>Medecin externe</span>
+                                                                    <label for="nomMedecin">Médecin externe</label>
+                                                                    <span>Médecin externe</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
@@ -226,18 +226,6 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-md-4">
-                                                                <div class="input-container focus">
-                                                                    <select class=" input" name="motifRejet" id="motifRejet">
-                                                                        <option value="Pièce incomplètes"  selected>Pièce incomplètes</option>
-                                                                        <option value="authenticite" > Doute sur l'authenticité</option>
-                                                                        <option value="Hors délai de 72H" >Hors délai de 72H</option>
-                                                                        <option value="Hors délai de 72H" >non conforme</option>
-                                                                    </select>
-                                                                    <label for="motifRejet">Motif du rejet</label>
-                                                                    <span>Motif du rejet</span>
-                                                                </div>
-                                                            </div>
 
                                                             <div class="col-md-2">
                                                                 <div class="input-container focus arretMaladieSwitch ">
@@ -264,17 +252,17 @@
 
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="number" class=" input " name="duree_arret" id="duree_arret">
-                                                                    <label for="duree_arret">Durée arrêt maladie (en heure)</label>
-                                                                    <span>Durée arrêt maladie (en heure)</span>
+                                                                    <input type="number" class=" input " name="duree_arret" id="duree_arret" value="0">
+                                                                    <label for="duree_arret">Durée arrêt maladie (en heures)</label>
+                                                                    <span>Durée arrêt maladie (en heures)</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container arretMaladieSwitch focus">
                                                                     <input type="text" class="input" disabled id="enJours" value="0">
                                                                     <input type="hidden" class="input" id="enJours2" value="0">
-                                                                    <label for="enJours">Durée arrêt maladie (en jour)</label>
-                                                                    <span>Durée arrêt maladie (en jour)</span>
+                                                                    <label for="enJours">Durée arrêt maladie (en jours)</label>
+                                                                    <span>Durée arrêt maladie (en jours)</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-2 d-none">
@@ -301,6 +289,19 @@
                                                                     <span>Date de reprise</span>
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-4">
+                                                                <div class="input-container focus repos d-none">
+                                                                    <select class=" input " name="motifRejet" id="motifRejet">
+                                                                        <option value="Pièce incomplètes"  selected>Pièces incomplètes</option>
+                                                                        <option value="authenticite" > Doute sur l'authenticité</option>
+                                                                        <option value="Hors délai de 72H" >Hors délai de 72H</option>
+                                                                        <option value="Hors délai de 72H" >Non conforme</option>
+                                                                    </select>
+                                                                    <label for="motifRejet">Motif du rejet</label>
+                                                                    <span>Motif du rejet</span>
+                                                                </div>
+                                                            </div>
+
 
 
                                                         </div>

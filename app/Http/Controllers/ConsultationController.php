@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\Justificatif_externe;
 use App\Models\Site;
 use App\Models\Agent;
+use App\Models\Matricule;
 use App\Models\Ordonnance;
 use App\Models\Consultation;
 use App\Models\Justificatif;
 use Illuminate\Http\Request;
+use App\Mail\Justificatif_externe;
 use App\Models\Motif_consultation;
+use App\Exports\ConsultationsExport;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ConsultationController extends Controller
 {
@@ -32,6 +36,7 @@ class ConsultationController extends Controller
     public function index()
     {
         $items = Consultation::all();
+
         return view($this->templatePath.'.search', ['titre' => "Rechercher un collaborateur ", 'items' => $items, 'link' => $this->link]);
     }
 
@@ -40,16 +45,17 @@ class ConsultationController extends Controller
 
        $motifs = Motif_consultation::all();
        $sites = Site::all();
-     //  dd($agent->Contrat->designation);
-
-        return view($this->templatePath.'.consultation', ['titre' => "Rechercher un collaborateur ", 'sites' => $sites,'motifs' => $motifs, 'agent' => $agent, 'link' => $this->link]);
+     //
+         $matricule = Matricule::where('agent_id', '=', $id)->first();
+       //  dd($matricule->matricule);
+        return view($this->templatePath.'.consultation', ['titre' => "Rechercher un collaborateur ", 'sites' => $sites,'motifs' => $motifs, 'matricule'=>$matricule, 'agent' => $agent, 'link' => $this->link]);
     }
 
     public function reception ($id){
         $agents = Agent::find($id);
         $sites = Site::all();
         $foreigns = Motif_consultation::all();
-        return view($this->templatePath.'.reception', ['titre' => "Reception de Justificatif", 'agent' => $agents, 'sites' => $sites, 'foreigns'=>$foreigns, 'link' => $this->link]);
+        return view($this->templatePath.'.reception', ['titre' => "Réception de Justificatif", 'agent' => $agents, 'sites' => $sites, 'foreigns'=>$foreigns, 'link' => $this->link]);
     }
 
 
@@ -62,11 +68,16 @@ class ConsultationController extends Controller
         //dd($projet);
 
         $agent = Agent::find($_POST['agent_id']);
-       // dd($agent->projet_id);
+      // dd($_POST);
 
+      if($_POST['assurance'] = ''){
+        $assurance = '000000';
+      }else{
+        $assurance =  $_POST['assurance'];
+      }
 
-
-        //echo('<pre>'); die(print_r($_POST));
+    // echo('<pre>'); die(print_r($_POST));
+   //   dd($_POST);
 
         $consultation = Consultation::create([
             "agent_id" => $_POST['agent_id'],
@@ -101,11 +112,13 @@ class ConsultationController extends Controller
             'designationCentreExterne' => '-',
             'justificatifValide' => '-',
             'motifRejet' => 'Aucun',
-            'duplicat_suite_valide' =>'-',
-            'projet' => $agent->projet_id
-
+            'projet' => $agent->projet_id,
+             'assurance' => $assurance,
+             'repos' => $_POST['repos']
 
         ]);
+
+
 
          if(isset($_POST['typeMedicament']) AND !empty($_POST['typeMedicament'])){
             $nbreProduit = sizeof($_POST['typeMedicament']);
@@ -123,98 +136,77 @@ class ConsultationController extends Controller
         }
 
 
-        //dd($consultation->etatValidite);
-        $agent = Agent::find($_POST['agent_id']);
-        $hrpbs =   Agent::where('emploi_id', '=', '36')->get();;
-        $consultation = Consultation::find($consultation->id);
-        $nbreJour = $consultation->duree_arret;
-        $nbreJour = round($nbreJour/24);
-        $dateFin = $consultation->dateReprise;
-        $dateFin = date('d-m-Y', strtotime($dateFin. ' - 1 days'));
-        dd($dateFin);
-        $cfs = Agent::where('emploi_id', '=', '9' )->where('projet_id', '=', $agent->projet_id)->get();
+          //les variables
+          $agent = Agent::find($_POST['agent_id']);
+          $consultation = Consultation::find($consultation->id);
+          $projet = $agent->Projet->designation;
+          $charge_flux = Agent::where('emploi_id', '=', '9' )->where('projet_id', '=', $agent->projet_id)->get();
 
-        Mail::to('lachi@webhelp.fr')->send(new Justificatif_externe($cfs, $agent, $consultation, $dateFin, $nbreJour, ));
-        dd($agent->email_agent);
-        /*charge de flux*/
-        $cfs = Agent::where('emploi_id', '=', '9' )->where('projet_id', '=', $agent->projet_id)->get();
-        dd($dateFin);
-        foreach ($cfs as $cf){
-        Mail::to($cf->email_agent)->send(new Justificatif_externe($cf, $agent, $consultation, $dateFin, $nbreJour, ));
-        }
-         dd($dateFin);
-           /*ENVOI AU N=1*/
-        $sup = $agent->manager;
-        $emailsup = Agent::where('iris', '=', $sup)->get();
-        Mail::to($emailsup->email_agent)->send(new Justificatif_externe($hrpbs, $agent, $consultation, $dateFin, $nbreJour, $emailsup));
-        dd($emailsup);
-         /*ENVOI AUX HRPB*/
-         foreach ($hrpbs as $hrpb){
-                 Mail::to($hrpb['email_agent'])->send(new Justificatif_externe($hrpbs, $agent, $consultation, $dateFin, $nbreJour));
-                                 }
-        /*le collaborateur*/
-        Mail::to($agent->email_agent)->send(new Justificatif_externe($hrpbs, $agent, $consultation, $dateFin, $nbreJour, $emailsup));
-
-         return redirect()->route('consultation.index')->with('success','Consulattion enregistrée avec succès. Email envoyé aux supervviseurs');
-
-    }
+          if ($consultation->arretMaladie == 'oui'){
 
 
-    public function store1 (Request $request){
+              //les chargés de flux
+              foreach ($charge_flux as $cf){
+                  Mail::to($cf['email_agent'])->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux));
+                                  }
+              //les superviseurs
+              Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              //le collaborateur concerné
+              Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              // les ressources humaines
+              Mail::to('dlt-ci-abj1-rh-cote-divoire@ci.webhelp.com')->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');;
 
 
-        $userId = Auth::id();
+          }else if ($consultation->arretMaladie == 'non'){
 
-        $etatValidite = 'valide';
 
-        $motifRejet = null;
 
-        if($_POST['justificatifValide'] != 'oui'){
-            $etatValidite = 'non';
-        }
+              //les superviseurs
+              Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
 
-        if($_POST['justificatifValide'] != 'oui'){
-            $motifRejet = $_POST['motifRejet'];
-        }
+              //le collaborateur concerné
+              Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
 
-        $projet = Agent::where('agent_id', '=', $$_POST['agent_id'])->first();
 
-        $consultation = Consultation::create([
-            "agent_id" => $_POST['agent_id'],
-            "poids" => '-',
-            "poul" => '-',
-            "temperature" => '-',
-            "tension" => '-',
-            "assurance" => $_POST['assurance'],
-            "accident" => 'non',
-            "traitement" => 'non',
-            "arretMaladie" => 'oui',
-            "duree_arret" => $_POST['duree_arret'],
-            "nbrJour" => $_POST['nbrJour'],
-            "natureDuree" => $_POST['nbrJour'],
-            "dateConsultation" => $_POST['dateConsultation'],
-            "typeConsultation" => 'Externe',
-            "etatValidite" => $etatValidite,
-            "natureReception" => $_POST['natureReception'],
-            "debutArret" => $_POST['debutArret'],
-            "dateReprise" => $_POST['dateReprise'],
-            "billetSortie" => $_POST['billet_sortie'],
-            "repriseService" => $_POST['repriseService'],
-            "maladie_contagieuse" => $_POST['maladie_contagieuse'],
-            "maladie_prof" => 'non',
-            "vaccin_covid" => '-',
-            "testCovid" => '-',
-            "doseVaccinCovid" => 0,
-            "observation" => $_POST['observation'],
-            "motif_consultation_id" => $_POST['motif_consultation_id'],
-            "user_id" => $userId,
-            'nomMedecin' => $request->input('nomMedecin'),
-            'designationCentreExterne' => $request->input('designationCentreExterne'),
-            'justificatifValide' => $etatValidite,
-            'motifRejet' => $motifRejet,
-            'duplicat_suite_valide' => $request->input('duplicat_suite_valide'),
-            'projet_id' => $projet->projet_id
-        ]);
+          }else if ($consultation->arretMaladie == 'repos'){
+
+
+              //les chargés de flux
+              foreach ($charge_flux as $cf){
+                  Mail::to($cf['email_agent'])->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux));
+                                  }
+              //les superviseurs
+              Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              //le collaborateur concerné
+              Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');;
+
+
+
+          }else if ($consultation->justificatifValide == 'en attente'){
+
+               //les chargés de flux
+              foreach ($charge_flux as $cf){
+                  Mail::to($cf['email_agent'])->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux));
+                                  }
+              //les superviseurs
+              Mail::to($projet->dltsuperviseur)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              //le collaborateur concerné
+              Mail::to($agent->email_agent)->send(new Justificatif_externe( $agent, $consultation, $projet, $charge_flux ));
+
+              return redirect()->route('consultation.index')->with('success','Justificatif enregistré avec succès. Email envoyé aux supervviseurs');;
+
+          }
 
     }
+
+
+
 }

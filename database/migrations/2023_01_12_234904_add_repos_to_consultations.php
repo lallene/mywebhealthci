@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddJustificatifToConsultationsTable extends Migration
+class AddReposToConsultations extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,7 @@ class AddJustificatifToConsultationsTable extends Migration
     public function up()
     {
         Schema::table('consultations', function (Blueprint $table) {
-            $table->string('nomMedecin');
-            $table->string('designationCentreExterne');
-            $table->string('justificatifValide');
-            $table->string('motifRejet')->nullable();
-            $table->string('email_agent')->nullable()->unique();
-
+            $table->integer('repos');
         });
     }
 

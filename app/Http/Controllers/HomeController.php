@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contrat;
-use App\Models\Motif_consultation;
-use App\Models\Projet;
 use App\Models\Site;
 use App\Models\User;
+use App\Models\Projet;
+use App\Models\Contrat;
 use Illuminate\Http\Request;
+use App\Models\Motif_consultation;
 use Illuminate\Support\Facades\DB;
+use App\Exports\ConsultationsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -34,6 +36,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $projets = Projet::all();
         $sites = Site::all();
 
@@ -48,7 +51,12 @@ class HomeController extends Controller
 
         $arretsByTranche = self::getArretByTranche($begin, $end);
 
+
         $byCouverture = self::getArretByCouverture($begin, $end);
+
+
+        $byMaladiePro = self::getArretByMaladiePro($begin, $end);
+
 
         $statByPathologie = self::getConsultationsByMotif($begin, $end);
 
@@ -57,6 +65,8 @@ class HomeController extends Controller
         $statByPathologieAndContagieux = self::getConsultationsByContagieux($begin, $end);
 
         $arretsBySite = self::getArretsBySites($begin, $end);
+
+        $accidentsBySite = self::getAccidentsBySites($begin, $end);
 
         $pathologieByTranche = self::getPathologieByTranche($begin, $end);
 
@@ -77,7 +87,9 @@ class HomeController extends Controller
             'statByPathologieAndContagieux' => $statByPathologieAndContagieux,
             'arretsBySite' => $arretsBySite,
             'arretsByTranche' => $arretsByTranche,
-            'pathologieByTranche' => $pathologieByTranche
+            'pathologieByTranche' => $pathologieByTranche,
+            'accidentsBySite' => $accidentsBySite,
+            'byMaladiePro' => $byMaladiePro,
         ]);
     }
 
@@ -87,6 +99,7 @@ class HomeController extends Controller
         //echo'<pre>';die(print_r($_POST));
         $projets = Projet::all();
         $sites = Site::all();
+
 
         if(isset($_POST['datefilter']) AND $_POST['datefilter'] != ''){
             $temp = explode(' - ', $_POST['datefilter']);
@@ -100,7 +113,8 @@ class HomeController extends Controller
 
         if(isset($_POST['siteSelected']) AND $_POST['siteSelected'] != 'all' AND is_numeric($_POST['siteSelected'])){
             $siteSelected = $_POST['siteSelected'];
-            $projetSelected = Site::where('projet_id', '=', $siteSelected);
+            $projetSelected = Site::where('site_id', '=', $siteSelected);
+          //  dd($projetSelected);
 
         }else{
             $siteSelected = null;
@@ -125,6 +139,10 @@ class HomeController extends Controller
 
         $byCouverture = self::getArretByCouverture($begin, $end, $siteSelected, $projetSelected);
 
+
+        $byMaladiePro = self::getArretByMaladiePro($begin, $end, $siteSelected, $projetSelected);
+
+
         $statByPathologie = self::getConsultationsByMotif($begin, $end, $siteSelected, $projetSelected);
 
         $statByPathologieAndGenre = self::getConsultationsByMotifAndGenre($begin, $end, $siteSelected, $projetSelected);
@@ -133,15 +151,21 @@ class HomeController extends Controller
 
         $arretsBySite = self::getArretsBySites($begin, $end, $siteSelected, $projetSelected);
 
+        $accidentsBySite = self::getAccidentsBySites($begin, $end, $siteSelected, $projetSelected);
+
         $pathologieByTranche = self::getPathologieByTranche($begin, $end, $siteSelected, $projetSelected);
 
 
-        //echo('<pre>'); die(print_r($bySexe));
+       // echo('<pre>'); die(print_r($accidentsBySite));
 
         $theSite = '';
+        $theprojet ="";
 
         if(isset($_POST['siteSelected'])){
             $theSite = $_POST['siteSelected'];
+        }
+        if(isset($_POST['projetSelected'])){
+            $theprojet = $_POST['projetSelected'];
         }
 
         $periode = date('d/m/Y', strtotime($begin)). ' - ' .date('d/m/Y', strtotime($end));
@@ -151,6 +175,7 @@ class HomeController extends Controller
             'projets' => $projets,
             'sites' => $sites,
             'theSite' => $theSite,
+            'theprojet' =>$theprojet,
             'periode' => $periode,
             'dataPoints' => $chartData,
             'byTypeContrat' => $byTypeContrat,
@@ -160,8 +185,10 @@ class HomeController extends Controller
             'statByPathologieAndGenre' => $statByPathologieAndGenre,
             'statByPathologieAndContagieux' => $statByPathologieAndContagieux,
             'arretsBySite' => $arretsBySite,
+            'accidentsBySite' => $accidentsBySite,
             'arretsByTranche' => $arretsByTranche,
-            'pathologieByTranche' => $pathologieByTranche
+            'pathologieByTranche' => $pathologieByTranche,
+            'byMaladiePro'=> $byMaladiePro
         ]);
     }
 
@@ -350,6 +377,45 @@ class HomeController extends Controller
         if(!is_null($site)){
             $queryOui->where('natureReception', '=', $site);
             $queryNon->where('natureReception', '=', $site);
+        }
+
+        $oui = $queryOui->get();
+        $non = $queryNon->get();
+
+        $chartData[0]['y'] = 'Oui';
+        $chartData[0]['a'] = sizeof($oui);
+
+        $chartData[]['y'] = 'Non';
+        $chartData[1]['a'] = sizeof($non);
+
+        return $chartData;
+    }
+
+    public function getArretByMaladiePro($begin, $end, $site =false, $projets = false){
+
+        $chartData = array();
+
+        $queryOui = DB::table('consultations')
+            ->whereDate('consultations.dateConsultation', '>=', $begin)
+            ->whereDate('consultations.dateConsultation', '<=', $end)
+            ->where('consultations.etatValidite', '=', 'valide')
+            ->where('consultations.arretMaladie', '=', 'oui')
+            ->where('consultations.maladie_prof', '=', 'oui');
+
+        $queryNon = DB::table('consultations')
+            ->whereDate('consultations.dateConsultation', '>=', $begin)
+            ->whereDate('consultations.dateConsultation', '<=', $end)
+            ->where('consultations.etatValidite', '=', 'valide')
+            ->where('consultations.arretMaladie', '=', 'oui')
+            ->where('consultations.maladie_prof', '=', 'non');
+
+        if(!is_null($site)){
+             if(!is_null($projets)){
+                 $queryOui->where('natureReception', '=', $site)->where('projet_id', '=', $projets);
+                 $queryNon->where('natureReception', '=', $site)->where('projet_id', '=', $projets);
+             }
+             $queryOui->where('natureReception', '=', $site);
+             $queryNon->where('natureReception', '=', $site);
         }
 
         $oui = $queryOui->get();
@@ -618,6 +684,51 @@ class HomeController extends Controller
         return $returnArray;
     }
 
+    public function getAccidentsBySites($begin, $end, $site = null){
+        $sites = Site::all();
+
+        $returnArray = array();
+
+
+        $returnArray['Interne']['TotalConsultation'] = 0;
+        $returnArray['Interne']['TotalArret'] = 0;
+
+        foreach ($sites as $key => $site) {
+
+            $queryInterne =  DB::table('consultations')
+                ->where('etatValidite', '=', 'valide')
+                ->where('typeConsultation', '=', 'Interne')
+                ->whereDate('dateConsultation', '>=', $begin)
+                ->whereDate('dateConsultation', '<=', $end)
+                ->where('accident', '=', 'oui')
+                ->where('natureReception', '=', $site->id);
+
+            $consultationInterne = $queryInterne->get();
+
+
+
+
+            if(sizeof($consultationInterne) > 0){
+                $returnArray['Interne']["stats"][$key]['Site'] = $site->designation;
+                $returnArray['Interne']["stats"][$key]['Consultation'] = sizeof($consultationInterne);
+
+                $nbreJrs = 0;
+
+                foreach ($consultationInterne as $arret) {
+                    $nbreJrs += $arret->duree_arret;
+                }
+
+                $returnArray['Interne']["stats"][$key]['Arret'] = $nbreJrs;
+
+                $returnArray['Interne']['TotalConsultation'] += sizeof($consultationInterne);
+                $returnArray['Interne']['TotalArret'] += $nbreJrs;
+            }
+
+        }
+
+        return $returnArray;
+    }
+
     public function getGlobalStats($begin, $end){
 
     }
@@ -691,5 +802,10 @@ class HomeController extends Controller
 
         return $array;
     }
+
+            public function export()
+        {
+            return Excel::download(new ConsultationsExport, 'invoices.xlsx');
+        }
 
 }

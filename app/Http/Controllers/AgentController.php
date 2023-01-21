@@ -20,7 +20,7 @@ class AgentController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:RH Manager|Agent de santé');
+        $this->middleware('role:Ressources Humaines|Corps médical');
     }
     /**
      * Display a listing of the resource.
@@ -117,7 +117,7 @@ class AgentController extends Controller
         $managers = Agent::all();
 
         return view($this->templatePath.'.edit', [
-            'titre' => "Modifier Agent ".$item->nom.' '.$item->prenom,
+            'titre' => "Modifier Collaborateur ".$item->nom.' '.$item->prenom,
             'item' => $item,
             'link' => $this->link,
             'projets' => $projets,
@@ -173,7 +173,7 @@ class AgentController extends Controller
         $item->delete();
 
         return redirect()->route('effectif.index')
-            ->with('success', "Agent retiré avec succes");
+            ->with('success', "Collaborateur retiré avec succes");
     }
 
     public function getAgentByIris(Request $request){

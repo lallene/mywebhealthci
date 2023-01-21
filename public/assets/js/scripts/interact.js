@@ -43,10 +43,17 @@ $('#assurance').change(function () {
 $('#arretMaladie').change(function () {
     if($(this).val() == 'oui'){
         $('.arretMaladieSwitch').removeClass('d-none');
-    }else{
+        $('.repos').addClass('d-none');
+    }else if ($(this).val() == 'repos'){
+        $('.repos').removeClass('d-none');
+        $('.arretMaladieSwitch').addClass('d-none');
+    }else {
+        $('.repos').addClass('d-none');
         $('.arretMaladieSwitch').addClass('d-none');
     }
 });
+
+
 
 
 
@@ -54,10 +61,31 @@ $('#arretMaladie').change(function () {
 $('#justificatifValide').change(function () {
     if($(this).val() == 'oui'){
         $('.arretMaladieSwitch').removeClass('d-none');
-    }else{
+        $('.repos').addClass('d-none');
+    }else if ($(this).val() == 'non') {
         $('.arretMaladieSwitch').addClass('d-none');
+        $('.repos').removeClass('d-none');
+    }else {
+        $('.arretMaladieSwitch').removeClass('d-none');
+        $('.repos').addClass('d-none');
     }
 });
+
+
+
+
+$('#repriseService').change(function () {
+    if($(this).val() == 'inapte'){
+        $('.repriseServiceswitch').removeClass('d-none');
+
+    }else {
+        $('.repriseServiceswitch').addClass('d-none');
+
+    }
+});
+
+
+
 
 
 

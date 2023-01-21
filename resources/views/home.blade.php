@@ -36,13 +36,15 @@
 @stop
 
 @section('content')
-    @role('RH Manager|Agent de santé|IT')
+    @role('Ressources Humaines|Corps médical|IT')
         <div class="container-fluid">
 
-            <div class="row column_title mb-3 filter" style="background-color: white;">
+            <div class="row column_title mb-3 filter" style="background-color: #1d485147;">
                 <div class="col-md-3">
                     <div class="title mb-0" style="box-shadow: none!important">
-                        <h2> MyWebhealth CI</h2>
+                        <span style="color:#F77F00	">My</span>
+                        <span style="color:#FFFFFF">Webhealth</span>
+                        <span style="color:#009E60">CI</span>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -81,6 +83,8 @@
                                     <option value="all">Tous les projets</option>
                                     <?php
 
+                                         //   dd($projets);
+
                                         foreach ($projets as $projet) {
                                             ?>
                                             <option value="<?= $projet->id ?>"><?= $projet->designation ?></option>
@@ -96,7 +100,7 @@
                         </div>
                     </form>
                     <div class="row">
-                        @role('RH Manager')
+                        @role('Ressources Humaines')
                         <div class="col-md-3">
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="first" checked>
@@ -125,6 +129,11 @@
                                 <input class="form-check-input" type="checkbox" role="switch" id="sixth" checked>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par couverture assurance</label>
                             </div>
+
+                            <div class="form-check form-switch ">
+                                <input class="form-check-input" type="checkbox" role="switch" id="thirteenth" checked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par accident de travail</label>
+                            </div>
                         </div>
 
                         <div class="col-md-3">
@@ -143,7 +152,7 @@
                         </div>
                         @endrole
                         <div class="col-md-3">
-                            @role('RH Manager')
+                            @role('Ressources Humaines')
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="tenth" checked>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par tranche d'âge</label>
@@ -151,6 +160,10 @@
                             <div class="form-check form-switch ">
                                 <input class="form-check-input" type="checkbox" role="switch" id="eleventh" checked>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Maladie contagieuse</label>
+                            </div>
+                            <div class="form-check form-switch ">
+                                <input class="form-check-input" type="checkbox" role="switch" id="fourteenth" checked>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Maladie Professionnelle</label>
                             </div>
                             @endrole
                             <div class="form-check form-switch ">
@@ -202,7 +215,7 @@
                                 <div class="counter_no">
                                     <div>
                                         <p class="total_no"><?= $totalConsultation ?></p>
-                                        <p class="head_couter">Nbre consultation</p>
+                                        <p class="head_couter">Nombre consultation</p>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +225,7 @@
                                 <div class="counter_no">
                                     <div>
                                         <p class="total_no"><?= $totalArret ?></p>
-                                        <p class="head_couter">Nbre d'arrêt</p>
+                                        <p class="head_couter">Nombre d'arrêt</p>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +235,7 @@
                                 <div class="counter_no">
                                     <div>
                                         <p class="total_no"><?= $totalHeureArret / 24 ?></p>
-                                        <p class="head_couter">Nbre total de Jour</p>
+                                        <p class="head_couter">Nombre total de Jours non travaillés</p>
                                     </div>
                                 </div>
                             </div>
@@ -239,7 +252,7 @@
                         </div>
                     </div>
                     <div class="row column1 social_media_section mb-3 " id="labels">
-                        @role('RH Manager')
+                        @role('Ressources Humaines')
                         <div class="col-md-3 first" >
                             <div class="white_shd full">
                                 <div class="full graph_head">
@@ -408,7 +421,76 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-3 seventh">
+                        <div class="col-md-6 col-lg-3 fourteenth">
+                            <div class="card">
+                                <div class="card-header">Arrêt par maladie professionnelle</div>
+                                <div class="card-body">
+                                    <div id="chartByMaladiePro" ></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 thirteenth" >
+                            <div class="white_shd full">
+                                <div class="full graph_head">
+                                    <div class="heading1 margin_0 text-center">
+                                        <h2>Arrêt par accident de travail </h2>
+                                    </div>
+                                </div>
+                                <div class="full graph_revenue ">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="content">
+                                                <table class="table">
+                                                    <thead class="bg-sucess text-white font-weight-bold">
+                                                        <tr>
+                                                            <th>Lieu consultation</th>
+                                                            <th class="text-center">Nbre arrêt</th>
+                                                            <th class="text-center">Nbre heure arrêt</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                            $totalConsultation = 0;
+                                                            $totalArret = 0;
+                                                            foreach ($accidentsBySite as $key => $data) {
+                                                                $totalConsultation += $data['TotalConsultation'];
+                                                                $totalArret += $data['TotalArret'];
+                                                                ?>
+                                                                <tr class="font-weight-bold">
+                                                                    <td><?= $key ?></td>
+                                                                    <td class="text-center"><?= $data['TotalConsultation'] ?></td>
+                                                                    <td class="text-center"><?= $data['TotalArret'] ?></td>
+                                                                </tr>
+                                                                <?php
+                                                                    if(isset($data['stats']) AND !empty($data['stats'])){
+                                                                        foreach ($data['stats'] as $value) {
+                                                                            ?>
+                                                                            <tr>
+                                                                                <td class="pl-4"><?= $value['Site'] ?></td>
+                                                                                <td class="text-center"><?= $value['Consultation'] ?></td>
+                                                                                <td class="text-center"><?= $value['Arret'] ?></td>
+                                                                            </tr>
+                                                                            <?php
+                                                                        }
+                                                                    }
+                                                            }
+                                                        ?>
+                                                    </tbody>
+                                                    <tfoot class="bg-sucess text-white font-weight-bold">
+                                                        <tr>
+                                                            <td>Total général</td>
+                                                            <td class="text-center"><?= $totalConsultation ?></td>
+                                                            <td class="text-center"><?= $totalArret ?></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 twelfth">
                             <div class="card">
                                 <div class="card-header">Arrêt par trânche d'âge</div>
                                 <div class="card-body">
@@ -708,6 +790,9 @@
         $('#tenth').change(function(){   if($(this).is(":checked")) {    $('.tenth').removeClass('d-none');    } else {        $('.tenth').addClass('d-none');} });
         $('#eleventh').change(function(){   if($(this).is(":checked")) {    $('.eleventh').removeClass('d-none');    } else {        $('.eleventh').addClass('d-none');} });
         $('#twelveth').change(function(){   if($(this).is(":checked")) {    $('.twelveth').removeClass('d-none');    } else {        $('.twelveth').addClass('d-none');} });
+        $('#thirteenth').change(function(){   if($(this).is(":checked")) {    $('.thirteenth').removeClass('d-none');    } else {        $('.thirteenth').addClass('d-none');} });
+        $('#fourteenth').change(function(){   if($(this).is(":checked")) {    $('.fourteenth').removeClass('d-none');    } else {        $('.fourteenth').addClass('d-none');} });
+
 
 
 
@@ -794,6 +879,26 @@
             };
             configCouverture.element = 'chartByAssurance';
             Morris.Bar(configCouverture);
+
+
+
+             // Par  Maladie Professionnelle
+
+             var  configMaladiePro = {
+                data: <?= json_encode($byMaladiePro) ?>,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Nbre Consultation'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors:['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors:['gray','red']
+            };
+            configMaladiePro.element = 'chartByMaladiePro';
+            Morris.Bar(configMaladiePro);
 
 
 
