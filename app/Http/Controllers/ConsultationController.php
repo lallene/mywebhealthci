@@ -48,7 +48,7 @@ class ConsultationController extends Controller
      //
          $matricule = Matricule::where('agent_id', '=', $id)->first();
        //  dd($matricule->matricule);
-        return view($this->templatePath.'.consultation', ['titre' => "Rechercher un collaborateur ", 'sites' => $sites,'motifs' => $motifs, 'matricule'=>$matricule, 'agent' => $agent, 'link' => $this->link]);
+        return view($this->templatePath.'.consultation', ['titre' => "Consulter", 'sites' => $sites,'motifs' => $motifs, 'matricule'=>$matricule, 'agent' => $agent, 'link' => $this->link]);
     }
 
     public function reception ($id){

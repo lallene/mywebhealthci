@@ -13,7 +13,7 @@ $('#prescrire').click(function(){
 
     let nbrJrs = $('#nbrJrsPrescription').val();
 
-    //console.log(intrant);
+    let inputs = '';
 
     if( medicament !== '' && qte > 0 && nbrJrs > 0){
 
@@ -22,7 +22,7 @@ $('#prescrire').click(function(){
         if(tempInput <= 0){
 
             td = "<td>"+typeMedicament+"</td>";
-            inputs = "<input name='typeMedicament[]' type='hidden' value='"+typeMedicament+"' />";
+            inputs += "<input name='typeMedicament[]' type='hidden' value='"+typeMedicament+"' />";
 
             td += "<td>"+medicament+"</td>";
             inputs += "<input name='natureMedicament[]' type='hidden' value='"+medicament+"' />";

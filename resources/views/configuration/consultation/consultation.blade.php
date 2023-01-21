@@ -612,7 +612,7 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-12">
                                                                             <div class="input-container focus">
-                                                                                <input type="text" id="medicament" class="input">
+                                                                                <input type="text" id="medicamentPrescrit" class="input">
                                                                                 <label for="dateConsultation">Médicament</label>
                                                                                 <span>Médicament</span>
                                                                             </div>
