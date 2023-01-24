@@ -234,7 +234,7 @@
                             <div class="full counter_section margin_bottom_30">
                                 <div class="counter_no">
                                     <div>
-                                        <p class="total_no"><?= $totalHeureArret / 24 ?></p>
+                                        <p class="total_no"><?= ceil($totalHeureArret / 24) ?></p>
                                         <p class="head_couter">Nombre total de Jours non travaillés</p>
                                     </div>
                                 </div>

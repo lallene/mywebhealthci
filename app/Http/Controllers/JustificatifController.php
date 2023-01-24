@@ -74,6 +74,8 @@ class JustificatifController extends Controller
         $etatValidite = 'valide';
 
         $motifRejet = null;
+        $agent = Agent::find($_POST['agent_id']);
+        $_POST['projet_id'] = $agent->projet_id;
 
         if($_POST['justificatifValide'] != 'oui'){
             $etatValidite = 'non';
@@ -130,7 +132,8 @@ class JustificatifController extends Controller
             'designationCentreExterne' => $request->input('designationCentreExterne'),
             'justificatifValide' =>$_POST['justificatifValide'],
             'motifRejet' => $motifRejet,
-            'projet_id' => $agent->projet_id,
+            'projet_site' => $_POST['projet_id'],
+            'projet_id' => $_POST['projet_id'],
             'repos' => '0',
             'soinadministre' => 'non',
             'analyseExterne' => '0'
@@ -197,7 +200,7 @@ class JustificatifController extends Controller
     }
 
 
-    
+
     public function edit($id)
     {
         $consultation = Consultation::find($id);
@@ -237,7 +240,7 @@ class JustificatifController extends Controller
         $item->motif_consultation_id = $request->input('observation');
         $item->user_id = $userId;
         $item->natureReception = $request->input('designationCentreExterne');
-        
+
         try{
             $item->save();
         }catch (\Exception $e){
