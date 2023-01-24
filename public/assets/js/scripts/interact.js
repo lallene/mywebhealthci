@@ -44,12 +44,30 @@ $('#arretMaladie').change(function () {
     if($(this).val() == 'oui'){
         $('.arretMaladieSwitch').removeClass('d-none');
         $('.repos').addClass('d-none');
+        $('.analyseExterne').addClass('d-none');
     }else if ($(this).val() == 'repos'){
         $('.repos').removeClass('d-none');
         $('.arretMaladieSwitch').addClass('d-none');
-    }else {
-        $('.repos').addClass('d-none');
+        $('.analyseExterne').addClass('d-none');
+    }else  if ($(this).val() == 'Analyse externe'){
+        $('.analyseExterne').removeClass('d-none');
         $('.arretMaladieSwitch').addClass('d-none');
+        $('.repos').addClass('d-none');
+    }else{
+        $('.arretMaladieSwitch').addClass('d-none');
+        $('.repos').addClass('d-none');
+        $('.analyseExterne').addClass('d-none');
+    }
+});
+
+
+
+$('#motif_consultation_id').change(function () {
+    if($(this).val() == 25){
+        $('.motif_consultation_autre').removeClass('d-none');
+
+    }else{
+        $('.motif_consultation_autre').addClass('d-none');
     }
 });
 

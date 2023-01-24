@@ -37,7 +37,6 @@ class CreateConsultationsTable extends Migration
             $table->string("nbrJour")->comment('Unité de mesure du temps d\'arrête');
             $table->date('debutArret')->nullable();
             $table->date('dateReprise')->nullable();
-            $table->string('billetSortie');
             $table->string('repriseService')->default('apte');
             $table->string('maladie_contagieuse');
             $table->string('maladie_prof');
@@ -45,11 +44,6 @@ class CreateConsultationsTable extends Migration
             $table->string('testCovid');
             $table->integer('doseVaccinCovid');
             $table->text('observation');
-
-
-
-
-            $table->string('statut_arret')->nullable();
 
 
 

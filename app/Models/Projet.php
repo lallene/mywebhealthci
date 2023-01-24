@@ -16,4 +16,7 @@ class Projet extends Model
     public function Site(){
         return $this->belongsTo(Site::class, 'site_id');
     }
+    public function Consultations(){
+        return $this->hasMany(Consultation::class);
+    }
 }

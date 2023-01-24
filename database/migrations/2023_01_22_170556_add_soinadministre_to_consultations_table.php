@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProjetToConsultationsTable extends Migration
+class AddSoinadministreToConsultationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,12 +14,7 @@ class AddProjetToConsultationsTable extends Migration
     public function up()
     {
         Schema::table('consultations', function (Blueprint $table) {
-            $table->unsignedBigInteger('projet_id');
-            $table->foreign('projet_id')
-                ->references('id')
-                ->on('projets')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->string('soinadministre');
         });
     }
 
@@ -31,7 +26,7 @@ class AddProjetToConsultationsTable extends Migration
     public function down()
     {
         Schema::table('consultations', function (Blueprint $table) {
-            //
+            $table->string('soinadministre');
         });
     }
 }
