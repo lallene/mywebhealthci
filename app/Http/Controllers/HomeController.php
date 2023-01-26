@@ -192,7 +192,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function getStatsByMedecin($begin, $end, $site = null){
+    public function getStatsByMedecin($begin, $end, $site = null, $projet = null){
         $users = User::all();
 
         $chartData = array();
@@ -213,13 +213,8 @@ class HomeController extends Controller
 
             if(!empty($consultations)){
                 foreach ($consultations as $consultation) {
-                    if(is_null($site)){
-                        $chartData[$key]['a'] += 1;
-                        if($consultation->arretMaladie == 'oui'){
-                            $chartData[$key]['b'] += 1;
-                        }
-                    }else{
-                        if($site == $consultation->natureReception){
+                    if(is_null($site) OR $site == $consultation->natureReception){
+                        if(is_null($projet) OR $projet = $consultation->projet_id){
                             $chartData[$key]['a'] += 1;
                             if($consultation->arretMaladie == 'oui'){
                                 $chartData[$key]['b'] += 1;
@@ -232,7 +227,7 @@ class HomeController extends Controller
         return $chartData;
     }
 
-    public function getArretByTypeContrat($begin, $end, $site = null){
+    public function getArretByTypeContrat($begin, $end, $site = null, $projet = null){
         $contrats = Contrat::all();
 
         $arrayContrat = array();
@@ -250,6 +245,10 @@ class HomeController extends Controller
                 $query->where('natureReception', '=', $site);
             }
 
+            if(!is_null($projet)){
+                $query->where('consultations.projet_id', '=', $projet);
+            }
+
             $nombre = $query->get();
 
             $arrayContrat[$key]['label'] = $contrat->designation;
@@ -260,7 +259,7 @@ class HomeController extends Controller
         return $arrayContrat;
     }
 
-    public function getArretBySexe($begin, $end, $site = null){
+    public function getArretBySexe($begin, $end, $site = null, $projet = null){
 
         $array = array();
 
@@ -287,6 +286,11 @@ class HomeController extends Controller
             $queryMasculin->where('natureReception', '=', $site);
         }
 
+        if(!is_null($projet)){
+            $queryFeminin->where('consultations.projet_id', '=', $projet);
+            $queryMasculin->where('consultations.projet_id', '=', $projet);
+        }
+
         $masculin = $queryMasculin->get();
         $feminin = $queryFeminin->get();
 
@@ -299,7 +303,7 @@ class HomeController extends Controller
         return $array;
     }
 
-    public function getArretByTranche($begin, $end, $site = false){
+    public function getArretByTranche($begin, $end, $site = false, $projet = false){
 
         $array = array();
 
@@ -311,6 +315,10 @@ class HomeController extends Controller
 
         if(!is_null($site)){
             $query->where('natureReception', '=', $site);
+        }
+
+        if(!is_null($projet)){
+            $query->where('consultations.projet_id', '=', $projet);
         }
 
         $consultations = $query->get();
@@ -356,7 +364,7 @@ class HomeController extends Controller
         return $array;
     }
 
-    public function getArretByCouverture($begin, $end, $site = false){
+    public function getArretByCouverture($begin, $end, $site = false, $projet = false){
 
         $chartData = array();
 
@@ -379,6 +387,11 @@ class HomeController extends Controller
             $queryNon->where('natureReception', '=', $site);
         }
 
+        if(!is_null($projet)){
+            $queryOui->where('consultations.projet_id', '=', $projet);
+            $queryNon->where('consultations.projet_id', '=', $projet);
+        }
+
         $oui = $queryOui->get();
         $non = $queryNon->get();
 
@@ -391,7 +404,7 @@ class HomeController extends Controller
         return $chartData;
     }
 
-    public function getArretByMaladiePro($begin, $end, $site =false, $projets = false){
+    public function getArretByMaladiePro($begin, $end, $site =false, $projet = false){
 
         $chartData = array();
 
@@ -410,12 +423,13 @@ class HomeController extends Controller
             ->where('consultations.maladie_prof', '=', 'non');
 
         if(!is_null($site)){
-             if(!is_null($projets)){
-                 $queryOui->where('natureReception', '=', $site)->where('projet_id', '=', $projets);
-                 $queryNon->where('natureReception', '=', $site)->where('projet_id', '=', $projets);
-             }
              $queryOui->where('natureReception', '=', $site);
              $queryNon->where('natureReception', '=', $site);
+        }
+
+        if(!is_null($projet)){
+            $queryOui->where('consultations.projet_id', '=', $projet);
+            $queryNon->where('consultations.projet_id', '=', $projet);
         }
 
         $oui = $queryOui->get();
@@ -430,7 +444,7 @@ class HomeController extends Controller
         return $chartData;
     }
 
-    public function getConsultationsByMotif($begin, $end, $site = false){
+    public function getConsultationsByMotif($begin, $end, $site = false, $projet = false){
         $motifs = Motif_consultation::all();
 
         $returnArray = array();
@@ -447,6 +461,10 @@ class HomeController extends Controller
 
             if(!is_null($site)){
                 $query->where('natureReception', '=', $site);
+            }
+
+            if(!is_null($projet)){
+                $query->where('consultations.projet_id', '=', $projet);
             }
 
             $consultations = $query->get();
@@ -467,6 +485,10 @@ class HomeController extends Controller
                     $queryArrets->where('natureReception', '=', $site);
                 }
 
+                if(!is_null($projet)){
+                    $queryArrets->where('consultations.projet_id', '=', $projet);
+                }
+
                 $arrets = $queryArrets->get();
 
                 $returnArray[$key]['Arret'] = sizeof($arrets);
@@ -476,7 +498,7 @@ class HomeController extends Controller
         return $returnArray;
     }
 
-    public function getConsultationsByMotifAndGenre($begin, $end, $site = false){
+    public function getConsultationsByMotifAndGenre($begin, $end, $site = false, $projet = false){
         $motifs = Motif_consultation::all();
 
         $returnArray = array();
@@ -511,6 +533,11 @@ class HomeController extends Controller
                 $queryFemme->where('natureReception', '=', $site);
             }
 
+            if(!is_null($projet)){
+                $queryHomme->where('consultations.projet_id', '=', $projet);
+                $queryFemme->where('consultations.projet_id', '=', $projet);
+            }
+
             $consultationsHomme = $queryHomme->get();
             $consultationsFemme = $queryFemme->get();
 
@@ -529,6 +556,10 @@ class HomeController extends Controller
 
                 if(!is_null($site)){
                     $queryArrets->where('natureReception', '=', $site);
+                }
+
+                if(!is_null($projet)){
+                    $queryArrets->where('consultations.projet_id', '=', $projet);
                 }
 
                 $arrets = $queryArrets->get();
@@ -555,6 +586,10 @@ class HomeController extends Controller
 
                 if(!is_null($site)){
                     $queryArrets2->where('natureReception', '=', $site);
+                }
+
+                if(!is_null($projet)){
+                    $queryArrets2->where('consultations.projet_id', '=', $projet);
                 }
 
                 $arrets = $queryArrets2->get();
