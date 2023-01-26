@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Ordonnance;
+use App\Models\Motif_consultation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Consultation extends Model
 {
@@ -24,7 +26,6 @@ class Consultation extends Model
         'nbrJour',
         'debutArret',
         'dateReprise',
-        'billetSortie',
         'repriseService',
         'maladie_contagieuse',
         'maladie_prof',
@@ -32,7 +33,6 @@ class Consultation extends Model
         'testCovid',
         'doseVaccinCovid',
         'observation',
-        'statut_arret',
         'motif_consultation_id',
         'natureReception',
         'natureDuree',
@@ -45,7 +45,16 @@ class Consultation extends Model
         'nomMedecin',
         'designationCentreExterne',
         'repos',
-        'assurance'
+        'assurance',
+        'dateConsultation ',
+        'soinadministre',
+        'ordonnanceremise',
+        'analyseExterne',
+        'nbrJour',
+        'analyseExterne',
+        'projet_site',
+        'projet_id'
+
     ];
 
     public function MotifConsultation(){

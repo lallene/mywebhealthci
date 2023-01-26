@@ -12,6 +12,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="{{ asset("assets/images/logo/Sante1.ico") }}" />
     <!-- site icon -->
     <link rel="icon" href="images/favicon.png" type="image/png" />
     <!-- bootstrap css -->

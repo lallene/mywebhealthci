@@ -22,6 +22,47 @@
 <input type="text" name="name" class="form-control" placeholder="Person's name"><br>
 <input type="text" name="address" class="form-control" placeholder="Address"><br>
 <label>Range of Age</label>
+<div class="input-container focus">
+    <select name="natureReception" class="input" id="natureReception">
+        <?php
+            foreach ($sites as $site) {
+                ?>
+                <option  value="{{ $site->id }}">{{ $site->designation }}</option>
+                <?php
+            }
+        ?>
+    </select>
+ <label for="natureReception">Site de consultation </label>
+</div>
+<div class="input-container focus">
+    <select name="natureReception" class="input" id="natureReception">
+        <?php
+            foreach ($projets as $projet) {
+                ?>
+                <option  value="{{ $projet->id }}">{{ $projet->designation }}</option>
+                <?php
+            }
+        ?>
+    </select>
+ <label for="natureReception">Projets </label>
+</div>
+<select class="select" multiple>
+    <option value="maladie_contagieuse">Maladie contagieuse</option>
+    <option value="maladie_prof">Maladie Professionnelle</option>
+    <option value="accident">Accident de travail</option>
+    <option value="accident">Médicament administré</option>
+    <option value="accident">Traitement administré</option>
+    <option value="vaccin_covid">Covid -19</option>
+</select>
+<label class="form-label select-label">Type de maladies</label>
+<select class="select" multiple>
+    <option value="maladie_contagieuse">Accepté</option>
+    <option value="maladie_prof">Rejeté</option>
+    <option value="accident">Repos</option>
+    <option value="vaccin_covid">En Attente</option>
+    <option value="vaccin_covid">Analyste externe</option>
+</select>
+<label class="form-label select-label">Type d'arrets</label>
 <div class="input-group">
 <input type="text" name="min_age" class="form-control" placeholder="Start Age">
 <input type="text" name="max_age" class="form-control" placeholder="End of Age">
@@ -30,7 +71,7 @@
 </form>
 </div>
 <div class="col-md-8">
-<h3>List of People</h3>
+<h3>La liste des consultations</h3>
 <table class="table table-striped">
 <tr>
 <th>ID</th>
@@ -46,7 +87,6 @@
 <th>Medecin</th>
 <th>date de consul</th>
 <th>Type de consul</th>
-<th>durée Arrêt</th>
 <th>statut Jusificatif</th>
 <th>Motif de rejet</th>
 <th>Projet</th>

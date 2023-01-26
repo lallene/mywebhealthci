@@ -75,69 +75,16 @@
                 </div>
             </div>
         </div>
-        <section>
-            <div class="accordion attente " id="accordionExample2">
-                <div class="accordion-item">
-                    <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour" data-bs-parent="#accordionExample2">
-                        <div class="accordion-body" id="prescription">
-                            <fieldset class="mt-2">
-                                <table class="table table-striped table-responsive-sm table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th width="12%">Date</th>
-                                            <th width="12%">Site</th>
-                                            <th width="12%">Date début</th>
-                                            <th width="10%">Durée</th>
-                                            <th width="12%">Date Reprise</th>
-                                            <th width="12%">Medécin</th>
-                                            <th width="16%">Hôpital/clinique externe</th>
-                                            <th width="10%">Actions</th>
-                                        </tr>
-                                        </thead>
-                                    <tbody>
-                                    <?php
-                                        if(isset($agent->Consultations) AND !empty($agent->Consultations)){
-                                            foreach ($agent->Consultations as $consultation) {
-                                                if($consultation->justificatifValide == 'en attente'){
-                                                    ?>
-                                                    <tr>
-                                                        <td><?= date('d/m/Y', strtotime($consultation->dateConsultation)) ?></td>
-                                                        <td><?= $consultation->Site->designation ?></td>
-                                                        <td><?= $consultation->debutArret ?></td>
-                                                        <td><?= $consultation->duree_arret ?> <?= $consultation->duree_arret > 1 ? 'Minutes' : 'Minutes' ?></td>
-                                                        <td><?= $consultation->dateReprise ?></td>
-                                                        <td><?= $consultation->nomMedecin ?></td>
-                                                        <td><?= $consultation->designationCentreExterne ?></td>
-
-                                                        <td>
-                                                            <button style=" width : 100% !important; font-size : 10px; padding:2px;" type="button" class="btn btn-outline-secondary"><a href="{{route('justificatif_externe.edit', $consultation->id)}}">Modifier</a></button>
-
-                                                        </td>
-                                                    </tr>
-                                                    <?php
-                                                }
-                                            }
-                                        }
-
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </fieldset>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Default Accordion Example -->
-        </section>
         <section class="section dashboard">
             <div class="row " >
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-
-
                                 <!-- Default Accordion -->
-                            <form class=""  method="post" action="{{  route('justificatif_externe.store') }}" enctype="multipart/form-data">
-                                <input type="hidden" class="form-control" name="agent_id" value="{{ $agent->id }}">
+                            <form class=""  method="post" action="{{  route('justificatif_externe.update',  $consultation->id) }}" enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" class="form-control" name="agent_id" value="{{ $consultation->Agent->id }}">
                                 <div class="accordion" id="headingEight">
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingEight">
@@ -153,14 +100,14 @@
                                                     <div class="row">
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
-                                                                <input type="number" class="input" id="iris" value="{{ $agent->iris }}" readonly disabled>
+                                                                <input type="number" class="input" id="iris" value="{{ $consultation->Agent->iris }}" readonly disabled>
                                                                 <label for="iris">Iris</label>
                                                                 <span>Iris</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-5">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="nom" value="{{ $agent->nom. ' '.$agent->prenom }}" readonly disabled>
+                                                                <input type="text" class="input" id="nom" value="{{ $consultation->Agent->nom. ' '.$consultation->Agent->prenom }}" readonly disabled>
                                                                 <label for="nom">Nom & Prénom(s)</label>
                                                                 <span>Nom & Prénom(s)</span>
                                                             </div>
@@ -168,7 +115,7 @@
         
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="dateNaissance" value="<?= date('d-m-Y', strtotime($agent->dateNaissance)) ?>"  disabled>
+                                                                <input type="text" class="input" id="dateNaissance" value="<?= date('d-m-Y', strtotime($consultation->Agent->dateNaissance)) ?>"  disabled>
                                                                 <label for="dateNaissance">Date de Naissance</label>
                                                                 <span>Date de Naissance</span>
                                                             </div>
@@ -176,7 +123,7 @@
         
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="sexe" value="<?= ($agent->sexe == 'M') ? 'Masculin' : 'Feminin' ?>"  disabled>
+                                                                <input type="text" class="input" id="sexe" value="<?= ($consultation->Agent->sexe == 'M') ? 'Masculin' : 'Feminin' ?>"  disabled>
                                                                 <label for="sexe">Sexe</label>
                                                                 <span>Sexe</span>
                                                             </div>
@@ -185,14 +132,14 @@
         
                                                         <div class="col-md-3">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="sexe" value="<?= ($agent->dateembauche ) ?>"  disabled>
+                                                                <input type="text" class="input" id="sexe" value="<?= ($consultation->Agent->dateembauche ) ?>"  disabled>
                                                                 <label for="dateEmbauche">Date d'embauche</label>
                                                                 <span>Date d'embauche</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="emploi" value="{{ $agent->Emploi->designation }}" disabled>
+                                                                <input type="text" class="input" id="emploi" value="{{ $consultation->Agent->Emploi->designation }}" disabled>
                                                                 <label for="emploi">Fonction</label>
                                                                 <span>Fonction</span>
                                                             </div>
@@ -200,7 +147,7 @@
         
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="contrat" value="{{ $agent->Contrat->designation }}" disabled>
+                                                                <input type="text" class="input" id="contrat" value="{{ $consultation->Agent->Contrat->designation }}" disabled>
                                                                 <label for="contrat">Type de contrat</label>
                                                                 <span>Type de contrat</span>
                                                             </div>
@@ -208,7 +155,7 @@
         
                                                         <div class="col-md-3">
                                                             <div class="input-container focus">
-                                                                <input type="text" class="input" id="manager" value="{{ $agent->Manager->nom.' '.$agent->Manager->prenom }}" disabled>
+                                                                <input type="text" class="input" id="manager" value="{{ $consultation->Agent->Manager->nom.' '.$consultation->Agent->Manager->prenom }}" disabled>
                                                                 <label for="manager">Manager</label>
                                                                 <span>Manager</span>
                                                             </div>
@@ -252,8 +199,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <div class="input-container focus">
-                                                                    <input type="date" class=" input " max="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>" id="dateConsultation" required name="dateConsultation"  >
+                                                                <div class="input-container focus" >
+                                                                    <input type="date" class=" input " max="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>" id="dateConsultation" required name="dateConsultation" value="{{ $consultation->dateConsultation }}" disabled>
                                                                     <label for="dateConsultation">Date consultation</label>
                                                                     <span>Date consultation</span>
                                                                 </div>
@@ -263,9 +210,9 @@
                                                                 <div class="input-container focus ">
                                                                     <select name="motif_consultation_id" class=" input " id="motif_consultation_id"   ?>">
                                                                         <?php
-                                                                            foreach ($foreigns as $foreign) {
+                                                                            foreach ($motifs as $motif) {
                                                                                 ?>
-                                                                                <option value="{{ $foreign->id }}">{{ $foreign->intitule }}</option>
+                                                                                <option value="{{ $motif->id }}">{{ $motif->intitule }}</option>
                                                                                 <?php
                                                                             }
                                                                         ?>
@@ -276,9 +223,10 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus  ">
-                                                                    <select class="input" name="repriseService" id="repriseService">
-                                                                        <option value="apte" selected>Apte</option>
+                                                                    <select class="input" name="repriseService" id="repriseService" disabled>
+                                                                        <option value="apte" >Apte</option>
                                                                         <option value="inapte">Inapte</option>
+                                                                        <option value=" {{ $consultation->repriseService }}" selected>{{ $consultation->repriseService }}</option>
                                                                     </select>
                                                                     <label for="repriseService">Reprise de service</label>
                                                                     <span>Reprise de service</span>
@@ -287,17 +235,16 @@
                                                         </div>
                                                        
                                                         <div class="row">
-                                                    
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus">
-                                                                    <input type="text" class=" input " id="nomMedecin" required name="nomMedecin" style="border: 2px solid #dc3545" >
+                                                                    <input type="text" class=" input " id="nomMedecin"  value="{{ $consultation->nomMedecin }}" required name="nomMedecin" style="border: 2px solid #dc3545" >
                                                                     <label for="nomMedecin">Médecin externe</label>
                                                                     <span>Médecin externe</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus">
-                                                                    <input type="text" class=" input " id="designationCentreExterne" required name="designationCentreExterne" style="border: 2px solid #dc3545" >
+                                                                    <input type="text" class=" input " id="designationCentreExterne"  value="{{ $consultation->designationCentreExterne }}" required name="designationCentreExterne" style="border: 2px solid #dc3545" >
                                                                     <label for="designationCentreExterne">Hôpital/clinique externe</label>
                                                                     <span>Hôpital/clinique externe</span>
                                                                 </div>
@@ -316,9 +263,10 @@
 
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <select class=" input" name="maladie_contagieuse" id="maladie_contagieuse">
+                                                                    <select class=" input" name="maladie_contagieuse" id="maladie_contagieuse" disabled>
                                                                         <option value="oui">Oui</option>
-                                                                        <option value="non" selected >Non</option>
+                                                                        <option value="non"  >Non</option>
+                                                                        <option value="{{ $consultation->maladie_contagieuse }}" selected >{{ $consultation->maladie_contagieuse }}</option>                             
                                                                     </select>
                                                                     <label for="maladie_contagieuse">Maladie contagieuse</label>
                                                                     <span>Maladie contagieuse</span>
@@ -326,7 +274,7 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="numeric" class=" input " name="duree_arret" id="duree_arret" value="0">
+                                                                    <input type="numeric" class=" input " name="duree_arret" id="duree_arret" value="{{ $consultation->duree_arret }}" disabled>
                                                                     <label for="duree_arret">Durée arrêt maladie (en heures)</label>
                                                                     <span>Durée arrêt maladie (en heures)</span>
                                                                 </div>
@@ -351,14 +299,14 @@
 
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="date" class=" input" id="debutArret" min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>"  name="debutArret" >
+                                                                    <input type="date" class=" input" id="debutArret" min="<?= date('Y-m-d') ?>" value="{{ $consultation->debutArret }}"  name="debutArret" >
                                                                     <label for="debutArret">Date de début</label>
                                                                     <span>Date de début</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="date" class=" input" id="dateReprise" value="<?= date('Y-m-d') ?>" name="dateReprise">
+                                                                    <input type="date" class=" input" id="dateReprise" value="{{ $consultation->dateReprise }}" name="dateReprise">
                                                                     <label for="dateReprise">Date de reprise</label>
                                                                     <span>Date de reprise</span>
                                                                 </div>
@@ -377,7 +325,7 @@
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="input-container focus">
-                                                                    <textarea class=" input" rows="3" id="observation" name="observation"></textarea>
+                                                                    <textarea class=" input" rows="3" id="observation" name="observation" value="{{ $consultation->observation }}"></textarea>
                                                                     <label for="observation">Observations</label>
                                                                     <span>Observations</span>
                                                                 </div>
@@ -418,43 +366,5 @@
 
     </script>
 
-    <script>
-
-
-            document.getElementById('designationCentreExterne').addEventListener('input', event => {
-            if (document.getElementById('designationCentreExterne').value === '') {
-                document.getElementById('designationCentreExterne').style.border = '2px solid #dc3545';
-            } else {
-                document.getElementById('designationCentreExterne').style.border = '2px solid #fafafa';
-            }
-            });
-
-            document.getElementById('nomMedecin').addEventListener('input', event => {
-            if (document.getElementById('nomMedecin').value === '') {
-                document.getElementById('nomMedecin').style.border = '2px solid #dc3545';
-            } else {
-                document.getElementById('nomMedecin').style.border = '2px solid #fafafa';
-            }
-            });
-
-            document.getElementById('motifRejet').addEventListener('input', event => {
-            if (document.getElementById('motifRejet').value === '') {
-                document.getElementById('motifRejet').style.border = '2px solid #dc3545';
-            } else {
-                document.getElementById('motifRejet').style.border = '2px solid #fafafa';
-            }
-            });
-
-            document.getElementById('duree_arret').addEventListener('input', event => {
-            if (document.getElementById('duree_arret').value === '') {
-                document.getElementById('duree_arret').style.border = '2px solid #dc3545';
-            } else {
-                document.getElementById('duree_arret').style.border = '2px solid #fafafa';
-            }
-            });
-
-
-
-    </script>
 @stop
 

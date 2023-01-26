@@ -10,8 +10,11 @@ class SearchController extends Controller
 {
     public function index()
     {
-        $data = DB::table('consultations')->simplePaginate(15);
-        return view('search.search', compact('data'));
+       // $data = Consultation::with(['Site','MotifConsultation', 'Ordonnances', 'Medecin', 'Agent', 'Projet'])->paginate(30);
+       $data = DB::table('consultations')->simplePaginate(15);
+       $sites = DB::table('sites')->simplePaginate(20);
+       $projets = DB::table('projets')->simplePaginate(20);
+        return view('search.search', ['data' => $data, 'sites' => $sites, 'projets' => $projets ]);
     }
 
     public function simple(Request $request)
@@ -24,9 +27,12 @@ class SearchController extends Controller
     }
     public function advance(Request $request)
     {
-        $data = Consultation::all();
+        //dd($request);
+        $data = DB::table('consultations')->simplePaginate(20);
+       // dd($request->name);
+
         if( $request->name){
-            $data = $data->where('name', 'LIKE', "%" . $request->name . "%");
+            $data = Consultation::where('motifRejet', 'LIKE', "%" . $request->name . "%")->simplePaginate(15);
         }
         if( $request->natureReception){
             $data = $data->where('address', 'LIKE', "%" . $request->natureReception . "%");
@@ -44,7 +50,8 @@ class SearchController extends Controller
             $data = $data->where('debut', '>=', $request->debut)
                          ->where('fin', '<=', $request->fin);
         }
-        $data = $data->paginate(20);
+
+
         return view('search.search', compact('data'));
     }
 }
