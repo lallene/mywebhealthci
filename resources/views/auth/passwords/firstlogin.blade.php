@@ -123,7 +123,9 @@
       <!-- nice scrollbar -->
       <script src="{{ asset('assets/js/perfect-scrollbar.min.js') }}"></script>
       <script>
-         var ps = new PerfectScrollbar('#sidebar');
+       document.addEventListener('DOMContentLoaded', function() {
+    var ps = new PerfectScrollbar('#sidebar');
+});
       </script>
 
       <script src="{{ asset("assets/js/custom.js") }}"></script>

@@ -117,7 +117,7 @@ form {
   width: 100%;
   outline: none;
   border: 2px solid #fafafa;
-  background: none;
+  background-color: #174650;
   padding: 0.6rem 1.2rem;
   color: #fff;
   font-weight: 500;
@@ -156,6 +156,9 @@ textarea.input {
   transform: translateY(0);
 }
 
+.input-container select {
+
+}
 
 
 .btn {

@@ -1,265 +1,263 @@
 @extends('layouts.app')
 
-<style>
-    .form-check-input:checked {
-    background-color: #cc3262 !important;
-    border-color: #cc3262 !important;
-}
-.bg-sucess {
-    background-color: #1d4851!important;
-}
- .filter{
-    background-color: white;
-    box-shadow: 0px 0px 68px 3px #1d4851;
-    width: 100%;
-    border-radius: 6px;
-    MARGIN-LEFT: 0PX;
-}
-.title{
-    padding: 25px 35px 22px 38px;
-    margin-left: -40px;
-    margin-right: -40px;
-    position: relative;
-    font-size: 28px;
-    font-weight: bold;
+<link rel="stylesheet" href="{{ asset("assets/css/recherche.css") }}" />
+  <!-- Include html2canvas.js using a script tag -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
 
-    text-align: center;
-}
-.title h2 {
-    color: #cc3262 ;
-}
+<style>
+
+
+
+            .form-check-input:checked {
+            background-color: #cc3262 !important;
+            border-color: #cc3262 !important;
+        }
+        .bg-sucess {
+            background-color: #1d4851!important;
+        }
+        .filter{
+            background-color: white;
+            box-shadow: 0px 0px 68px 3px #1d4851;
+            width: 100%;
+            border-radius: 6px;
+            MARGIN-LEFT: 0PX;
+        }
+        .title{
+            padding: 25px 35px 22px 38px;
+            position: relative;
+            font-size: 32px;
+            font-weight: bold;
+
+            text-align: center;
+        }
+        .title h2 {
+            color: #cc3262 ;
+        }
+        .contact-form5 {
+                background-color: #174650 !important;
+                position: relative;
+                border-radius: 12PX;
+                TOP: 0PX;
+                HEIGHT: 350PX;
+            }
+
+        .aff{
+            color: white !important;
+        }
 </style>
+
 
 @section('link')
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.oesmith.co.uk/morris-0.5.1.css" />
+
 @stop
 
 @section('content')
     @role('Ressources Humaines|Corps médical|IT')
         <div class="container-fluid">
+            <div class="row column_title mb-3 filter" style="background-color: #1d485147;     margin-right: 0px;
+            margin-left: 0px;">
 
-            <div class="row column_title mb-3 filter" style="background-color: #1d485147;">
-                <div class="col-md-3">
-                    <div class="title mb-0" style="box-shadow: none!important">
-                        <span style="color:#F77F00	">My</span>
-                        <span style="color:#FFFFFF">Webhealth</span>
-                        <span style="color:#009E60">CI</span>
+                <div class="contact-form5">
+                    <div class=" col align-self-center">
+                        <div class="title mb-0" style="box-shadow: none!important">
+                            <span style="color:#F77F00	">My</span>
+                            <span style="color:#FFFFFF">Webhealth</span>
+                            <span style="color:#009E60">CI</span>
+                        </div>
                     </div>
+                    <div class="">
+                        <span class="circle one"></span>
+                        <span class="circle two"></span>
+                        <span class="circle three"></span>
+                        <span class="circle four"></span>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <form method="get" class="row" action="{{route('filter')}}" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="col-md-2">
+                                        <div class="input-container focus">
+                                        <input type="date" class="input" id="datedebut" value="<?= ($test != null) ? $_GET['datedebut'] :  date('Y-m-d')  ?>" placeholder=" <?= ($test) ? $_GET['datedebut'] :  date('Y-m-d') ?>"  name="datedebut" >
+                                        <label for="datedebut">Date de début </label>
+                                        <span>Date de début </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="input-container focus">
+                                        <input type="date" class="input"  id="datefin" value="<?= ($test != null) ? $_GET['datefin'] :  date('Y-m-d')  ?>"  name="datefin" >
+                                        <label for="datefin">Date de fin </label>
+                                        <span>Date de fin </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <select name="siteConsultation" class="input" id="siteSelected">
+                                            <option value="all" {{ request('siteConsultation') == 'all' ? 'selected' : '' }}>Tous les sites</option>
+                                            <option value="1" {{ request('siteConsultation') == '1' ? 'selected' : '' }}>Abidjan - Site 1</option>
+                                            <option value="2" {{ request('siteConsultation') == '2' ? 'selected' : '' }}>Abidjan - Site 2</option>
+                                            <option value="3" {{ request('siteConsultation') == '3' ? 'selected' : '' }}>Abidjan - Site 3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 ">
+                                        <div class="input-container focus">
+                                            <select name="projetSelected[]" class="input" id="projetSelected" multiple>
+                                                <option value="ALL" disabled="true" selected="true">TOUS </option>
+
+                                            </select>
+                                            <label for="projetSelected">Les projets </label>
+                                            <span>Les projets</span>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="col-md-2">
+                                        <label for="debut" class="center">&nbsp; &nbsp;</label>
+                                        <button class="btn btn-success w-100" type="submit">Afficher</button>
+                                    </div>
+                                </form>
+                                <div class="row aff" style="    margin-right: 0px;
+                                margin-left: 0px;">
+                                    @role(['Ressources Humaines','Corps médical'])
+                                    <div class="col-md-3 ">
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="first" checked>
+                                            <label class="form-check-label " for="flexSwitchCheckDefault">Arrêt délivrés vs consultations</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="second" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés vs consultations</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="third" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">% Transformation</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="fourth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par type de contrat</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="fiveth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par sexe</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="sixth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par couverture assurance</label>
+                                        </div>
+
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="thirteenth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par accident de travail</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="seventh" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par trânche d'âge</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="eighth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Consultation par pathologie</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="nineth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par genre</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="tenth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par tranche d'âge</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="eleventh" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Maladie contagieuse</label>
+                                        </div>
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="fourteenth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Maladie Professionnelle</label>
+                                        </div>
+                                        @endrole
+                                        <div class="form-check form-switch ">
+                                            <input class="form-check-input" type="checkbox" role="switch" id="twelveth" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckDefault">Statistique</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                 </div>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="col-12 text-center pt-2 pb-2 mb-2" style="font-weight: bolder;">Filtrer </div>
-                    </div>
-                    <form method="post" class="row" action="/dashboard" enctype="multipart/form-data">
-                        @csrf
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="debut" class="center">Période</label>
-                                <input id="debut" type="text" class="form-control"  placeholder="<?= isset($periode) ? $periode : '' ?>" name="datefilter">
-                            </div>
-                        </div>
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="site" class="center">Site</label>
-                                <select class="form-control" id="site" name="siteSelected">
-                                    <option value="all">Tous les sites</option>
-                                    <?php
-                                        foreach ($sites as $site) {
-                                            ?>
-                                            <option <?= (isset($theSite) AND $theSite == $site->id) ? 'selected' : '' ?>  value="<?= $site->id ?>"><?= $site->designation ?></option>
-                                            <?php
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="projet" class="center">Projet</label>
-                                <select class="form-control" id="projet" name="projetSelected">
-                                    <option value="all">Tous les projets</option>
-                                    <?php
-
-                                         //   dd($projets);
-
-                                        foreach ($projets as $projet) {
-                                            ?>
-                                            <option value="<?= $projet->id ?>"><?= $projet->designation ?></option>
-                                            <?php
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="debut" class="center">&nbsp; &nbsp;</label>
-                            <button class="btn btn-success w-100" type="submit">Afficher</button>
-                        </div>
-                    </form>
-                    <div class="row">
-                        @role('Ressources Humaines')
-                        <div class="col-md-3">
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="first" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés vs consultations</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="second" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt délivrés vs consultations</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="third" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">% Transformation</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="fourth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par type de contrat</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="fiveth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par sexe</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="sixth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par couverture assurance</label>
-                            </div>
-
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="thirteenth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par accident de travail</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="seventh" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Arrêt par trânche d'âge</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="eighth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Consultation par pathologie</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="nineth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par genre</label>
-                            </div>
-                        </div>
-                        @endrole
-                        <div class="col-md-3">
-                            @role('Ressources Humaines')
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="tenth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Pathologie par tranche d'âge</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="eleventh" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Maladie contagieuse</label>
-                            </div>
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="fourteenth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Maladie Professionnelle</label>
-                            </div>
-                            @endrole
-                            <div class="form-check form-switch ">
-                                <input class="form-check-input" type="checkbox" role="switch" id="twelveth" checked>
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Statistique</label>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 
 
             </div>
-
-            <?php
-                $totalHeureArret = 0;
-                $totalArret = 0;
-                $interne = 0;
-                $externe = 0;
-
-                foreach ($arretsBySite as $key => $data) {
-                    $totalArret += $data['TotalConsultation'];
-                    $totalHeureArret += $data['TotalArret'];
-                    if($key == 'Interne'){
-                        $interne += $totalArret;
-                    }else{
-                        $externe += $totalArret;
-                    }
-                }
-
-                if($totalArret > 0){
-                    $pourcentage = ($interne * 100) / $totalArret;
-                }else{
-                    $pourcentage = 0;
-                }
-
-                $totalConsultation = 0;
-
-                foreach ($dataPoints as $chartDatum) {
-                    $totalConsultation += $chartDatum['a'];
-                }
-            ?>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row column1 twelveth ">
-                        <div class="col-md-6 col-lg-3">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="counter_no">
-                                    <div>
-                                        <p class="total_no"><?= $totalConsultation ?></p>
-                                        <p class="head_couter">Nombre consultation</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="counter_no">
-                                    <div>
-                                        <p class="total_no"><?= $totalArret ?></p>
-                                        <p class="head_couter">Nombre d'arrêt</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="counter_no">
-                                    <div>
-                                        <p class="total_no"><?= ceil($totalHeureArret / 24) ?></p>
-                                        <p class="head_couter">Nombre total de Jours non travaillés</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3">
-                            <div class="full counter_section margin_bottom_30">
-                                <div class="counter_no">
-                                    <div>
-                                        <p class="total_no"><?= $pourcentage ?></p>
-                                        <p class="head_couter">% Arrêt interne</p>
-                                    </div>
-                                </div>
+            <div class="row column1 twelveth ">
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><?= $getGlobalStats['nbreConsultations'] ?></p>
+                                <p class="head_couter">Nombre consultation</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><?= $getGlobalStats['nbreArrets'] ?></p>
+                                <p class="head_couter">Nombre d'arrêts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no"><?= $getGlobalStats['heure'] ." h ".$getGlobalStats['minute'] ." m" ?></p>
+                                <p class="head_couter">Nombre total de heures non travaillés</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="counter_no row">
+                            <div class="col-md-6">
+                                <p class="total_no"><?= $getGlobalStats['perInterne'] ?>%</p>
+                                <p class="head_couter"> Arrêt interne</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="total_no"><?= $getGlobalStats['perExterne'] ?>%</p>
+                                <p class="head_couter"> Arrêt externe</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+
                     <div class="row column1 social_media_section mb-3 " id="labels">
-                        @role('Ressources Humaines')
+                        @role(['Ressources Humaines', 'Corps médical'])
                         <div class="col-md-3 first" >
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Arrêt délivrés vs consultations</h2>
+                                        <h2>Arrêts externes vs arrêts internes par site</h2>
                                     </div>
                                 </div>
+
                                 <div class="full graph_revenue ">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -268,22 +266,30 @@
                                                     <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <th>Lieu consultation</th>
-                                                            <th class="text-center">Nbre arrêt</th>
-                                                            <th class="text-center">Nbre heure arrêt</th>
+                                                            <th class="text-center">Nbre arrêts</th>
+                                                            <th class="text-center">Nbre heure arrêts</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <?php
                                                             $totalConsultation = 0;
                                                             $totalArret = 0;
+                                                            $days = 0;
+                                                            $hours = 0;
+                                                            $mins = 0;
                                                             foreach ($arretsBySite as $key => $data) {
                                                                 $totalConsultation += $data['TotalConsultation'];
                                                                 $totalArret += $data['TotalArret'];
+                                                                if((int)$data['TotalArret'] > 24){
+                                                                    $days = 0;
+                                                                    $hours = floor (($data['TotalArret'] - $days * 1440) / 60);
+                                                                    $mins = $data['TotalArret'] - ($days * 1440) - ($hours * 60);
+                                                                    }
                                                                 ?>
                                                                 <tr class="font-weight-bold">
                                                                     <td><?= $key ?></td>
                                                                     <td class="text-center"><?= $data['TotalConsultation'] ?></td>
-                                                                    <td class="text-center"><?= $data['TotalArret'] ?></td>
+                                                                    <td class="text-center"><?= $hours." h ".$mins." m" ?></td>
                                                                 </tr>
                                                                 <?php
                                                                     if(isset($data['stats']) AND !empty($data['stats'])){
@@ -314,14 +320,15 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6 second">
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Arrêt délivrés vs consultations</h2>
+                                        <h2>Arrêt délivrés vs consultations par médecin</h2>
                                     </div>
+
                                 </div>
+
                                 <div class="full graph_revenue">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -342,6 +349,7 @@
                                         <h2>% Transformation</h2>
                                     </div>
                                 </div>
+
                                 <div class="full graph_revenue">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -394,125 +402,86 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="row column1 mb-2">
                         <div class="col-md-6 col-lg-3 fourth">
                             <div class="card">
                                 <div class="card-header">Arrêt par type de contrat</div>
                                 <div class="card-body">
                                     <div id="chartByContrat" ></div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-3 fiveth">
                             <div class="card">
-                                <div class="card-header">Arrêt par sexe</div>
+                                <div class="card-header">Arrêt par sexe </div>
                                 <div class="card-body">
                                     <div id="chartBySexe" ></div>
+
                                 </div>
+
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-3 sixth">
                             <div class="card">
-                                <div class="card-header">Arrêt par couverture assurance</div>
+                                <div class="card-header" >Arrêt par assurance</div>
                                 <div class="card-body">
                                     <div id="chartByAssurance" ></div>
+
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-3 fourteenth">
                             <div class="card">
-                                <div class="card-header">Arrêt par maladie professionnelle</div>
+                                <div class="card-header" >Arrêt par maladie prof</div>
                                 <div class="card-body">
                                     <div id="chartByMaladiePro" ></div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3 thirteenth" >
-                            <div class="white_shd full">
-                                <div class="full graph_head">
-                                    <div class="heading1 margin_0 text-center">
-                                        <h2>Arrêt par accident de travail </h2>
+                        <div class="col-md-6 col-lg-3 thirteenth" >
+                                <div class="card">
+                                    <div class="card-header">Arrêt par accident de travail</div>
+                                    <div class="card-body">
+                                        <div id="chartByAccident" ></div>
+
                                     </div>
                                 </div>
-                                <div class="full graph_revenue ">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="content">
-                                                <table class="table">
-                                                    <thead class="bg-sucess text-white font-weight-bold">
-                                                        <tr>
-                                                            <th>Lieu consultation</th>
-                                                            <th class="text-center">Nbre arrêt</th>
-                                                            <th class="text-center">Nbre heure arrêt</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                            $totalConsultation = 0;
-                                                            $totalArret = 0;
-                                                            foreach ($accidentsBySite as $key => $data) {
-                                                                $totalConsultation += $data['TotalConsultation'];
-                                                                $totalArret += $data['TotalArret'];
-                                                                ?>
-                                                                <tr class="font-weight-bold">
-                                                                    <td><?= $key ?></td>
-                                                                    <td class="text-center"><?= $data['TotalConsultation'] ?></td>
-                                                                    <td class="text-center"><?= $data['TotalArret'] ?></td>
-                                                                </tr>
-                                                                <?php
-                                                                    if(isset($data['stats']) AND !empty($data['stats'])){
-                                                                        foreach ($data['stats'] as $value) {
-                                                                            ?>
-                                                                            <tr>
-                                                                                <td class="pl-4"><?= $value['Site'] ?></td>
-                                                                                <td class="text-center"><?= $value['Consultation'] ?></td>
-                                                                                <td class="text-center"><?= $value['Arret'] ?></td>
-                                                                            </tr>
-                                                                            <?php
-                                                                        }
-                                                                    }
-                                                            }
-                                                        ?>
-                                                    </tbody>
-                                                    <tfoot class="bg-sucess text-white font-weight-bold">
-                                                        <tr>
-                                                            <td>Total général</td>
-                                                            <td class="text-center"><?= $totalConsultation ?></td>
-                                                            <td class="text-center"><?= $totalArret ?></td>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="col-md-6 col-lg-3 twelfth">
+                        <div class="col-md-6 col-lg-3 eleventh">
                             <div class="card">
-                                <div class="card-header">Arrêt par trânche d'âge</div>
+                                <div class="card-header">Arrêt par maladie contagieuse</div>
+                                <div class="card-body">
+                                    <div id="chartByMaladieContagieuse" ></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 twelveth">
+                            <div class="card">
+                                <div class="card-header">Arrêt par tranche d'âge</div>
                                 <div class="card-body">
                                     <div id="chartByTranche" ></div>
+
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row column1 mb-2">
                         <div class="col-md-6 col-lg-6 eighth">
                             <div class="white_shd full">
                                 <div class="full graph_head">
                                     <div class="heading1 margin_0 text-center">
-                                        <h2>Consultation par pathologie</h2>
+                                        <h2>Arrêts par pathologie</h2>
+
                                     </div>
                                 </div>
+
                                 <div class="full graph_revenue">
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="content">
-                                                <table class="table table-bordered">
+                                                <table class="table table-bordered" id="scrollableElement">
                                                     <thead class="bg-sucess text-white font-weight-bold">
                                                         <tr>
                                                             <th>Pathologie</th>
@@ -540,18 +509,17 @@
                                                             }
                                                         ?>
                                                     </tbody>
-                                                    <tfoot class="bg-sucess text-white font-weight-bold">
+                                                   <tfoot class="bg-success text-white font-weight-bold">
                                                         <tr>
-                                                            <?php
-                                                                if($totalConsultation > 0)
-                                                                    $totalPerc = ($totalArret * 100) / $totalConsultation;
-                                                                else
-                                                                    $totalPerc = '100%'
-                                                            ?>
+                                                            @php
+                                                                $totalPerc = ($totalConsultation > 0) 
+                                                                    ? ($totalArret * 100) / $totalConsultation 
+                                                                    : 100;
+                                                            @endphp
                                                             <th>Total général</th>
-                                                            <th class="text-center"><?= $totalConsultation ?></th>
-                                                            <th class="text-center"><?= $totalArret ?></th>
-                                                            <th class="text-center"><?= round($totalPerc, 2) ?>%</th>
+                                                            <th class="text-center">{{ $totalConsultation }}</th>
+                                                            <th class="text-center">{{ $totalArret }}</th>
+                                                            <th class="text-center">{{ round((float)$totalPerc, 2) }}%</th>
                                                         </tr>
                                                     </tfoot>
                                                 </table>
@@ -571,6 +539,7 @@
                                     </div>
                                 </div>
                                 <div class="full graph_revenue">
+
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="content">
@@ -600,7 +569,8 @@
                                                                         foreach ($data['stats'] as $value) {
                                                                             ?>
                                                                             <tr>
-                                                                                <td class="pl-4"><?= $value['Motif'] ?></td>
+
+                                                                                <td class="text-center"><?= $value['Motif'] ?></td>
                                                                                 <td class="text-center"><?= $value['Consultation'] ?></td>
                                                                                 <td class="text-center"><?= $value['Arret'] ?></td>
                                                                             </tr>
@@ -623,11 +593,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="row column1 mb-2">
-                        <div class="col-md-6 col-lg-6 tenth">
 
                             <div class="white_shd full">
                                 <div class="full graph_head">
@@ -635,10 +600,14 @@
                                         <h2>Pathologie par tranche d'âge</h2>
                                     </div>
                                 </div>
+
                                 <div class="full graph_revenue">
+
                                     <div class="row">
                                         <div class="col-md-12">
+
                                             <div class="content">
+
                                                 <table class="table table-bordered">
                                                     <thead class="bg-sucess text-white font-weight-bold">
                                                     <tr>
@@ -709,56 +678,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-lg-6 eleventh">
-                            <div class="white_shd full">
-                                <div class="full graph_head">
-                                    <div class="heading1 margin_0 text-center">
-                                        <h2>Maladie contagieuse</h2>
-                                    </div>
-                                </div>
-                                <div class="full graph_revenue">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="content">
-                                                <table class="table table-bordered">
-                                                    <thead class="bg-sucess text-white font-weight-bold">
-                                                        <tr>
-                                                            <th>Tranche</th>
-                                                            <th class="text-center">Nbre consultation</th>
-                                                            <th class="text-center">Nbre arrêt</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                            $totalConsultation = 0;
-                                                            $totalArret = 0;
-                                                            foreach ($statByPathologieAndContagieux as $data) {
-                                                                $totalConsultation += $data['Consultation'];
-                                                                $totalArret += $data['Arret'];
-                                                                ?>
-                                                                <tr>
-                                                                    <td><?= $data['Motif'] ?></td>
-                                                                    <td class="text-center"><?= $data['Consultation'] ?></td>
-                                                                    <td class="text-center"><?= $data['Arret'] ?></td>
-                                                                </tr>
-                                                                <?php
-                                                            }
-                                                        ?>
-                                                    </tbody>
-                                                    <tfoot class="bg-sucess text-white font-weight-bold">
-                                                        <tr>
-                                                            <th>Total général</th>
-                                                            <th class="text-center"><?= $totalConsultation ?></th>
-                                                            <th class="text-center"><?= $totalArret ?></th>
-                                                        </tr>
-                                                    </tfoot>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         @endrole
 
                     </div>
@@ -768,12 +688,16 @@
     @endrole
 @stop
 @section('script')
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <!-- Include html2canvas.js using a script tag -->
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
     <script>
 
 
@@ -844,6 +768,31 @@
                 data: <?= json_encode($bySexe, JSON_NUMERIC_CHECK) ?>
             });
 
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('chartByAccidentPic').addEventListener('click', function () {
+                    // Sélectionnez l'élément contenant le graphique
+                    var chartContainer = document.getElementById('chartByAccidentPic');
+
+                    // Utilisez html2canvas pour capturer le graphique et le convertir en base64
+                    html2canvas(chartContainer).then(function (canvas) {
+                        // Convertir le canvas en base64
+                        var imgData = canvas.toDataURL('image/png');
+
+                        // Créer un lien de téléchargement
+                        var link = document.createElement('a');
+                        link.href = imgData;
+                        link.download = 'chart.png';
+
+                        // Ajouter le lien à la page et déclencher le téléchargement
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    });
+                });
+                });
+
+
+
             // Par Tranche d'âge
 
             var  config = {
@@ -868,7 +817,7 @@
                 data: <?= json_encode($byCouverture) ?>,
                 xkey: 'y',
                 ykeys: ['a'],
-                labels: ['Nbre Consultation'],
+                labels: ['Nombre arrêts'],
                 fillOpacity: 0.6,
                 hideHover: 'auto',
                 behaveLikeLine: true,
@@ -888,7 +837,25 @@
                 data: <?= json_encode($byMaladiePro) ?>,
                 xkey: 'y',
                 ykeys: ['a'],
-                labels: ['Nbre Consultation'],
+                labels: ['Nombre arrêts'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors:['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors:['gray','red'],
+                title: ['Titre du graphique']
+            };
+            configMaladiePro.element = 'chartByMaladiePro';
+            Morris.Bar(configMaladiePro);
+
+            // Par accident de travail
+            var  conifgAccident = {
+                data: <?= json_encode($byAccident) ?>,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Nombre arrêts'],
                 fillOpacity: 0.6,
                 hideHover: 'auto',
                 behaveLikeLine: true,
@@ -897,12 +864,70 @@
                 pointStrokeColors: ['black'],
                 lineColors:['gray','red']
             };
-            configMaladiePro.element = 'chartByMaladiePro';
-            Morris.Bar(configMaladiePro);
+            conifgAccident.element = 'chartByAccident';
+            Morris.Bar(conifgAccident);
+
+
+            // Par maladie contagieuse
+            var  configMaladieCon = {
+                data: <?= json_encode($byMaladieCon) ?>,
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['Nombre arrêts'],
+                fillOpacity: 0.6,
+                hideHover: 'auto',
+                behaveLikeLine: true,
+                resize: true,
+                pointFillColors:['#ffffff'],
+                pointStrokeColors: ['black'],
+                lineColors:['gray','red']
+            };
+            configMaladieCon.element = 'chartByMaladieContagieuse';
+            Morris.Bar(configMaladieCon);
+
 
 
 
         });
     </script>
+
+    <script>
+
+        $(document).ready(function(){
+            $('#siteSelected').change(function () {
+
+                    var siteSelected=$(this).val();
+                    var div=$(this).parent();
+                    var op=" ";
+
+                    var url = '{!!URL::to('findProjet')!!}/'+siteSelected;
+                    params = new FormData();
+                    params.append( 'id', siteSelected);
+
+                    var config = {
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                    };
+                    axios.get(url, params, config)
+                    .then(function (response) {
+                        let data = response.data;
+
+                        $('#projetSelected').html('');
+                        for(var i=0;i<data.length;i++){
+                            $("#projetSelected").append('<option value="' + data[i].id + '">' + data[i].designation + '</option>');
+                        }
+                        $("#projetSelected").trigger('change');
+y
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+		    });
+        });
+
+
+
+    </script>
     <script src="{{ asset("assets/js/scripts/prescrire.js") }}"></script>
+    <script src="{{ asset("assets/js/scripts/rechercher.js") }}"></script>
+    <script src="{{ asset("assets/js/recherche.js") }}"></script>
 @stop

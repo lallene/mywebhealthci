@@ -19,14 +19,10 @@ class Consultation extends Model
         'poul',
         'temperature',
         'tension',
-        'accident',
-        'traitement',
-        'arretMaladie',
+        'accidentPro',
+        'traitementAdmin',
         'duree_arret',
-        'nbrJour',
         'debutArret',
-        'dateReprise',
-        'repriseService',
         'maladie_contagieuse',
         'maladie_prof',
         'vaccin_covid',
@@ -34,35 +30,27 @@ class Consultation extends Model
         'doseVaccinCovid',
         'observation',
         'motif_consultation_id',
-        'natureReception',
-        'natureDuree',
+        'siteConsultation',
         'user_id',
         'dateConsultation',
         'typeConsultation',
-        'etatValidite',
-        'justificatifValide',
+        'typeArrêt',
         'motifRejet',
         'nomMedecin',
         'designationCentreExterne',
-        'repos',
-        'assurance',
         'dateConsultation ',
         'soinadministre',
-        'ordonnanceremise',
         'analyseExterne',
-        'nbrJour',
-        'analyseExterne',
-        'projet_site',
-        'projet_id'
-
+        'projet_id',
+        'nbrJour'
     ];
 
-    public function MotifConsultation(){
-        return $this->belongsTo(Motif_consultation::class, 'motif_consultation_id');
+    public function motifs()
+    {
+        return $this->belongsToMany(Motif_consultation::class, 'consultation_motif_consultation');
     }
-
     public function Site(){
-        return $this->belongsTo(site::class, 'natureReception');
+        return $this->belongsTo(site::class, 'siteConsultation');
     }
 
     public function Ordonnances(){
@@ -81,6 +69,9 @@ class Consultation extends Model
         return $this->belongsTo(Projet::class, 'projet_id');
     }
 
+    public function TransactionMedicament(){
+        return $this->hasMany(Consultation::class);
+    }
 
 }
 

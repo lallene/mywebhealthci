@@ -21,11 +21,13 @@ Passé ce délai, l’arrêt sera automatiquement rejeté par notre système et 
 
 •        Date de début de l’arrêt : <b> {{$dateDebut}}</b>
 
-•        Nombre total de jours de l’arrêt :  <b>{{$nbreJour}}</b> jours.
+•        Date de fin :<b> <?=  ($consultation->typeArrêt == "repos" ) ? \PhpOffice\PhpSpreadsheet\Shared\Date::dateTimeToExcel($consultation->created_at->addMinutes($consultation->duree_arret)): ($consultation->debutArret == $consultation->dateReprise) ? date("d/m/Y ", strtotime($consultation->dateReprise)) : date("d/m/Y ", strtotime($consultation->dateReprise) - 1) ?></b>
+
+•        Nombre d’heures de l’arrêt: <b><?= strlen(floor($consultation->duree_arret  / 60))  < 2   ? "0".floor($consultation->duree_arret  / 60) : floor($consultation->duree_arret  / 60) ?> : <?= strlen(($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60)) < 2 ? "0".($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60) : ($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60) ?></b>.
 
 •        Date de reprise du travail : <b> {{$dateReprise}}</b>.
 
-•        Délivré par un médecin {{$consultation->typeConsultation}}  @if ($consultation->typeConsultation =='Externe') {{$consultation->nomMedecin}}  de l’établissement de santé <b>{{$consultation->designationCentreExterne}}</b> @endif<br>
+•        Délivré par un médecin {{$consultation->typeConsultation}}  @if ($consultation->typeConsultation =='Externe')  <b>{{$consultation->nomMedecin}} </b>  de l’établissement de santé <b>{{$consultation->designationCentreExterne}}</b> @endif<br>
 
 
 <i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i><br><br>

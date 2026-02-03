@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="container-fluid">
-
         <div class="row column_title">
             <div class="col-md-12">
                 <div class="page_title">
@@ -31,6 +30,7 @@
                                     <th>IRIS</th>
                                     <th>NOM</th>
                                     <th>PRENOM</th>
+                                    <th>DATE D'ENREGISTREMENT</th>
                                     <th>DATE DEBUT ARRET</th>
                                     <th>DATE DE REPRISE</th>
                                     <th>NBRE DE JOURS</th>
@@ -45,10 +45,10 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $i ?></td>
-
                                                     <td><?= $item->agent->iris ?></td>
                                                     <td><?= $item->agent->nom ?></td>
                                                     <td><?= $item->agent->prenom ?></td>
+                                                    <td><?= $item->created_at ?></td>
                                                     <td><?= $item->debutArret ?></td>
                                                     <td><?= $item->dateReprise ?></td>
                                                     <td><?= $item->duree_arret ?></td>

@@ -39,7 +39,12 @@
                                     <input id="designation" type="text" class="form-control" required name="designation" value="">
                                 </div>
                             </div>
-
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="dltsuperviseur">DLT MANAGER</label>
+                                    <input id="dltsuperviseur" type="email" class="form-control" required name="dltsuperviseur" value="">
+                                </div>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="description">Description</label>
@@ -48,7 +53,7 @@
                             </div>
 
                             <div class="col-sm-12 text-center">
-                                <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-close"></i> Annuler</a>
+                                <a href="{{ route("projet.index") }}" class="btn btn-danger"><i class="fa fa-close"></i> Annuler</a>
                                 <button class="btn btn-primary"><i class="fa fa-save"></i> Ajouter</button>
                             </div>
                         </form>

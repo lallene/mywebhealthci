@@ -33,8 +33,6 @@ $(document).ready(function () {
     scrollbar js
 --------------------------------------*/
 
-var ps = new PerfectScrollbar('#sidebar');
-
 /*--------------------------------------
     chart js
 --------------------------------------*/

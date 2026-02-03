@@ -4,136 +4,245 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
-use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class UtilisateurController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Constructeur : ajoute des middlewares pour l'authentification et le rôle IT.
      */
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:IT');
-        
-
-
+      //  $this->middleware('role:IT');
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Affiche la liste des utilisateurs.
      */
     public function index()
     {
-        //$users = User::all()->paginate(20);
+        $users = User::all();
         $roles = Role::all();
-        $users = DB::table('users')->simplePaginate(15);
 
-      //  $user_dispatches = Dispatch::where('user_id', Auth::id())->paginate(10)
-
-
-        return view('configuration.users.liste', ['titre' => "Liste des Utilisateurs", 'users' => $users, 'roles' => $roles]);
+        return view('users.index', [
+            'title' => 'Liste des Utilisateurs',
+            'users' => $users,
+            'roles' => $roles,
+        ]);
     }
 
+    /**
+     * Affiche le formulaire de création d’un utilisateur.
+     */
+    public function create()
+    {
+        $roles = Role::all();
+
+        return view('users.create', [
+            'title' => 'Créer un Utilisateur',
+            'roles' => $roles,
+        ]);
+    }
+
+    /**
+     * Enregistre un nouvel utilisateur.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email|max:255',
+            'password_first_connection' => 'required|string|min:8',
+            'role_id' => 'required|exists:roles,id',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make('temporary'), // Mot de passe temporaire
+            'password_first_connection' => true,  // Flag pour la première connexion
+        ]);
+
+        $user->assignRole($request->role_id);
+
+        return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
+    }
+
+    /**
+     * Affiche les détails d’un utilisateur spécifique.
+     */
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.show', [
+            'title' => 'Détails de l’Utilisateur',
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * Affiche le formulaire d’édition d’un utilisateur.
+     */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $roles = Role::all();
-        return view('configuration.users.edit', ['titre' => "Modifier Utilisateur ".$user->nom, 'user' => $user, 'roles' => $roles]);
+
+        return view('users.edit', [
+            'title' => 'Modifier Utilisateur',
+            'user' => $user,
+            'roles' => $roles,
+        ]);
     }
 
+    /**
+     * Met à jour les informations d’un utilisateur.
+     */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
-        $user->name = $request->input('name');
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'password_first_connection' => 'nullable|string|min:8',
+            'role_id' => 'required|exists:roles,id',
+        ]);
 
-        try{
-            $user->save();
+        $user->name = $request->name;
+        $user->email = $request->email;
 
-            $hisRole = $user->roles;
+        if ($request->filled('password_first_connection')) {
+            $user->password_first_connection = Hash::make($request->password_first_connection);
+            $user->password = Hash::make($request->password_first_connection);
 
-            if(isset($hisRole) AND !empty($hisRole) AND isset($hisRole[0])){
-                $oldRole = $hisRole[0];
-                $user->removeRole($oldRole->name);
-            }
-
-            $newRole = Role::findById($_POST['role_id']);
-
-            $user->assignRole($newRole->name);
-
-        }catch (\Exception $e){
-            echo'e';
-        }
-        return redirect()->route('user.index')->with('success','Utilisateur modifié avec succès.');
-    }
-
-    public function permissions($id){
-        $temp = Role::find($id);
-        $role = Role::findById($temp->id);
-
-        $permissions = $role->load('permissions');
-
-        //echo('<pre>'); die(print_r($permisions->permissions));
-        return view('configuration.role.listePermission', ['titre' => "Liste des Permissions du Profil ".$role->guard_name, 'permissions' => $permissions->permissions, 'role' => $role]);
-    }
-
-    public function addPermission($id){
-        $temp = Role::find($id);
-        $role = Role::findById($temp->id, $temp->guard_name);
-
-        $x = $role->load('permissions');
-
-        $permissions = Permission::all();
-
-        foreach ($permissions as $key => $permission) {
-            //echo('<pre>'); die(print_r($permission));
-            if($role->hasPermissionTo($permission->name)){
-                $permissions[$key]->Checked = 'checked';
-            }else{
-                $permissions[$key]->Checked = '';
-            }
-            //$role->hasPermissionTo('edit articles');
         }
 
-        //echo('<pre>'); die(print_r($permissions));
-        return view('configuration.role.ajouterPermission', ['titre' => "Ajouter Permissions du Profil ".$role->guard_name, 'role' => $role, 'permissions' => $permissions]);
+        $user->save();
+        $user->syncRoles([$request->role_id]);
+
+        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
-    public function grantPermission(Request $request, $id){
-        $temp = Role::find($id);
-        $role = Role::findByName($temp->name);
+    /**
+     * Supprime un utilisateur.
+     */
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
 
+        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès.');
+    }
+
+    /**
+     * Affiche le formulaire pour changer le mot de passe à la première connexion.
+     */
+    public function showChangePasswordForm()
+    {
+        return view('auth.change-password');
+    }
+
+    /**
+     * Met à jour le mot de passe de l'utilisateur lors de la première connexion.
+     */
+    public function updatePassword(Request $request)
+    {
+
+
+        // Validation des données
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Récupérer l'utilisateur authentifié
+        $user = User::find(Auth::user()->id);
+
+    //
+
+        // Vérifier que c'est la première connexion
+        if (!$user->password_first_connection) {
+            return redirect()->route('home')->with('error', 'Vous ne pouvez pas changer votre mot de passe à ce moment.');
+        }
+
+
+        // Mettre à jour le mot de passe
+        $user->password = Hash::make($request->password);
+        $user->password_first_connection = null;  // Indiquer que le mot de passe a été changé
+        $user->save();
+
+        // Rediriger l'utilisateur vers la page d'accueil
+        return redirect()->route('home')->with('success', 'Votre mot de passe a été modifié avec succès !');
+    }
+
+    /**
+     * Gère les permissions d’un rôle.
+     */
+    public function permissions($id)
+    {
+        $role = Role::findById($id)->load('permissions');
+
+        return view('configuration.role.listePermission', [
+            'titre' => "Liste des Permissions du Profil " . $role->guard_name,
+            'permissions' => $role->permissions,
+            'role' => $role,
+        ]);
+    }
+
+    /**
+     * Ajoute des permissions à un rôle.
+     */
+    public function addPermission($id)
+    {
+        $role = Role::findById($id, 'web');
         $permissions = Permission::all();
 
-        //echo('<pre>'); die(print_r($role));
+        foreach ($permissions as $permission) {
+            $permission->Checked = $role->hasPermissionTo($permission->name) ? 'checked' : '';
+        }
+
+        return view('configuration.role.ajouterPermission', [
+            'titre' => "Ajouter Permissions du Profil " . $role->guard_name,
+            'role' => $role,
+            'permissions' => $permissions,
+        ]);
+    }
+
+    /**
+     * Attribue ou révoque des permissions à un rôle.
+     */
+    public function grantPermission(Request $request, $id)
+    {
+        $role = Role::findById($id);
+        $permissions = Permission::all();
 
         foreach ($permissions as $permission) {
             $role->revokePermissionTo($permission->name);
-            if(isset($_POST['role_'.$permission->id]) AND $_POST['role_'.$permission->id] == 'on'){
+            if ($request->has('role_' . $permission->id)) {
                 $role->givePermissionTo($permission->name);
             }
         }
-        return redirect('profil/permission/'.$id)->with('success','Action effectuée avec succès.');
-        //echo('<pre>'); die(print_r($_POST));
+
+        return redirect()->route('roles.permissions', ['id' => $id])->with('success', 'Permissions mises à jour avec succès.');
     }
 
-    public function revoquer($idRole, $idPermission){
+    /**
+     * Révoque une permission spécifique d’un rôle.
+     */
+    public function revoquer($idRole, $idPermission)
+    {
         $role = Role::findById($idRole);
-
         $permission = Permission::findById($idPermission);
 
-        if($role->hasPermissionTo($permission->name)){
+        if ($role->hasPermissionTo($permission->name)) {
             $role->revokePermissionTo($permission->name);
         }
 
-        return redirect()->back()->withInput();
+        return redirect()->back();
     }
 }

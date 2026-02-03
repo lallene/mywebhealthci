@@ -75,18 +75,20 @@ li {
   width: 6rem;
   height: 6rem;
   padding: 1rem;
-  border: 5px solid #cc3262;
+  border: 5px solid #25dac6;
   transform: translate(-50%, -50%) rotate(0deg);
-  -webkit-animation: 10s infinite alternate ease-in-out spin;
-          animation: 10s infinite alternate ease-in-out spin;
+  -webkit-animation: 5s infinite alternate ease-in-out spin;
+          animation: 5s infinite alternate ease-in-out spin;
 }
 .sidebar__logo::before,
 .navbar__logo::before {
-  border-color: #cc3262 #cc3262 transparent transparent;
+  border-radius: 40pc;
+  border-color: #25dac6 #25dac6 transparent transparent;
   z-index: -1;
 }
 .sidebar__logo::after,
 .navbar__logo::after {
+  border-radius: 40pc;
   border-color: transparent transparent #cc3262 #cc3262;
   z-index: 1;
   box-shadow: 4px 2px 1px #2f2f32;
@@ -111,7 +113,7 @@ li {
 .desktop-menu .sidebar {
     position: fixed;
     width: 100%;
-    max-width: 121px;
+    max-width: 132px;
     height: 100vh;
     justify-content: space-between;
     align-content: center;

@@ -45,25 +45,11 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-2 col-form-label text-md-end pr-0">Mot de Passe</label>
-
-                                <div class="col-md-4">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-                                <label for="password-confirm" class="col-md-2 col-form-label text-md-end">Confirmer</label>
-
-                                <div class="col-md-4">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                </div>
+                            <div class="mb-3">
+                                <label for="password_first_connection" class="form-label">Mot de passe (première connexion) :</label>
+                                <input type="password" id="password_first_connection" name="password_first_connection" class="form-control" required>
                             </div>
+
 
                             <div class="row mb-3">
                                 <label for="role_id" class="col-md-2 col-form-label text-md-end pr-0">Profil</label>

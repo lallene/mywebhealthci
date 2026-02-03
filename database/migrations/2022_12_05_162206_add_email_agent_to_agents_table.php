@@ -14,7 +14,10 @@ class AddEmailAgentToAgentsTable extends Migration
     public function up()
     {
         Schema::table('agents', function (Blueprint $table) {
-            $table->string('email_agent')->nullable()->unique();
+            $table->string('work_email')->nullable();
+            $table->string('Matricule_salarie')->nullable();
+            $table->string('responsable')->nullable();
+
         });
     }
 

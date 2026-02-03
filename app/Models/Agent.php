@@ -29,7 +29,10 @@ class Agent extends Model
         'contrat_id',
         'societe_id',
         'dateNaissance',
-        'email_agent'
+        'email_agent',
+        'work_email',
+        'Matricule_salarie',
+        'responsable'
     ];
 
     public $timestamps = false;
@@ -61,6 +64,15 @@ class Agent extends Model
     public function Consultations(){
         return $this->hasMany(Consultation::class);
     }
+
+    public function Matricule(){
+        return $this->hasMany(Matricule::class);
+    }
+
+    public function responsableDetail()
+{
+    return $this->belongsTo(Agent::class, 'responsable', 'Matricule_salarie');
+}
 
 
 }

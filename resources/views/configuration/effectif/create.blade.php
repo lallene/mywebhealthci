@@ -167,7 +167,7 @@
                             </div>
 
                             <div class="col-sm-12 text-center">
-                                <a href="{{ route("home") }}" class="btn btn-danger"><i class="fa fa-close"></i> Annuler</a>
+                                <a href="{{ route("effectif.index") }}" class="btn btn-danger"><i class="fa fa-close"></i> Annuler</a>
                                 <button class="btn btn-primary"><i class="fa fa-save"></i> Ajouter</button>
                             </div>
                         </form>

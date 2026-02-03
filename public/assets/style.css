@@ -627,7 +627,7 @@ a:focus {
 .topbar {
     position: fixed;
     width: 100%;
-    padding-left: 280px;
+    padding-left: 11%;
     z-index: 1000000;
     background: #1d4750;
     top: 0;
@@ -947,7 +947,6 @@ a[data-toggle="collapse"] {
 }
 
 .topbar .navbar {
-    padding: 0;
     background: #1D4851;
     border: none;
     border-radius: 0;

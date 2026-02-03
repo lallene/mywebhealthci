@@ -3,6 +3,7 @@
 
 $('#prescrire').click(function(){
 
+    console.log('ok');
     let typeMedicament = $('#typeMedicamentPrescrit').val();
 
     let medicament = $('#medicamentPrescrit').val();
@@ -14,6 +15,8 @@ $('#prescrire').click(function(){
     let nbrJrs = $('#nbrJrsPrescription').val();
 
     let inputs = '';
+
+   
 
     if( medicament !== '' && qte > 0 && nbrJrs > 0){
 

@@ -1,0 +1,21 @@
+services:
+  app:
+    build: .
+    container_name: mywebhealthci
+    restart: always
+    volumes:
+      - .:/var/www
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  db:
+    image: mariadb:10.11
+    container_name: laravel_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: whealth
+      MYSQL_ROOT_PASSWORD: Succes2025@@
+    ports:
+      - "3306:3306"

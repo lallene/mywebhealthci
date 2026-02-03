@@ -4,35 +4,34 @@
         font-family: "Poppins", sans-serif !important
     }
 </style>
+@component('mail::message')
 
 Bonjour,
 
-
-Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$agent->iris}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a reçu, ce jour,  <b> {{ $dateConsul}}</b> un repos pour cause de maladie.
+Nous vous informons que **{{ $agent->prenom }} {{ $agent->nom }}**, **{{ $agent->Matricule_salarie }}** du projet **{{ $agent->Projet->designation }}** a reçu, ce jour **{{ $dateConsul }}**, un repos pour cause de maladie.
 Cet arrêt de travail sera effectué sur site.
 
+Vous trouverez ci-dessous les informations concernant cet arrêt :
 
-    Vous trouverez ci-dessous les informations concernant cet arrêt :
+- **Date de début** : {{ $consultation->created_at->format('d/m/Y H:i') }}
 
+- **Date de fin** :
+  {{ $consultation->created_at->copy()->addMinutes($consultation->duree_arret)->format('d/m/Y H:i') }}
 
-•            Date de début :<b> {{$dateDebut}}</b>
+- **Nombre d’heures de l’arrêt** :
+  {{ str_pad(floor($consultation->duree_arret / 60), 2, '0', STR_PAD_LEFT) }} :
+  {{ str_pad($consultation->duree_arret % 60, 2, '0', STR_PAD_LEFT) }}
 
-•            Date de fin :<b> {{$dateFin}}</b>
+- **Date de reprise du travail** :
+  {{ $consultation->created_at->copy()->addMinutes($consultation->duree_arret + 5)->format('d/m/Y H:i') }}
 
-•            Nombre d’heures de l’arrêt : <b>{{$hours}}:{{$minutes}} min</b>.
+- **Délivré par un médecin interne** : {{ $consultation->Medecin->name }}
 
-•            Date de reprise du travail :<b> {{$dateReprise}}</b>
+---
 
-•            Délivré par un médecin interne : <b> {{$consultation->Medecin->name;}}</b>
+*Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.*
 
-
-
-<i>Pour toute information complémentaire, nous vous remercions de bien vouloir vous rapprocher de votre médecin d’entreprise ou HR Business Partner.</i><br><br>
-
-
-
-Cordialement,<br>
-<b><h3>Votre Team RH Côte d'Ivoire</h3></b>
-
+Cordialement,
+**Votre Team RH Côte d'Ivoire**
 
 @endcomponent

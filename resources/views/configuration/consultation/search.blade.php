@@ -112,6 +112,8 @@
     </div>
     <input type="hidden" id="url" value="{{ URL::to('/') }}/getAgent/">
     <input type="hidden" id="id" value="{{ URL::to('/') }}/consulter/">
+    <input type="hidden" id="urlSearch" value="{{ URL::to('/') }}/getAgent/">
+
     <input type="hidden" id="id_reception" value="{{ URL::to('/') }}/reception/">
 @stop
 @section('script')

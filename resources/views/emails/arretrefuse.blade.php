@@ -8,7 +8,7 @@
 Bonjour,
 
 
-Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$agent->iris}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a remis, ce jour,  <b> {{ $dateConsul}}</b> un arrêt de travail pour cause de maladie.
+Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$workday_id}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a remis, ce jour,  <b> {{ $dateConsul}}</b> un arrêt de travail pour cause de maladie.
 
 L'arrêt maladie est rejeté pour motif <b> {{$consultation->motifRejet}} </b>.
 

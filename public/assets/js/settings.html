@@ -582,7 +582,10 @@
       <!-- nice scrollbar -->
       <script src="js/perfect-scrollbar.min.js"></script>
       <script>
-         var ps = new PerfectScrollbar('#sidebar');
+        document.addEventListener('DOMContentLoaded', function() {
+    var ps = new PerfectScrollbar('#sidebar');
+});
+
       </script>
       <!-- custom js -->
 	  <script src="js/custom.js"></script>

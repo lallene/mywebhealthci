@@ -19,4 +19,8 @@ class Projet extends Model
     public function Consultations(){
         return $this->hasMany(Consultation::class);
     }
+
+    public function TransactionMedicament(){
+        return $this->hasMany(Consultation::class);
+    }
 }

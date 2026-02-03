@@ -93,7 +93,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'noreply@mywealth.com'),
-        'name' => env('MAIL_FROM_NAME', "WEBHELP COTE D'IVOIRE"),
+        'name' => env('MAIL_FROM_NAME', "CNX COTE D'IVOIRE"),
     ],
 
     /*

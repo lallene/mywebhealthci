@@ -16,4 +16,10 @@ class Sub_fonction extends Model
     public function Fonction(){
         return $this->belongsTo(Fonction::class, 'fonction_id');
     }
+
+    public function Agent(){
+        return $this->hasMany(Agent::class);
+    }
+
+
 }

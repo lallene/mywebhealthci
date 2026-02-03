@@ -39,9 +39,10 @@
                             <table id="zero_config" class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>MSA ID</th>
                                     <th>Designation</th>
                                     <th>Site</th>
+                                    <th>DLT</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -53,9 +54,10 @@
                                                 $i++;
                                                 ?>
                                                 <tr>
-                                                    <td><?= $i ?></td>
+                                                    <td><?= $projet->msa_id ?></td>
                                                     <td><?= $projet->designation ?></td>
                                                     <td><?= $projet->Site->designation ?></td>
+                                                    <td><?= $projet->dltsuperviseur ?></td>
                                                     <td class="text-center">
                                                         <div class="dropdown_section">
                                                             <div class="dropdown">

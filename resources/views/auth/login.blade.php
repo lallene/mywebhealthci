@@ -13,15 +13,13 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
-      <link rel="icon" href="images/fevicon.png" type="image/png" />
+      <link rel="icon" href="images/logo/favicon.ico" type="image/png" />
       <!-- bootstrap css -->
       <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
       <!-- site css -->
       <link rel="stylesheet" href="{{ asset('assets/style.css') }}" />
       <!-- responsive css -->
       <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
-      <!-- color css -->
-      <link rel="stylesheet" href="{{ asset('assets/css/colors_2.css') }}" />
       <!-- select bootstrap -->
       <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.css') }}" />
       <!-- scrollbar css -->
@@ -42,7 +40,7 @@
                <div class="login_section">
                   <div class="logo_login">
                      <div class="center">
-                        <img width="210" src="{{ asset('images/logo/logo.png') }}" alt="#" />
+                        <img width="510" src="{{ asset('images/logo/logocnx.png') }}" alt="#" />
                      </div>
                   </div>
                   <div class="login_form">
@@ -100,12 +98,6 @@
       <script src="{{ asset('assets/js/animate.js') }}"></script>
       <!-- select country -->
       <script src="{{ asset('assets/js/bootstrap-select.js') }}"></script>
-      <!-- nice scrollbar -->
-      <script src="{{ asset('assets/js/perfect-scrollbar.min.js') }}"></script>
-      <script>
-         var ps = new PerfectScrollbar('#sidebar');
-      </script>
-
       <script src="{{ asset("assets/js/custom.js") }}"></script>
    </body>
 </html>

@@ -1,0 +1,1 @@
+  url: "/mywebhealthci/api/medicaments/top-users",

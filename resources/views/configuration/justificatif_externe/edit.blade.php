@@ -112,7 +112,7 @@
                                                                 <span>Nom & Prénom(s)</span>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
                                                                 <input type="text" class="input" id="dateNaissance" value="<?= date('d-m-Y', strtotime($consultation->Agent->dateNaissance)) ?>"  disabled>
@@ -120,7 +120,7 @@
                                                                 <span>Date de Naissance</span>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
                                                                 <input type="text" class="input" id="sexe" value="<?= ($consultation->Agent->sexe == 'M') ? 'Masculin' : 'Feminin' ?>"  disabled>
@@ -128,8 +128,8 @@
                                                                 <span>Sexe</span>
                                                             </div>
                                                         </div>
-        
-        
+
+
                                                         <div class="col-md-3">
                                                             <div class="input-container focus">
                                                                 <input type="text" class="input" id="sexe" value="<?= ($consultation->Agent->dateembauche ) ?>"  disabled>
@@ -144,7 +144,7 @@
                                                                 <span>Fonction</span>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="col-md-2">
                                                             <div class="input-container focus">
                                                                 <input type="text" class="input" id="contrat" value="{{ $consultation->Agent->Contrat->designation }}" disabled>
@@ -152,7 +152,7 @@
                                                                 <span>Type de contrat</span>
                                                             </div>
                                                         </div>
-        
+
                                                         <div class="col-md-3">
                                                             <div class="input-container focus">
                                                                 <input type="text" class="input" id="manager" value="{{ $consultation->Agent->Manager->nom.' '.$consultation->Agent->Manager->prenom }}" disabled>
@@ -160,12 +160,12 @@
                                                                 <span>Manager</span>
                                                             </div>
                                                         </div>
-    
+
                                                     </div>
 
                                                 </fieldset>
-                                               
-                                                
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +180,7 @@
                                                 <div class="row g-4 accordion-body ">
 
                                                     <fieldset class="col-12 contact-form2">
-                                                      
+
                                                         <div class="row">
                                                             <div class="col-md-3 " >
                                                                 <div class="input-container focus">
@@ -189,7 +189,7 @@
                                                                         foreach ($sites as $site) {
                                                                             ?>
                                                                             <option  value="{{ $site->id }}">{{ $site->designation }}</option>
-    
+
                                                                             <?php
                                                                         }
                                                                     ?>
@@ -200,11 +200,11 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus" >
-                                                                    <input type="date" class=" input " max="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>" id="dateConsultation" required name="dateConsultation" value="{{ $consultation->dateConsultation }}" disabled>
+                                                                    <input type="date" class=" input " value="<?= date('Y-m-d') ?>" id="dateConsultation" required name="dateConsultation" value="{{ $consultation->dateConsultation }}" disabled>
                                                                     <label for="dateConsultation">Date consultation</label>
                                                                     <span>Date consultation</span>
                                                                 </div>
-    
+
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus ">
@@ -233,28 +233,29 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                       
+
                                                         <div class="row">
+
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus">
-                                                                    <input type="text" class=" input " id="nomMedecin"  value="{{ $consultation->nomMedecin }}" required name="nomMedecin" style="border: 2px solid #dc3545" >
-                                                                    <label for="nomMedecin">Médecin externe</label>
-                                                                    <span>Médecin externe</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="input-container focus">
-                                                                    <input type="text" class=" input " id="designationCentreExterne"  value="{{ $consultation->designationCentreExterne }}" required name="designationCentreExterne" style="border: 2px solid #dc3545" >
+                                                                    <input type="text" class=" input " id="designationCentreExterne" style="border: 5px solid  #198754;"  value="{{ $consultation->designationCentreExterne }}" required name="designationCentreExterne" style="border: 2px solid #dc3545" >
                                                                     <label for="designationCentreExterne">Hôpital/clinique externe</label>
                                                                     <span>Hôpital/clinique externe</span>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus">
-                                                                    <select class="input " name="justificatifValide" id="justificatifValide">
-                                                                        <option value="oui"  selected>oui</option>
-                                                                        <option value="non" >non</option>
-                                                                        <option value="en attente" >en attente de validation</option>
+                                                                    <input type="text" class=" input " id="nomMedecin" style="border: 5px solid  #198754;"  value="{{ $consultation->nomMedecin }}" required name="nomMedecin" style="border: 2px solid #dc3545" >
+                                                                    <label for="nomMedecin">Médecin externe</label>
+                                                                    <span>Médecin externe</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="input-container focus">
+                                                                    <select class="input " name="justificatifValide" id="justificatifValide" >
+                                                                        <option <?= ($consultation->typeArrêt == "oui") ? "selected" : "" ?> value="oui"  selected>oui</option>
+                                                                        <option <?= ($consultation->typeArrêt == "non") ? "selected" : "" ?> value="non" >non</option>
+                                                                        <option <?= ($consultation->typeArrêt == "en attente") ? "selected" : "" ?> value="en attente" >en attente de validation</option>
                                                                     </select>
                                                                     <label for="justificatifValide">Justificatif valide</label>
                                                                     <span>Justificatif valide</span>
@@ -266,7 +267,7 @@
                                                                     <select class=" input" name="maladie_contagieuse" id="maladie_contagieuse" disabled>
                                                                         <option value="oui">Oui</option>
                                                                         <option value="non"  >Non</option>
-                                                                        <option value="{{ $consultation->maladie_contagieuse }}" selected >{{ $consultation->maladie_contagieuse }}</option>                             
+                                                                        <option value="{{ $consultation->maladie_contagieuse }}" selected >{{ $consultation->maladie_contagieuse }}</option>
                                                                     </select>
                                                                     <label for="maladie_contagieuse">Maladie contagieuse</label>
                                                                     <span>Maladie contagieuse</span>
@@ -274,7 +275,7 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="numeric" class=" input " name="duree_arret" id="duree_arret" value="{{ $consultation->duree_arret }}" disabled>
+                                                                    <input type="numeric" class=" input " name="duree_arret" id="duree_arret" value="{{ floor($consultation->duree_arret / 60) }}"  >
                                                                     <label for="duree_arret">Durée arrêt maladie (en heures)</label>
                                                                     <span>Durée arrêt maladie (en heures)</span>
                                                                 </div>
@@ -299,7 +300,7 @@
 
                                                             <div class="col-md-3">
                                                                 <div class="input-container focus arretMaladieSwitch">
-                                                                    <input type="date" class=" input" id="debutArret" min="<?= date('Y-m-d') ?>" value="{{ $consultation->debutArret }}"  name="debutArret" >
+                                                                    <input type="date" class=" input" id="debutArret"  value="{{ $consultation->debutArret }}"  name="debutArret" >
                                                                     <label for="debutArret">Date de début</label>
                                                                     <span>Date de début</span>
                                                                 </div>
@@ -317,7 +318,7 @@
                                                                         <option value="Pièce incomplètes"  selected>Pièces incomplètes</option>
                                                                         <option value="authenticite" > Doute sur l'authenticité</option>
                                                                         <option value="Hors délai de 72H" >Hors délai de 72H</option>
-                                                                        <option value="Hors délai de 72H" >Non conforme</option>
+                                                                        <option value="Non conforme" >Non conforme</option>
                                                                     </select>
                                                                     <label for="motifRejet">Motif du rejet</label>
                                                                     <span>Motif du rejet</span>
@@ -365,6 +366,44 @@
 
 
     </script>
+      <script>
+
+
+        document.getElementById('designationCentreExterne').addEventListener('input', event => {
+        if (document.getElementById('designationCentreExterne').value == '') {
+            document.getElementById('designationCentreExterne').style.border = '5px solid #cc3262';
+        } else {
+            document.getElementById('designationCentreExterne').style.border = '5px solid  #198754';
+        }
+        });
+
+        document.getElementById('nomMedecin').addEventListener('input', event => {
+        if (document.getElementById('nomMedecin').value === '') {
+            document.getElementById('nomMedecin').style.border = '5px solid #cc3262'
+        } else {
+            document.getElementById('nomMedecin').style.border = '5px solid  #198754';
+        }
+        });
+
+        document.getElementById('duree_arret').addEventListener('input', event => {
+        if (document.getElementById('duree_arret').value === '') {
+            document.getElementById('duree_arret').style.border = '5px solid #cc3262'
+        } else {
+            document.getElementById('duree_arret').style.border = '5px solid  #198754';
+        }
+        });
+
+        document.getElementById('debutArret').addEventListener('input', event => {
+        if (document.getElementById('debutArret').value === '') {
+            document.getElementById('debutArret').style.border = '5px solid #cc3262'
+        } else {
+            document.getElementById('debutArret').style.border = '5px solid  #198754';
+        }
+        });
+
+
+
+</script>
 
 @stop
 

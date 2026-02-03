@@ -17,4 +17,8 @@ class Site extends Model
         return $this->hasMany(Projet::class);
     }
 
+
+    public function TransactionMedicament(){
+        return $this->hasMany(Consultation::class);
+    }
 }

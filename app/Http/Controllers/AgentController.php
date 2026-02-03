@@ -10,7 +10,11 @@ use App\Models\Projet;
 use App\Models\Societe;
 use App\Models\Sub_fonction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
+use App\Mail\Insertion_massive;
+use Illuminate\Support\Facades\Mail;
 
 class AgentController extends Controller
 {
@@ -27,14 +31,35 @@ class AgentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('search', '');
+
+        $query = Agent::query();
+
+       // dd($query);
 
 
-        $agents = Agent::with(['Projet','Emploi', 'SousFonction', 'Contrat', 'Societe', 'Manager'])->paginate(3000);
+        if (!empty($search)) {
+            $query->where(function($q) use ($search) {
+                $q->where('Matricule_salarie', 'like', "%{$search}%")
+                  ->orWhereRaw("CONCAT(nom, ' ', prenom) LIKE ?", ["%{$search}%"])
+                  ->orWhere('email_agent', 'like', "%{$search}%")
+                  ->orWhere('work_email', 'like', "%{$search}%");
+            });
+        }
 
-        return view($this->templatePath.'.liste', ['titre' => "Liste des collaborateurs", 'agents' => $agents, 'link' => $this->link]);
+        $query->with(['projet', 'manager', 'sousfonction', 'societe', 'responsableDetail'])
+               ->whereNotNull('Matricule_salarie');
+
+
+        // Définir le nombre d'agents à charger au démarrage
+        $perPage = 10;
+        $agents = $query->paginate($perPage);
+
+        return response()->json($agents);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -202,11 +227,62 @@ class AgentController extends Controller
 
     public function import (Request $req){
 
-       Excel::import(new AgentsImport, $req->file('agent_file'),
+       Excel::import(new AgentsImport, $req->file('agent_file'),);
 
-    );
+        $datenow = Carbon::now();
+        $datenow=   $datenow->format('Y/m/d');
+        $dateInsertion=   Carbon::now()->format('d/m/Y');
+        $agentsInsert = DB::table('agents')->whereDate('DateInsertion', $datenow)
+                        ->get();
+        $nbreCollaborateur =  sizeof($agentsInsert);
 
-        return back();
+        Mail::to('lallene.achi@concentrix.com')
+            ->send(new Insertion_massive($nbreCollaborateur, $dateInsertion));
+
+    return redirect()->route('effectifs')->with('success','Les '. $nbreCollaborateur . ' collaborateurs ont bien été enregistrés.');
     }
+
+    public function agents()
+{
+    $agents = DB::table('agents')
+    ->select ('id', 'nom', 'prenom', 'iris', 'Matricule_salarie', 'work_email', 'email_agent')->get();
+    return response()->json($agents);
+}
+public function liste()
+{
+    // Obtenir la date actuelle au format 'Y/m/d'
+    $datenow = Carbon::now()->format('Y/m/d');
+
+    $agents = DB::table('agents')
+        ->join('projets', 'agents.projet_id', '=', 'projets.id')
+        ->join('contrats', 'agents.contrat_id', '=', 'contrats.id')
+        ->leftJoin('agents as responsables', 'agents.responsable', '=', 'responsables.Matricule_salarie')
+
+        ->whereNotNull('agents.Matricule_salarie')
+        ->select(
+            'agents.id as id',
+            'projets.site_id as site',
+            'agents.Matricule_salarie',
+            'agents.nom',
+            'agents.prenom',
+            'agents.work_email',
+            'projets.designation as projet',
+            'contrats.designation as contrat',
+            'agents.responsable',
+            'responsables.nom as responsable_nom',
+            'responsables.prenom as responsable_prenom'
+        )
+        ->orderBy('agents.dateInsertion', 'desc')
+        ->paginate(7000);
+
+        //dd($agents);
+
+    return view($this->templatePath.'.liste', [
+        'titre' => "Liste des collaborateurs",
+        'agents' => $agents,
+        'link' => $this->link
+    ]);
+}
+
 
 }

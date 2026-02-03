@@ -5,13 +5,13 @@
     }
 </style>
 
-Bonjour Setushi,
+Bonjour,
 
 
-Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$agent->iris}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a reçu/remis, ce jour,  <b> {{ $dateConsul}}</b> un arrêt de travail pour cause de maladie.
+Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$workday_id}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a reçu/remis, ce jour,  <b> {{ $dateConsul}}</b> un arrêt de travail pour cause de maladie.
 
 
-@if( $consultation->etatValidite == 'valide')
+@if($consultation->typeConsultation === 'Externe' && $consultation->duree_arret != 0)
 
     Vous trouverez ci-dessous les informations concernant cet arrêt :
 
@@ -42,9 +42,9 @@ Vous trouverez ci-dessous les informations concernant cet arrêt :
 
 •            Date de début :<b> {{$dateDebut}}</b>
 
-•            Date de fin :<b> {{$dateFin}}</b>
+•            Date de fin :<b> <?=  ($consultation->typeArrêt == "repos" ) ? \PhpOffice\PhpSpreadsheet\Shared\Date::dateTimeToExcel($consultation->created_at->addMinutes($consultation->duree_arret)): ($consultation->debutArret == $consultation->dateReprise) ? date("d/m/Y ", strtotime($consultation->dateReprise)) : date("d/m/Y ", strtotime($consultation->dateReprise) - 1) ?></b>
 
-•            Nombre d'heures de  l’arrêt : <b>{{$nbreJour}}</b> heure(s).
+•            Nombre d’heures de l’arrêt : <b><?= strlen(floor($consultation->duree_arret  / 60))  < 2   ? "0".floor($consultation->duree_arret  / 60) : floor($consultation->duree_arret  / 60) ?> : <?= strlen(($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60)) < 2 ? "0".($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60) : ($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60) ?></b>.
 
 •            Date de reprise du travail :<b> {{$dateReprise}}</b>
 

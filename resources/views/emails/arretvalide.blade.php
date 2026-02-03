@@ -10,7 +10,7 @@
 Bonjour,
 
 
-Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$agent->iris}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a remis, ce jour,  <b> {{ $dateConsul}}</b> un arrêt de travail validé pour cause de maladie .
+Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$workday_id}}</b> du projet <b>  {{$agent->Projet->designation}}</b>  a remis, ce jour,  <b> {{ $dateConsul}}</b> un arrêt de travail validé pour cause de maladie .
 
 
     Vous trouverez ci-dessous les informations concernant cet arrêt :
@@ -18,13 +18,13 @@ Nous vous informons que <b> {{$agent->prenom}} {{$agent->nom}}</b> , <b>{{$agent
 
 •            Date de début :<b> {{$dateDebut}}</b>
 
-•            Date de fin :<b> {{$dateFin}}</b>
+•            Date de fin :<b>{{$dateFin}}</b>
 
-•            Nombre total de jours de l’arrêt : <b>{{$nbreJour}}</b> jours.
+•            Nombre d’heures de l’arrêt : <b><?= strlen(floor($consultation->duree_arret  / 60))  < 2   ? "0".floor($consultation->duree_arret  / 60) : floor($consultation->duree_arret  / 60) ?> : <?= strlen(($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60)) < 2 ? "0".($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60) : ($consultation->duree_arret  -   floor($consultation->duree_arret  / 60) * 60) ?></b>.
 
-•            Date de reprise du travail :<b> {{$dateReprise}}</b>
+•            Date de reprise du travail :<b> {{$dateReprise}} </b>
 
-•            Délivré par un médecin {{$consultation->typeConsultation}}  @if ($consultation->typeConsultation =='Externe') {{$consultation->nomMedecin}}  de l’établissement de santé <b>{{$consultation->designationCentreExterne}}</b> @else  <b> {{$consultation->Medecin->name;}}</b>@endif
+•            Délivré par un médecin {{$consultation->typeConsultation}}  @if ($consultation->typeConsultation =='Externe') <b>{{$consultation->nomMedecin}} </b> de l’établissement de santé <b>{{$consultation->designationCentreExterne}}</b> @else  <b> {{$consultation->Medecin->name}}</b>@endif
 
 
 

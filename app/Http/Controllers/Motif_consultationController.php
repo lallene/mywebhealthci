@@ -13,6 +13,7 @@ class Motif_consultationController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('role:Ressources Humaines');
+        
 
     }
 
@@ -26,7 +27,12 @@ class Motif_consultationController extends Controller
         $motifs = Motif_consultation::all();
         return view('configuration.motif_consultation.liste', ['titre' => "Liste des motifs consultation", 'motifs' => $motifs]);
     }
-
+          // Nouvelle méthode pour renvoyer les motifs en JSON
+    public function getMotifsJson()
+    {
+        $motifs = Motif_consultation::all();
+        return response()->json($motifs);
+    }
      /**
      * Show the form for creating a new resource.
      *
